@@ -14,7 +14,7 @@
         .text-traffic-yellow { color: #FFD700; }
         .hero-gradient { background: linear-gradient(180deg, #1a1a1a 0%, #333333 100%); }
 
-        /* Flashcards Flip Animation */
+        /* Estilos de las Fichas (Flashcards) */
         .flashcard { perspective: 1000px; height: 180px; }
         .flashcard-inner {
             position: relative;
@@ -39,8 +39,8 @@
             border-radius: 1rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
-        .flashcard-front { background-color: white; border: 2px solid #e5e7eb; }
-        .flashcard-back { background-color: #FFD700; color: black; transform: rotateY(180deg); font-weight: 800; font-size: 0.9rem; }
+        .flashcard-front { background-color: white; border: 2px solid #e5e7eb; color: #1f2937; font-weight: 600; }
+        .flashcard-back { background-color: #FFD700; color: black; transform: rotateY(180deg); font-weight: 800; font-size: 0.85rem; }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-infinite-scroll { display: flex; width: 200%; animation: scroll 25s linear infinite; }
@@ -58,29 +58,29 @@
             <nav class="hidden md:flex gap-8 text-sm font-bold">
                 <a href="#inicio" class="hover:text-traffic-yellow transition-colors">Inicio</a>
                 <a href="#categorias" class="hover:text-traffic-yellow transition-colors">Categorías</a>
-                <a href="#estudio" class="text-traffic-yellow border-b-2 border-traffic-yellow">Área Clientes</a>
+                <a href="#estudio" class="text-traffic-yellow border-b-2 border-traffic-yellow">Acceso Clientes</a>
             </nav>
-            <button onclick="scrollToSection('estudio')" class="bg-traffic-yellow text-black text-[10px] font-bold px-3 py-1 rounded hover:bg-yellow-400">INGRESAR</button>
+            <button onclick="scrollToSection('estudio')" class="bg-traffic-yellow text-black text-[10px] font-bold px-3 py-1 rounded hover:bg-yellow-400">INGRESAR PIN</button>
         </div>
     </header>
 
     <!-- SECTION 1: HERO (Ventas) -->
     <section id="inicio" class="hero-gradient text-white py-20 px-6 text-center">
         <div class="max-w-3xl mx-auto">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-                Pasa tu examen de manejo a la <span class="text-traffic-yellow italic">primera</span>.
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight italic">
+                Pasa tu examen de manejo a la <span class="text-traffic-yellow">primera</span>.
             </h1>
             <p class="text-gray-400 text-lg mb-10">
-                Material actualizado a Marzo 2026. Resúmenes VIP, Audios y Simuladores específicos para Carro y Moto.
+                Material actualizado a <span class="text-white font-bold">Marzo 2026</span>. Resúmenes VIP, Audios y 65 Fichas Estratégicas para Carro y Moto.
             </p>
             <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#categorias" class="bg-traffic-yellow text-black font-extrabold py-4 px-10 rounded-full text-lg shadow-lg hover:scale-105 transition-transform">VER PRECIOS</a>
-                <a href="#estudio" class="border-2 border-gray-600 text-white font-extrabold py-4 px-10 rounded-full text-lg hover:bg-white hover:text-black transition-all">YA TENGO MI CÓDIGO</a>
+                <a href="#categorias" class="bg-traffic-yellow text-black font-extrabold py-4 px-10 rounded-full text-lg shadow-lg hover:scale-105 transition-transform">VER PAQUETES</a>
+                <a href="#estudio" class="border-2 border-gray-600 text-white font-extrabold py-4 px-10 rounded-full text-lg hover:bg-white hover:text-black transition-all">YA TENGO MI PIN</a>
             </div>
         </div>
     </section>
 
-    <!-- Barra de validación -->
+    <!-- Barra de validación infinita -->
     <div class="bg-traffic-yellow py-3 overflow-hidden border-y-2 border-black">
         <div class="animate-infinite-scroll font-bold text-black uppercase text-xs">
             <span class="mx-8">⭐ NUEVOS MANUALES MARZO 2026</span>
@@ -91,25 +91,31 @@
         </div>
     </div>
 
-    <!-- SECTION 2: CATEGORIAS -->
+    <!-- SECTION 2: CATEGORIAS (Ventas) -->
     <section id="categorias" class="py-20 px-6 max-w-6xl mx-auto text-center">
-        <h2 class="text-4xl font-extrabold mb-4">¿Qué licencia vas a sacar?</h2>
-        <p class="text-gray-500 mb-12">Selecciona tu categoría para ver el material específico.</p>
+        <h2 class="text-4xl font-extrabold mb-4 italic">¿Qué licencia vas a sacar?</h2>
+        <p class="text-gray-500 mb-12">Selecciona tu categoría para desbloquear el material 2026.</p>
         
         <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-white p-10 rounded-3xl border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm">
-                <i data-lucide="car" class="w-16 h-16 text-blue-600 mx-auto mb-6"></i>
+            <!-- Pack Carro -->
+            <div class="bg-white p-10 rounded-3xl border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
+                <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-100 transition-colors">
+                    <i data-lucide="car" class="w-10 h-10 text-blue-600"></i>
+                </div>
                 <h3 class="text-2xl font-bold mb-4">Licencia B1 (Carro)</h3>
-                <p class="text-gray-600 mb-8 italic">Resumen del manual de Automóviles 2026.</p>
-                <div class="text-4xl font-black mb-8">₡4,500</div>
-                <button onclick="scrollToSection('estudio')" class="w-full bg-black text-white font-bold py-4 rounded-xl">COMPRAR AHORA</button>
+                <p class="text-gray-500 mb-8 text-sm italic">Basado en el nuevo manual de Automóviles.</p>
+                <div class="text-5xl font-black mb-8">₡4,500</div>
+                <button onclick="scrollToSection('estudio')" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors">ADQUIRIR ACCESO 15 DÍAS</button>
             </div>
-            <div class="bg-white p-10 rounded-3xl border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm">
-                <i data-lucide="bike" class="w-16 h-16 text-orange-600 mx-auto mb-6"></i>
+            <!-- Pack Moto -->
+            <div class="bg-white p-10 rounded-3xl border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
+                <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-100 transition-colors">
+                    <i data-lucide="bike" class="w-10 h-10 text-orange-600"></i>
+                </div>
                 <h3 class="text-2xl font-bold mb-4">Licencia A1/A2/A3 (Moto)</h3>
-                <p class="text-gray-600 mb-8 italic">Nuevo manual específico para Motociclistas.</p>
-                <div class="text-4xl font-black mb-8">₡4,500</div>
-                <button onclick="scrollToSection('estudio')" class="w-full bg-black text-white font-bold py-4 rounded-xl">COMPRAR AHORA</button>
+                <p class="text-gray-500 mb-8 text-sm italic">Nuevo manual específico de Motociclistas.</p>
+                <div class="text-5xl font-black mb-8">₡4,500</div>
+                <button onclick="scrollToSection('estudio')" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors">ADQUIRIR ACCESO 15 DÍAS</button>
             </div>
         </div>
     </section>
@@ -120,14 +126,14 @@
             
             <!-- Bloque de Acceso -->
             <div id="lock-screen" class="text-center py-10 max-w-md mx-auto">
-                <div class="bg-gray-800 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 border-4 border-traffic-yellow">
+                <div class="bg-gray-800 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 border-4 border-traffic-yellow shadow-2xl">
                     <i data-lucide="shield-check" class="text-traffic-yellow w-12 h-12"></i>
                 </div>
-                <h2 class="text-3xl font-extrabold mb-4">Área de Clientes</h2>
-                <p class="text-gray-400 mb-10">Ingresa tu código de 15 días para desbloquear las <b>65 Fichas Estratégicas</b>.</p>
+                <h2 class="text-3xl font-extrabold mb-4">Área de Clientes Premium</h2>
+                <p class="text-gray-400 mb-10">Ingresa tu código de 15 días para desbloquear el video y las <b>65 Fichas Maestro</b>.</p>
                 
-                <input type="password" id="access-code" placeholder="PIN de Acceso" 
-                       class="w-full bg-gray-800 border-2 border-gray-700 rounded-2xl px-6 py-4 text-center text-3xl font-bold text-traffic-yellow focus:border-traffic-yellow outline-none transition-all mb-6">
+                <input type="password" id="access-code" placeholder="CÓDIGO DE ACCESO" 
+                       class="w-full bg-gray-800 border-2 border-gray-700 rounded-2xl px-6 py-4 text-center text-3xl font-bold text-traffic-yellow focus:border-traffic-yellow outline-none transition-all mb-6 tracking-widest">
                 
                 <button onclick="checkCode()" class="w-full bg-traffic-yellow text-black font-black py-4 rounded-2xl text-lg shadow-xl hover:bg-yellow-400">
                     INGRESAR AL MATERIAL
@@ -139,31 +145,47 @@
             </div>
 
             <!-- Contenido Premium (Oculto) -->
-            <div id="premium-content" class="hidden">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                    <div>
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="bg-traffic-yellow text-black text-[10px] font-black px-2 py-1 rounded">PREMIUM</span>
-                            <h2 class="text-4xl font-black italic uppercase">65 Fichas del Examen</h2>
-                        </div>
-                        <p class="text-gray-400">Toca cada ficha para revelar la respuesta clave del manual 2026.</p>
+            <div id="premium-content" class="hidden animate-in fade-in duration-700">
+                
+                <!-- Video Section -->
+                <div class="mb-20">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="play-circle" class="text-traffic-yellow w-8 h-8"></i>
+                        <h2 class="text-3xl font-black italic uppercase">Video: Conducir en Costa Rica</h2>
                     </div>
-                    <div class="flex gap-4">
-                        <div class="bg-gray-800 px-4 py-2 rounded-xl border border-gray-700 text-center">
-                            <p class="text-[10px] text-gray-500 font-bold uppercase">Progreso</p>
-                            <p class="text-lg font-black" id="progress-text">0 / 65</p>
-                        </div>
+                    <div class="aspect-video w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-800 bg-black">
+                        <video controls class="w-full h-full">
+                            <source src="Conducir_en_Costa_Rica.mp4" type="video/mp4">
+                            Tu navegador no soporta videos.
+                        </video>
                     </div>
                 </div>
 
-                <!-- Grid de Flashcards -->
-                <div id="flashcards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Se carga vía JS -->
+                <!-- Flashcards Section -->
+                <div class="mb-10">
+                    <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-8">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-traffic-yellow text-black text-[10px] font-black px-2 py-1 rounded">MÉTODO PRO</span>
+                                <h2 class="text-4xl font-black italic uppercase">65 Fichas Maestras</h2>
+                            </div>
+                            <p class="text-gray-400">Toca cada ficha para revelar la respuesta clave del manual oficial.</p>
+                        </div>
+                        <div class="bg-gray-800 px-6 py-3 rounded-2xl border border-gray-700 text-center shadow-lg">
+                            <p class="text-[10px] text-gray-500 font-bold uppercase mb-1">Tu Progreso</p>
+                            <p class="text-2xl font-black text-traffic-yellow" id="progress-text">0 / 65</p>
+                        </div>
+                    </div>
+
+                    <!-- Grid de Flashcards -->
+                    <div id="flashcards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Cargado por JS -->
+                    </div>
                 </div>
 
-                <!-- Botón de Cierre de Sesión -->
+                <!-- Logout Button -->
                 <div class="mt-20 text-center">
-                    <button onclick="location.reload()" class="text-gray-500 hover:text-white text-sm font-bold border-b border-gray-700">Cerrar Sesión de Cliente</button>
+                    <button onclick="location.reload()" class="text-gray-500 hover:text-white text-xs font-bold border-b border-gray-800 py-2">Cerrar Sesión Segura</button>
                 </div>
             </div>
 
@@ -171,80 +193,81 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black text-gray-600 py-12 px-6 text-center text-xs">
+    <footer class="bg-black text-gray-700 py-12 px-6 text-center text-xs">
         <p class="mb-4">© 2026 Teórico Pro Costa Rica. Código de prueba: 1234</p>
+        <p class="max-w-md mx-auto leading-relaxed">Este es un entorno de simulación educativo. No estamos vinculados al COSEVI o MOPT.</p>
     </footer>
 
     <script>
         lucide.createIcons();
 
-        // 65 Preguntas extraídas del material proporcionado
+        // 65 Preguntas extraídas del archivo flashcards.csv proporcionado
         const flashcardData = [
-            { q: "¿En qué año circuló el primer automóvil en San José?", a: "1912." },
-            { q: "¿Cómo se llamaba el primer código de tránsito de 1920?", a: "Código de la Circulación." },
-            { q: "¿Cuál es la ley de tránsito vigente hoy?", a: "Ley 9078 del año 2012." },
-            { q: "¿Cuáles son los 3 factores del tránsito?", a: "Humano, Vehicular y la Vía/Entorno." },
-            { q: "¿Cuál es el factor más importante de la trilogía vial?", a: "El Humano." },
-            { q: "Defina 'Tránsito'", a: "Acción de trasladarse de un lugar a otro." },
-            { q: "Defina 'Transporte'", a: "Trasladar personas o cosas unido al concepto de servicio." },
-            { q: "¿Objetivo primordial de la seguridad vial?", a: "Prevenir accidentes de tránsito." },
-            { q: "¿Qué artículo de la Constitución garantiza el derecho a circular?", a: "Artículo 22." },
-            { q: "¿Cuántos artículos tiene la Ley 9078?", a: "252 artículos." },
-            { q: "¿Qué porcentaje de multas va al COSEVI?", a: "El 69%." },
-            { q: "¿Qué porcentaje de multas va al PANI?", a: "El 23%." },
-            { q: "¿Cuál es la vigencia de la licencia con 0-4 puntos?", a: "6 años." },
-            { q: "¿Cuál es el nombre del espaldón en zona rural?", a: "Cuneta (para desagüe)." },
-            { q: "¿En qué 3 grupos se dividen las señales verticales?", a: "Reglamentación, Prevención e Información." },
-            { q: "¿Color de fondo de señales de reglamentación?", a: "Fondo blanco (con bordes rojos)." },
-            { q: "¿Qué indica el color amarillo en señales verticales?", a: "Prevención." },
-            { q: "¿Qué propósito tienen las señales color café?", a: "Información Turística y Parques Nacionales." },
-            { q: "¿Qué indica el color azul en señales de información?", a: "Servicios (Gasolineras, Hospitales)." },
-            { q: "¿Cómo se llaman las señales que indican el número de ruta?", a: "Señales de Identificación." },
-            { q: "¿Forma y color de la señal de CEDA?", a: "Triángulo invertido, borde rojo, fondo blanco." },
-            { q: "¿Qué significa la 'E' tachada?", a: "No estacionar." },
-            { q: "¿Distancia prohibida para pitar cerca de hospitales?", a: "100 metros." },
-            { q: "¿Qué vehículo de carga debe usar cuñas al estacionar?", a: "Más de 2 toneladas." },
-            { q: "¿Profundidad mínima de la ranura de la llanta?", a: "No debe alcanzar el testigo (1.6mm aprox)." },
-            { q: "¿Qué licencia permite conducir UTVs?", a: "Licencia B-1." },
-            { q: "¿Qué indica la luz amarilla del semáforo?", a: "Desocupar la intersección, no acelerar." },
-            { q: "¿A qué distancia se debe poner el triángulo en carretera?", a: "A 90 metros (mínimo)." },
-            { q: "¿Prioridad en intersección sin señales?", a: "Vehículo que aparece por la derecha." },
-            { q: "¿Prioridad en rotondas?", a: "Vehículo que ya circula dentro de ella." },
-            { q: "¿Qué significa línea amarilla continua?", a: "No adelantar, división de sentidos opuestos." },
-            { q: "¿Qué significa línea blanca intermitente?", a: "Permitido adelantar, mismo sentido." },
-            { q: "¿Multa por no usar cinturón?", a: "Categoría C." },
-            { q: "¿Multa por hablar por celular sin manos libres?", a: "Categoría B." },
-            { q: "¿Cuál es la distancia de frenado?", a: "Distancia de percepción + reacción + frenado." },
-            { q: "¿Qué es el hidroplaneo?", a: "Pérdida de contacto de llantas con el suelo por agua." },
-            { q: "¿Cómo se debe frenar con sistema ABS?", a: "Presionar a fondo sin bombear." },
-            { q: "¿Luces obligatorias de noche?", a: "Luces bajas/cortas." },
-            { q: "¿Cuándo usar luces altas?", a: "Carreteras oscuras sin vehículos de frente." },
-            { q: "¿Qué indica el humo azul en el escape?", a: "Quema de aceite." },
-            { q: "¿Qué indica el humo negro en el escape?", a: "Mala mezcla, exceso de combustible." },
-            { q: "¿Qué hacer si falla el freno?", a: "Bajar marchas (compresión) y usar freno de mano suave." },
-            { q: "¿Qué es conducción defensiva?", a: "Evitar accidentes pese a errores de otros." },
-            { q: "¿Quiénes son los usuarios más vulnerables?", a: "Peatones, ciclistas y motociclistas." },
-            { q: "¿Edad mínima para ir en el asiento delantero?", a: "12 años (según estatura/peso)." },
-            { q: "¿Qué es la distancia de seguridad?", a: "Espacio necesario para no chocar si el de adelante frena." },
-            { q: "¿Regla para medir distancia de seguridad?", a: "Regla de los 2 segundos (4 en lluvia)." },
-            { q: "¿Qué es el ángulo muerto?", a: "Zona no visible por los espejos." },
-            { q: "¿Cómo señalizar un giro?", a: "30 metros antes de doblar." },
-            { q: "¿Velocidad en zonas escolares con niños?", a: "25 km/h." },
-            { q: "¿Velocidad máxima en autopista (regla general)?", a: "80 km/h o 100 km/h según señal." },
-            { q: "¿Qué es el sobre-viraje?", a: "Cuando la parte trasera del auto derrapa hacia afuera." },
-            { q: "¿Qué es el sub-viraje?", a: "Cuando el auto no gira lo suficiente y se va de frente." },
-            { q: "¿Función del catalizador?", a: "Reducir gases contaminantes." },
-            { q: "¿Función del termostato?", a: "Regular la temperatura del motor." },
-            { q: "¿Para qué sirve el alternador?", a: "Cargar la batería mientras el motor gira." },
-            { q: "¿Cada cuánto revisar la presión de llantas?", a: "Cada 15 días o antes de viajes largos." },
-            { q: "¿Qué significa un semáforo con flecha roja?", a: "No girar en esa dirección aunque el verde esté encendido." },
-            { q: "¿Se puede girar a la derecha en rojo?", a: "Sí, si no hay señal que lo prohíba y no vienen carros." },
-            { q: "¿Qué es la calzada?", a: "Parte de la vía destinada a la circulación de vehículos." },
-            { q: "¿Qué es la acera?", a: "Parte de la vía destinada al tránsito de peatones." },
-            { q: "¿Qué es el derecho de vía?", a: "Preferencia de un usuario sobre otro." },
-            { q: "¿Cuál es el límite de alcohol para conductores profesionales?", a: "Cero tolerancia (0.10 g/l)." },
-            { q: "¿Multa por circular sin RITEVE/IVE?", a: "Categoría D." },
-            { q: "¿Qué hacer ante un hidrante?", a: "No estacionar a menos de 5 metros." }
+            { q: "¿En qué año circuló el primer vehículo automóvil en San José, Costa Rica?", a: "En el año 1912." },
+            { q: "¿Cuál fue el primer cuerpo normativo de tránsito en Costa Rica, publicado en 1920?", a: "El Código de la Circulación." },
+            { q: "¿Cuál es la ley de tránsito vigente en la actualidad en Costa Rica?", a: "La Ley de Tránsito número 9078 del año 2012." },
+            { q: "¿Cuáles son los tres factores que componen el tránsito?", a: "El humano, el vehicular y la vía y su entorno." },
+            { q: "¿Cuál es el elemento más importante de la trilogía vial?", a: "El factor humano." },
+            { q: "Concepto: Tránsito", a: "Definición: La acción de desplazarse o trasladarse de un lugar a otro." },
+            { q: "Concepto: Transporte", a: "Definición: Trasladar una persona o cosa unido al concepto de servicio." },
+            { q: "¿Cuál es el objetivo primordial de la seguridad vial?", a: "Prevenir accidentes de tránsito." },
+            { q: "¿Qué artículo de la Constitución establece el 'derecho a circular'?", a: "El artículo 22." },
+            { q: "¿Cuántos artículos y transitorios componen la Ley de Tránsito 9078?", a: "252 artículos y 23 transitorios." },
+            { q: "¿Qué porcentaje de las multas se dirige al COSEVI?", a: "El 69%." },
+            { q: "¿Qué porcentaje de las multas se destina al PANI?", a: "El 23%." },
+            { q: "¿Vigencia de licencia con acumulados de 0 a 4 puntos?", a: "6 años." },
+            { q: "¿Vigencia de licencia con acumulados de 9 a 11 puntos?", a: "3 años." },
+            { q: "¿Sanción a conductor novato si acumula 6 puntos por primera vez?", a: "Suspensión de la licencia por un año." },
+            { q: "¿En qué lado del vehículo debe estar el volante según el Art. 32?", a: "Al lado izquierdo o al centro." },
+            { q: "¿Qué tipo de cinturón deben usar los asientos laterales?", a: "Cinturones de al menos tres puntos." },
+            { q: "¿Qué vehículos están exentos de usar bolsas de aire?", a: "Transporte público y aquellos que por diseño no lo incorporen." },
+            { q: "¿Implementos obligatorios en carretera según Art. 36?", a: "Extintor, triángulos, chaleco, llanta de refacción y equipo para cambio." },
+            { q: "¿Periodo de vigencia de un permiso temporal de aprendizaje?", a: "Tres meses." },
+            { q: "¿Edad mínima para obtener la licencia tipo A-1?", a: "16 años." },
+            { q: "¿Cilindrada máxima permitida para la licencia A-1?", a: "Hasta 125 centímetros cúbicos." },
+            { q: "¿Potencia máxima en kilovatios para licencia A-2 eléctrica?", a: "Hasta 35 kilovatios." },
+            { q: "¿Peso bruto máximo (PMA) para licencia B-1?", a: "Hasta 4000 kilogramos." },
+            { q: "¿Requisitos de edad y experiencia para licencia B-2?", a: "Mayor de 20 años y 2 años de experiencia con B o C." },
+            { q: "¿Qué tipo de vehículos autoriza la licencia C-1?", a: "Vehículos modalidad taxi." },
+            { q: "¿Qué licencia se requiere para conducir tractores de llantas?", a: "Licencia tipo D-1." },
+            { q: "¿A partir de qué edad y estatura pueden ir niños atrás?", a: "Menores de 12 años que midan menos de 1,45 metros." },
+            { q: "¿Velocidad mínima en autopistas sin señalización?", a: "50 km/h." },
+            { q: "¿Límite de velocidad en zonas urbanas densas sin señal?", a: "50 km/h." },
+            { q: "¿Límite de velocidad en pasos peatonales escolares con niños?", a: "25 km/h." },
+            { q: "¿Horario obligatorio para uso de luces reglamentarias?", a: "De 6:00 p.m. a 6:00 a.m." },
+            { q: "¿Bajo qué condiciones se debe utilizar la luz alta?", a: "Cuando no transiten vehículos en sentido contrario." },
+            { q: "¿Cuándo se permite girar a la derecha en rojo?", a: "Cuando el tránsito lo permita y no haya prohibición." },
+            { q: "¿Dónde detenerse en una señal de 'Alto'?", a: "Completamente en la línea de parada marcada." },
+            { q: "¿Distancia máxima de llantas a la acera al estacionar?", a: "A no más de 30 cm." },
+            { q: "¿Distancia mínima de un hidrante para estacionar?", a: "A menos de 5 metros." },
+            { q: "¿Distancia mínima de una intersección urbana para estacionar?", a: "A menos de 10 metros." },
+            { q: "¿Edad mínima para que un niño viaje en motocicleta?", a: "Cinco años de edad." },
+            { q: "¿Por qué lado de la calzada deben circular los ciclistas?", a: "Por el lado derecho del carril." },
+            { q: "¿Por qué lado debe adelantar un ciclista a otro vehículo?", a: "Por el lado izquierdo." },
+            { q: "¿Pueden los ciclistas circular por las aceras?", a: "Bajo ninguna circunstancia, está prohibido." },
+            { q: "¿Obligación de peatones en zonas urbanas?", a: "Transitar por aceras y cruzar en esquinas o pasos peatonales." },
+            { q: "¿Lado de la vía para peatones en zonas rurales sin acera?", a: "Lado izquierdo según la dirección de su marcha." },
+            { q: "¿Puntos acumulados por alcohol en grado de delito?", a: "6 puntos." },
+            { q: "¿Puntos acumulados por circular a más de 120 km/h?", a: "6 puntos." },
+            { q: "¿Puntos acumulados por irrespetar señal de Alto o Luz Roja?", a: "4 puntos." },
+            { q: "¿Infracción por hablar por celular sin manos libres?", a: "Categoría C (Art. 145, inciso ñ)." },
+            { q: "¿Una causa de retiro temporal del vehículo?", a: "Conducir con la licencia suspendida." },
+            { q: "Concepto: Vía Urbana", a: "Consta de acera, calzada, caño y borde de la acera." },
+            { q: "Concepto: Vía Rural", a: "Consta de calzada, espaldón y cuneta." },
+            { q: "¿Qué elemento de vía rural sirve para peatones y emergencia?", a: "El espaldón." },
+            { q: "¿Cuál es la función de la cuneta en vía rural?", a: "Recoger aguas superficiales para el desagüe." },
+            { q: "¿Tres grupos principales de señales verticales?", a: "Reglamentación, Prevención e Información." },
+            { q: "¿Color de fondo de señales de reglamentación?", a: "Color blanco (bordes rojos)." },
+            { q: "¿Qué indica señal con fondo amarillo y borde negro?", a: "Una señal de prevención." },
+            { q: "¿Propósito de señales con fondo color café?", a: "Áreas silvestres, recreativas y parques nacionales." },
+            { q: "¿Qué indica una señal de información con fondo azul?", a: "Servicios y turismo (gasolina, hospitales)." },
+            { q: "¿Cómo se llaman las señales con el número de ruta?", a: "Señales de Identificación." },
+            { q: "¿Forma y color de la señal Ceda el Paso?", a: "Triángulo invertido, borde rojo, fondo blanco." },
+            { q: "¿Qué significa círculo con 'E' tachada en rojo?", a: "No estacionar." },
+            { q: "¿Distancia mínima de bocina en clínicas u hospitales?", a: "A menos de 100 metros." },
+            { q: "¿Condición para calzar vehículos >2 ton al estacionar?", a: "En zonas urbanas deben usar cuñas." },
+            { q: "¿Profundidad mínima de ranura de llanta (Art. 33)?", a: "No debe alcanzar el testigo (aprox. 1.6mm)." },
+            { q: "¿Qué licencia autoriza conducir UTVs?", a: "Licencia tipo B-1." }
         ];
 
         let cardsFlipped = new Set();
@@ -271,11 +294,12 @@
                 card.innerHTML = `
                     <div class="flashcard-inner" onclick="flipCard(this, ${i})">
                         <div class="flashcard-front">
-                            <p class="font-bold text-gray-800 text-sm">#${i+1}: ${item.q}</p>
-                            <span class="absolute bottom-3 text-[9px] text-gray-400 font-black tracking-widest uppercase">Tocar para revelar</span>
+                            <p class="text-sm">Ficha #${i+1}</p>
+                            <p class="mt-2 text-xs md:text-sm px-2">${item.q}</p>
+                            <span class="absolute bottom-3 text-[8px] text-gray-400 font-black tracking-widest uppercase">Tocar para revelar</span>
                         </div>
                         <div class="flashcard-back">
-                            <p>${item.a}</p>
+                            <p class="px-2">${item.a}</p>
                         </div>
                     </div>
                 `;
