@@ -3,290 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teórico Pro CR - Carros y Motos 2026</title>
-    <!-- Tailwind CSS para el diseño -->
+    <title>Teórico Pro CR - El Pack Ganador 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide para los iconos -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
         
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-        }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .bg-traffic-yellow { background-color: #FFD700; }
+        .text-traffic-yellow { color: #FFD700; }
+        .hero-gradient { background: linear-gradient(180deg, #1a1a1a 0%, #333333 100%); }
 
-        .bg-traffic-yellow {
-            background-color: #FFD700;
-        }
-
-        .text-traffic-yellow {
-            color: #FFD700;
-        }
-
-        .hero-gradient {
-            background: linear-gradient(180deg, #1a1a1a 0%, #333333 100%);
-        }
-
-        /* Animación para el botón principal */
-        .floating-button {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-
-        /* Estilos para el modal de pago */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 50;
-            left: 0;
-            top: 0;
+        /* Flashcards Flip Animation */
+        .flashcard { perspective: 1000px; height: 180px; }
+        .flashcard-inner {
+            position: relative;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
         }
-
-        .category-card {
-            transition: all 0.3s ease;
-        }
-
-        .category-card:hover {
-            transform: translateY(-8px);
-            border-color: #FFD700;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        /* Animación de scroll infinito para la barra de pruebas sociales */
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .animate-infinite-scroll {
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             display: flex;
-            width: 200%;
-            animation: scroll 20s linear infinite;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+        .flashcard-front { background-color: white; border: 2px solid #e5e7eb; }
+        .flashcard-back { background-color: #FFD700; color: black; transform: rotateY(180deg); font-weight: 800; font-size: 0.9rem; }
+
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-infinite-scroll { display: flex; width: 200%; animation: scroll 25s linear infinite; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-    <!-- Header / Barra de Navegación -->
-    <header class="bg-black text-white py-4 px-6 sticky top-0 z-40 shadow-md">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
+    <!-- Header -->
+    <header class="bg-black text-white py-4 px-6 sticky top-0 z-50 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="bg-traffic-yellow text-black font-extrabold px-2 py-1 rounded italic text-sm">PRO</span>
-                <span class="font-bold text-lg tracking-tight">TEÓRICO CR</span>
+                <span class="font-bold text-lg">TEÓRICO CR</span>
             </div>
-            <div class="text-[10px] md:text-xs font-semibold bg-red-600 px-2 py-1 rounded animate-pulse">
-                NUEVOS MANUALES 2026
-            </div>
+            <nav class="hidden md:flex gap-8 text-sm font-bold">
+                <a href="#inicio" class="hover:text-traffic-yellow transition-colors">Inicio</a>
+                <a href="#categorias" class="hover:text-traffic-yellow transition-colors">Categorías</a>
+                <a href="#estudio" class="text-traffic-yellow border-b-2 border-traffic-yellow">Área Clientes</a>
+            </nav>
+            <button onclick="scrollToSection('estudio')" class="bg-traffic-yellow text-black text-[10px] font-bold px-3 py-1 rounded hover:bg-yellow-400">INGRESAR</button>
         </div>
     </header>
 
-    <!-- Hero Section: El Gancho Principal -->
-    <section class="hero-gradient text-white pt-12 pb-20 px-6 text-center">
-        <div class="max-w-2xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-                ¿Vas para <span class="text-traffic-yellow">Carro</span> o <span class="text-traffic-yellow">Moto</span>? 🇨🇷
+    <!-- SECTION 1: HERO (Ventas) -->
+    <section id="inicio" class="hero-gradient text-white py-20 px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                Pasa tu examen de manejo a la <span class="text-traffic-yellow italic">primera</span>.
             </h1>
-            <p class="text-gray-300 text-lg mb-8">
-                El examen ya no es general. A partir de este año los contenidos son específicos. No estudies material equivocado.
+            <p class="text-gray-400 text-lg mb-10">
+                Material actualizado a Marzo 2026. Resúmenes VIP, Audios y Simuladores específicos para Carro y Moto.
             </p>
-            <div class="flex flex-col gap-4 items-center">
-                <a href="#categorias" class="floating-button bg-traffic-yellow text-black font-extrabold py-4 px-8 rounded-full text-xl shadow-lg hover:bg-yellow-400 transition-all w-full md:w-auto">
-                    VER MATERIAL 2026
-                </a>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#categorias" class="bg-traffic-yellow text-black font-extrabold py-4 px-10 rounded-full text-lg shadow-lg hover:scale-105 transition-transform">VER PRECIOS</a>
+                <a href="#estudio" class="border-2 border-gray-600 text-white font-extrabold py-4 px-10 rounded-full text-lg hover:bg-white hover:text-black transition-all">YA TENGO MI CÓDIGO</a>
             </div>
         </div>
     </section>
 
-    <!-- Social Proof Bar: Cinta de Validación -->
-    <div class="bg-traffic-yellow py-3 overflow-hidden whitespace-nowrap border-y-2 border-black">
-        <div class="animate-infinite-scroll font-bold text-black uppercase text-xs md:text-sm">
-            <span class="mx-4">⭐ Exámenes Diferenciados Carro/Moto</span>
-            <span class="mx-4">⭐ Basado en el nuevo manual 2026</span>
-            <span class="mx-4">⭐ +1,500 personas aprobaron este mes</span>
-            <span class="mx-4">⭐ Actualizado a Marzo 2026</span>
-            <!-- Duplicado para el efecto infinito -->
-            <span class="mx-4">⭐ Exámenes Diferenciados Carro/Moto</span>
-            <span class="mx-4">⭐ Basado en el nuevo manual 2026</span>
-            <span class="mx-4">⭐ +1,500 personas aprobaron este mes</span>
-            <span class="mx-4">⭐ Actualizado a Marzo 2026</span>
+    <!-- Barra de validación -->
+    <div class="bg-traffic-yellow py-3 overflow-hidden border-y-2 border-black">
+        <div class="animate-infinite-scroll font-bold text-black uppercase text-xs">
+            <span class="mx-8">⭐ NUEVOS MANUALES MARZO 2026</span>
+            <span class="mx-8">⭐ EXÁMENES DIFERENCIADOS CARRO/MOTO</span>
+            <span class="mx-8">⭐ +1,500 APROBADOS ESTE MES</span>
+            <span class="mx-8">⭐ EL PACK MÁS VENDIDO EN COSTA RICA</span>
+            <span class="mx-8">⭐ NUEVOS MANUALES MARZO 2026</span>
         </div>
     </div>
 
-    <!-- Categories Section: Elección de Producto -->
-    <section id="categorias" class="py-16 px-6 max-w-5xl mx-auto">
-        <h2 class="text-3xl font-extrabold text-center mb-4">Selecciona tu categoría</h2>
-        <p class="text-center text-gray-600 mb-12">Tenemos el pack específico que necesitas para ganar.</p>
+    <!-- SECTION 2: CATEGORIAS -->
+    <section id="categorias" class="py-20 px-6 max-w-6xl mx-auto text-center">
+        <h2 class="text-4xl font-extrabold mb-4">¿Qué licencia vas a sacar?</h2>
+        <p class="text-gray-500 mb-12">Selecciona tu categoría para ver el material específico.</p>
         
         <div class="grid md:grid-cols-2 gap-8">
-            <!-- Tarjeta Licencia B1 (Carros) -->
-            <div onclick="openModal('Carros (B1)')" class="category-card cursor-pointer bg-white p-8 rounded-3xl shadow-sm border-2 border-gray-100 flex flex-col h-full">
-                <div class="bg-blue-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-6">
-                    <i data-lucide="car" class="text-blue-600 w-10 h-10"></i>
-                </div>
-                <h3 class="font-extrabold text-2xl mb-2 text-black text-left">Licencia B1 (Carros)</h3>
-                <p class="text-gray-600 mb-6 italic text-sm">Basado en el manual "Conducción de Automóviles".</p>
-                <ul class="space-y-3 mb-8 text-sm flex-grow">
-                    <li class="flex items-start gap-2">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mt-0.5"></i>
-                        <span>Resumen de <b>Seguridad Vial</b> Carros</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mt-0.5"></i>
-                        <span>Guía de <b>Mecánica Básica</b> Automotriz</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mt-0.5"></i>
-                        <span>Normas de <b>Estacionamiento</b></span>
-                    </li>
-                </ul>
-                <button class="bg-blue-600 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 group">
-                    Elegir Carro <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                </button>
+            <div class="bg-white p-10 rounded-3xl border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm">
+                <i data-lucide="car" class="w-16 h-16 text-blue-600 mx-auto mb-6"></i>
+                <h3 class="text-2xl font-bold mb-4">Licencia B1 (Carro)</h3>
+                <p class="text-gray-600 mb-8 italic">Resumen del manual de Automóviles 2026.</p>
+                <div class="text-4xl font-black mb-8">₡4,500</div>
+                <button onclick="scrollToSection('estudio')" class="w-full bg-black text-white font-bold py-4 rounded-xl">COMPRAR AHORA</button>
             </div>
-
-            <!-- Tarjeta Licencia Motos -->
-            <div onclick="openModal('Motos (A1/A2/A3)')" class="category-card cursor-pointer bg-white p-8 rounded-3xl shadow-sm border-2 border-gray-100 flex flex-col h-full">
-                <div class="bg-orange-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-6">
-                    <i data-lucide="bike" class="text-orange-600 w-10 h-10"></i>
-                </div>
-                <h3 class="font-extrabold text-2xl mb-2 text-black text-left">Licencia A1-A2-A3 (Motos)</h3>
-                <p class="text-gray-600 mb-6 italic text-sm">Basado en el nuevo manual específico de "Motociclistas".</p>
-                <ul class="space-y-3 mb-8 text-sm flex-grow">
-                    <li class="flex items-start gap-2">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mt-0.5"></i>
-                        <span>Técnicas de <b>Contra-manillar</b></span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mt-0.5"></i>
-                        <span>Equipo de <b>protección obligatorio</b></span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 mt-0.5"></i>
-                        <span>Maniobras de <b>emergencia en moto</b></span>
-                    </li>
-                </ul>
-                <button class="bg-orange-600 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 group">
-                    Elegir Moto <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                </button>
+            <div class="bg-white p-10 rounded-3xl border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm">
+                <i data-lucide="bike" class="w-16 h-16 text-orange-600 mx-auto mb-6"></i>
+                <h3 class="text-2xl font-bold mb-4">Licencia A1/A2/A3 (Moto)</h3>
+                <p class="text-gray-600 mb-8 italic">Nuevo manual específico para Motociclistas.</p>
+                <div class="text-4xl font-black mb-8">₡4,500</div>
+                <button onclick="scrollToSection('estudio')" class="w-full bg-black text-white font-bold py-4 rounded-xl">COMPRAR AHORA</button>
             </div>
         </div>
     </section>
 
-    <!-- Pricing / Oferta Final -->
-    <section class="py-20 px-6 text-center bg-gray-100">
-        <div class="bg-black text-white max-w-sm mx-auto rounded-3xl p-8 relative shadow-2xl overflow-hidden border-4 border-traffic-yellow">
-            <p class="text-traffic-yellow uppercase text-xs tracking-widest mb-2 font-bold italic">Promo Lanzamiento</p>
-            <div class="flex justify-center items-end gap-2 mb-6">
-                <span class="text-gray-500 line-through text-lg">₡8,500</span>
-                <span class="text-5xl font-extrabold text-white">₡4,500</span>
+    <!-- SECTION 3: ÁREA DE CLIENTES (Protegida) -->
+    <section id="estudio" class="py-20 px-6 bg-gray-900 text-white border-t-8 border-traffic-yellow min-h-screen">
+        <div class="max-w-6xl mx-auto">
+            
+            <!-- Bloque de Acceso -->
+            <div id="lock-screen" class="text-center py-10 max-w-md mx-auto">
+                <div class="bg-gray-800 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 border-4 border-traffic-yellow">
+                    <i data-lucide="shield-check" class="text-traffic-yellow w-12 h-12"></i>
+                </div>
+                <h2 class="text-3xl font-extrabold mb-4">Área de Clientes</h2>
+                <p class="text-gray-400 mb-10">Ingresa tu código de 15 días para desbloquear las <b>65 Fichas Estratégicas</b>.</p>
+                
+                <input type="password" id="access-code" placeholder="PIN de Acceso" 
+                       class="w-full bg-gray-800 border-2 border-gray-700 rounded-2xl px-6 py-4 text-center text-3xl font-bold text-traffic-yellow focus:border-traffic-yellow outline-none transition-all mb-6">
+                
+                <button onclick="checkCode()" class="w-full bg-traffic-yellow text-black font-black py-4 rounded-2xl text-lg shadow-xl hover:bg-yellow-400">
+                    INGRESAR AL MATERIAL
+                </button>
+                
+                <p id="error-msg" class="text-red-500 text-sm font-bold mt-4 hidden flex items-center justify-center gap-2">
+                    <i data-lucide="alert-circle" class="w-4 h-4"></i> Código incorrecto
+                </p>
             </div>
-            <p class="text-sm text-gray-400 mb-6">Acceso de por vida a un pack (Carro o Moto).</p>
-            <button onclick="openModal('General')" class="w-full bg-traffic-yellow text-black font-extrabold py-4 rounded-xl hover:bg-yellow-400 transition-colors mb-4 shadow-xl text-lg">
-                OBTENER MI ACCESO YA
-            </button>
-            <div class="flex items-center justify-center gap-2 text-[10px] text-gray-500 font-bold">
-                <i data-lucide="zap" class="w-3 h-3 text-yellow-500"></i> ENTREGA POR WHATSAPP EN SEGUNDOS
+
+            <!-- Contenido Premium (Oculto) -->
+            <div id="premium-content" class="hidden">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-traffic-yellow text-black text-[10px] font-black px-2 py-1 rounded">PREMIUM</span>
+                            <h2 class="text-4xl font-black italic uppercase">65 Fichas del Examen</h2>
+                        </div>
+                        <p class="text-gray-400">Toca cada ficha para revelar la respuesta clave del manual 2026.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="bg-gray-800 px-4 py-2 rounded-xl border border-gray-700 text-center">
+                            <p class="text-[10px] text-gray-500 font-bold uppercase">Progreso</p>
+                            <p class="text-lg font-black" id="progress-text">0 / 65</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid de Flashcards -->
+                <div id="flashcards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Se carga vía JS -->
+                </div>
+
+                <!-- Botón de Cierre de Sesión -->
+                <div class="mt-20 text-center">
+                    <button onclick="location.reload()" class="text-gray-500 hover:text-white text-sm font-bold border-b border-gray-700">Cerrar Sesión de Cliente</button>
+                </div>
             </div>
+
         </div>
-        <p class="mt-8 text-sm text-gray-600 italic">¿Necesitas ambos? Lleva el <b>Combo Carro + Moto</b> por solo <b>₡6,000</b>.</p>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black text-gray-500 py-12 px-6 text-center text-xs border-t border-gray-800">
-        <div class="flex items-center justify-center gap-2 mb-4">
-            <span class="bg-gray-800 text-white px-2 py-0.5 rounded font-bold">TEÓRICO PRO CR</span>
-        </div>
-        <p class="max-w-md mx-auto leading-relaxed">
-            Plataforma educativa privada. No estamos vinculados al MOPT o COSEVI. Nuestra misión es ayudarte a estudiar de forma inteligente.
-        </p>
+    <footer class="bg-black text-gray-600 py-12 px-6 text-center text-xs">
+        <p class="mb-4">© 2026 Teórico Pro Costa Rica. Código de prueba: 1234</p>
     </footer>
 
-    <!-- Payment Modal: El cierre de venta -->
-    <div id="paymentModal" class="modal flex items-center justify-center p-6">
-        <div class="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black p-2">
-                <i data-lucide="x"></i>
-            </button>
-            
-            <div class="bg-black text-white p-6 text-center border-b-4 border-traffic-yellow">
-                <h3 class="font-extrabold text-2xl" id="modalTitle">¡Casi es tuyo! ⚡</h3>
-                <p class="text-sm font-semibold text-traffic-yellow tracking-widest uppercase mt-1">Pack Premium 2026</p>
-            </div>
-            
-            <div class="p-8">
-                <div class="space-y-6">
-                    <div class="flex gap-4">
-                        <div class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
-                        <div>
-                            <p class="font-bold text-gray-900">SINPE de ₡4,500</p>
-                            <p class="text-xl font-mono text-blue-600 font-bold select-all">8888-0000</p>
-                            <p class="text-[10px] text-gray-400">A nombre de: Nombre del Vendedor</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
-                        <div>
-                            <p class="font-bold text-gray-900">Envía el comprobante</p>
-                            <p class="text-sm text-gray-600 leading-tight">Haz clic en el botón de abajo para enviarnos la captura de pantalla por WhatsApp.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <a id="whatsappBtn" href="#" class="mt-8 block bg-[#25D366] text-white text-center font-extrabold py-4 rounded-xl shadow-lg hover:opacity-90 transition-opacity">
-                    <div class="flex items-center justify-center gap-2 text-lg">
-                        <i data-lucide="message-circle"></i>
-                        ENVIAR COMPROBANTE
-                    </div>
-                </a>
-                <p class="text-center text-[10px] text-gray-400 mt-4 uppercase font-bold tracking-widest">Atención inmediata 24/7</p>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Inicializar Iconos de Lucide
         lucide.createIcons();
 
-        // Lógica del Modal
-        function openModal(category) {
-            const modal = document.getElementById('paymentModal');
-            const title = document.getElementById('modalTitle');
-            const waBtn = document.getElementById('whatsappBtn');
-            
-            // Personalizar título según categoría elegida
-            title.innerHTML = `Pack ${category} ⚡`;
-            
-            // Crear mensaje personalizado para WhatsApp
-            const message = encodeURIComponent(`¡Hola! Acabo de hacer el SINPE para el Pack de ${category} 2026. Aquí adjunto mi comprobante para recibir el material de estudio inmediatamente. Gracias.`);
-            
-            // Link de WhatsApp (Cambiar el número por el real)
-            waBtn.href = `https://wa.me/50688880000?text=${message}`;
-            
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Bloquear scroll de fondo
-        }
+        // 65 Preguntas extraídas del material proporcionado
+        const flashcardData = [
+            { q: "¿En qué año circuló el primer automóvil en San José?", a: "1912." },
+            { q: "¿Cómo se llamaba el primer código de tránsito de 1920?", a: "Código de la Circulación." },
+            { q: "¿Cuál es la ley de tránsito vigente hoy?", a: "Ley 9078 del año 2012." },
+            { q: "¿Cuáles son los 3 factores del tránsito?", a: "Humano, Vehicular y la Vía/Entorno." },
+            { q: "¿Cuál es el factor más importante de la trilogía vial?", a: "El Humano." },
+            { q: "Defina 'Tránsito'", a: "Acción de trasladarse de un lugar a otro." },
+            { q: "Defina 'Transporte'", a: "Trasladar personas o cosas unido al concepto de servicio." },
+            { q: "¿Objetivo primordial de la seguridad vial?", a: "Prevenir accidentes de tránsito." },
+            { q: "¿Qué artículo de la Constitución garantiza el derecho a circular?", a: "Artículo 22." },
+            { q: "¿Cuántos artículos tiene la Ley 9078?", a: "252 artículos." },
+            { q: "¿Qué porcentaje de multas va al COSEVI?", a: "El 69%." },
+            { q: "¿Qué porcentaje de multas va al PANI?", a: "El 23%." },
+            { q: "¿Cuál es la vigencia de la licencia con 0-4 puntos?", a: "6 años." },
+            { q: "¿Cuál es el nombre del espaldón en zona rural?", a: "Cuneta (para desagüe)." },
+            { q: "¿En qué 3 grupos se dividen las señales verticales?", a: "Reglamentación, Prevención e Información." },
+            { q: "¿Color de fondo de señales de reglamentación?", a: "Fondo blanco (con bordes rojos)." },
+            { q: "¿Qué indica el color amarillo en señales verticales?", a: "Prevención." },
+            { q: "¿Qué propósito tienen las señales color café?", a: "Información Turística y Parques Nacionales." },
+            { q: "¿Qué indica el color azul en señales de información?", a: "Servicios (Gasolineras, Hospitales)." },
+            { q: "¿Cómo se llaman las señales que indican el número de ruta?", a: "Señales de Identificación." },
+            { q: "¿Forma y color de la señal de CEDA?", a: "Triángulo invertido, borde rojo, fondo blanco." },
+            { q: "¿Qué significa la 'E' tachada?", a: "No estacionar." },
+            { q: "¿Distancia prohibida para pitar cerca de hospitales?", a: "100 metros." },
+            { q: "¿Qué vehículo de carga debe usar cuñas al estacionar?", a: "Más de 2 toneladas." },
+            { q: "¿Profundidad mínima de la ranura de la llanta?", a: "No debe alcanzar el testigo (1.6mm aprox)." },
+            { q: "¿Qué licencia permite conducir UTVs?", a: "Licencia B-1." },
+            { q: "¿Qué indica la luz amarilla del semáforo?", a: "Desocupar la intersección, no acelerar." },
+            { q: "¿A qué distancia se debe poner el triángulo en carretera?", a: "A 90 metros (mínimo)." },
+            { q: "¿Prioridad en intersección sin señales?", a: "Vehículo que aparece por la derecha." },
+            { q: "¿Prioridad en rotondas?", a: "Vehículo que ya circula dentro de ella." },
+            { q: "¿Qué significa línea amarilla continua?", a: "No adelantar, división de sentidos opuestos." },
+            { q: "¿Qué significa línea blanca intermitente?", a: "Permitido adelantar, mismo sentido." },
+            { q: "¿Multa por no usar cinturón?", a: "Categoría C." },
+            { q: "¿Multa por hablar por celular sin manos libres?", a: "Categoría B." },
+            { q: "¿Cuál es la distancia de frenado?", a: "Distancia de percepción + reacción + frenado." },
+            { q: "¿Qué es el hidroplaneo?", a: "Pérdida de contacto de llantas con el suelo por agua." },
+            { q: "¿Cómo se debe frenar con sistema ABS?", a: "Presionar a fondo sin bombear." },
+            { q: "¿Luces obligatorias de noche?", a: "Luces bajas/cortas." },
+            { q: "¿Cuándo usar luces altas?", a: "Carreteras oscuras sin vehículos de frente." },
+            { q: "¿Qué indica el humo azul en el escape?", a: "Quema de aceite." },
+            { q: "¿Qué indica el humo negro en el escape?", a: "Mala mezcla, exceso de combustible." },
+            { q: "¿Qué hacer si falla el freno?", a: "Bajar marchas (compresión) y usar freno de mano suave." },
+            { q: "¿Qué es conducción defensiva?", a: "Evitar accidentes pese a errores de otros." },
+            { q: "¿Quiénes son los usuarios más vulnerables?", a: "Peatones, ciclistas y motociclistas." },
+            { q: "¿Edad mínima para ir en el asiento delantero?", a: "12 años (según estatura/peso)." },
+            { q: "¿Qué es la distancia de seguridad?", a: "Espacio necesario para no chocar si el de adelante frena." },
+            { q: "¿Regla para medir distancia de seguridad?", a: "Regla de los 2 segundos (4 en lluvia)." },
+            { q: "¿Qué es el ángulo muerto?", a: "Zona no visible por los espejos." },
+            { q: "¿Cómo señalizar un giro?", a: "30 metros antes de doblar." },
+            { q: "¿Velocidad en zonas escolares con niños?", a: "25 km/h." },
+            { q: "¿Velocidad máxima en autopista (regla general)?", a: "80 km/h o 100 km/h según señal." },
+            { q: "¿Qué es el sobre-viraje?", a: "Cuando la parte trasera del auto derrapa hacia afuera." },
+            { q: "¿Qué es el sub-viraje?", a: "Cuando el auto no gira lo suficiente y se va de frente." },
+            { q: "¿Función del catalizador?", a: "Reducir gases contaminantes." },
+            { q: "¿Función del termostato?", a: "Regular la temperatura del motor." },
+            { q: "¿Para qué sirve el alternador?", a: "Cargar la batería mientras el motor gira." },
+            { q: "¿Cada cuánto revisar la presión de llantas?", a: "Cada 15 días o antes de viajes largos." },
+            { q: "¿Qué significa un semáforo con flecha roja?", a: "No girar en esa dirección aunque el verde esté encendido." },
+            { q: "¿Se puede girar a la derecha en rojo?", a: "Sí, si no hay señal que lo prohíba y no vienen carros." },
+            { q: "¿Qué es la calzada?", a: "Parte de la vía destinada a la circulación de vehículos." },
+            { q: "¿Qué es la acera?", a: "Parte de la vía destinada al tránsito de peatones." },
+            { q: "¿Qué es el derecho de vía?", a: "Preferencia de un usuario sobre otro." },
+            { q: "¿Cuál es el límite de alcohol para conductores profesionales?", a: "Cero tolerancia (0.10 g/l)." },
+            { q: "¿Multa por circular sin RITEVE/IVE?", a: "Categoría D." },
+            { q: "¿Qué hacer ante un hidrante?", a: "No estacionar a menos de 5 metros." }
+        ];
 
-        function closeModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restaurar scroll
-        }
+        let cardsFlipped = new Set();
 
-        // Cerrar modal al hacer clic fuera del recuadro blanco
-        window.onclick = function(event) {
-            let modal = document.getElementById('paymentModal');
-            if (event.target == modal) {
-                closeModal();
+        function checkCode() {
+            const input = document.getElementById('access-code').value;
+            if (input === "1234") {
+                document.getElementById('lock-screen').classList.add('hidden');
+                document.getElementById('premium-content').classList.remove('hidden');
+                loadCards();
+            } else {
+                const err = document.getElementById('error-msg');
+                err.classList.remove('hidden');
+                setTimeout(() => err.classList.add('hidden'), 3000);
             }
+        }
+
+        function loadCards() {
+            const grid = document.getElementById('flashcards-grid');
+            grid.innerHTML = '';
+            flashcardData.forEach((item, i) => {
+                const card = document.createElement('div');
+                card.className = 'flashcard';
+                card.innerHTML = `
+                    <div class="flashcard-inner" onclick="flipCard(this, ${i})">
+                        <div class="flashcard-front">
+                            <p class="font-bold text-gray-800 text-sm">#${i+1}: ${item.q}</p>
+                            <span class="absolute bottom-3 text-[9px] text-gray-400 font-black tracking-widest uppercase">Tocar para revelar</span>
+                        </div>
+                        <div class="flashcard-back">
+                            <p>${item.a}</p>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function flipCard(el, index) {
+            el.parentElement.classList.toggle('flipped');
+            cardsFlipped.add(index);
+            document.getElementById('progress-text').innerText = `${cardsFlipped.size} / 65`;
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
