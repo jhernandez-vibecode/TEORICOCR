@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teórico Pro CR - Refuerzo Educativo 2026</title>
+    <!-- Framework de diseño y paquete de iconos -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -26,13 +27,27 @@
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-infinite-scroll { display: flex; width: 200%; animation: scroll 25s linear infinite; }
         
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
+        /* Estilos base para modales ocultos (Corregido) */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 100; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.9); 
+            backdrop-filter: blur(8px); 
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
 
     <!-- 1. NAVEGACIÓN -->
-    <header class="bg-black text-white py-4 px-6 sticky top-0 z-50">
+    <header class="bg-black text-white py-4 px-6 sticky top-0 z-50 shadow-lg">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="bg-traffic-yellow text-black font-extrabold px-2 py-0.5 rounded italic text-sm">PRO</span>
@@ -41,7 +56,7 @@
             <nav class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest">
                 <a href="#inicio" class="hover:text-traffic-yellow transition-colors">Inicio</a>
                 <a href="#categorias" class="hover:text-traffic-yellow transition-colors">Material</a>
-                <a href="#estudio" class="text-traffic-yellow">Acceso Clientes</a>
+                <a href="#estudio" class="text-traffic-yellow transition-colors">Acceso Clientes</a>
             </nav>
             <button onclick="scrollToSection('estudio')" class="bg-traffic-yellow text-black text-[10px] font-black px-4 py-2 rounded uppercase italic hover:scale-105 transition-transform">Entrar</button>
         </div>
@@ -55,7 +70,7 @@
                 <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight italic uppercase tracking-tighter">
                     Pasa tu examen teórico de manejo <span class="text-traffic-yellow">a la primera.</span>
                 </h1>
-                <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto">Nuestro material de apoyo está diseñado para fortalecer tus conocimientos con un método de estudio inteligente y actualizado al 2026.</p>
+                <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto italic">Nuestro material de apoyo está diseñado para fortalecer tus conocimientos con un método de estudio inteligente y actualizado al 2026.</p>
                 <div class="flex flex-col md:flex-row justify-center gap-4">
                     <button onclick="scrollToSection('categorias')" class="bg-traffic-yellow text-black font-black py-5 px-10 rounded-2xl text-lg shadow-2xl hover:bg-yellow-400 transition-all uppercase italic">Ver Planes de Estudio</button>
                     <button onclick="scrollToSection('estudio')" class="border-2 border-gray-700 text-gray-300 font-bold py-5 px-10 rounded-2xl text-lg hover:bg-white hover:text-black transition-all uppercase">Acceder al Portal</button>
@@ -64,7 +79,7 @@
         </section>
 
         <!-- Barra de Confianza -->
-        <div class="bg-traffic-yellow py-3 overflow-hidden border-y-2 border-black">
+        <div class="bg-traffic-yellow py-3 overflow-hidden border-y-2 border-black shadow-inner">
             <div class="animate-infinite-scroll font-bold text-black uppercase text-[10px]">
                 <span class="mx-8">⭐ MATERIAL DE REFUERZO MARZO 2026</span>
                 <span class="mx-8">⭐ METODOLOGÍA DE APRENDIZAJE ACELERADO</span>
@@ -86,7 +101,7 @@
                         <i data-lucide="car" class="w-10 h-10 text-blue-600"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4">Refuerzo B1 (Carro)</h3>
-                    <p class="text-gray-500 mb-8 text-sm italic">Resumen VIP + Video Clases + 65 Fichas Maestro + Simulador.</p>
+                    <p class="text-gray-500 mb-8 text-sm italic leading-relaxed">Incluye Resumen VIP, Video Clases de apoyo, 65 Fichas Maestro y Simulador de práctica.</p>
                     <div class="text-5xl font-black mb-8 italic">₡4,500</div>
                     <button onclick="openPaymentModal('Refuerzo Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors uppercase tracking-widest text-xs italic">Obtener Acceso 15 Días</button>
                 </div>
@@ -96,7 +111,7 @@
                         <i data-lucide="bike" class="w-10 h-10"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-black">Refuerzo Motos (A1-A3)</h3>
-                    <p class="text-gray-500 mb-8 text-sm italic">Material especializado para conductores de motocicletas.</p>
+                    <p class="text-gray-500 mb-8 text-sm italic leading-relaxed">Material especializado diseñado para las exigencias de conductores de motocicletas.</p>
                     <div class="text-5xl font-black mb-8 italic text-black">₡4,500</div>
                     <button onclick="openPaymentModal('Refuerzo Moto (A1/A2/A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors uppercase tracking-widest text-xs italic">Obtener Acceso 15 Días</button>
                 </div>
@@ -105,7 +120,7 @@
             <div class="mt-12 text-center">
                 <div class="inline-block bg-slate-900 text-white p-6 rounded-3xl border-2 border-traffic-yellow shadow-xl">
                     <p class="text-xs font-bold uppercase text-traffic-yellow mb-2 tracking-widest italic">Plan Maestro Integral</p>
-                    <p class="text-lg font-black italic">Adquiere ambos refuerzos (COMBO) por <span class="text-2xl">₡6,000</span></p>
+                    <p class="text-lg font-black italic leading-tight">Adquiere ambos refuerzos (COMBO) por solo <span class="text-2xl text-traffic-yellow">₡6,000</span></p>
                     <button onclick="openPaymentModal('Combo Refuerzo Carro + Moto')" class="mt-4 bg-traffic-yellow text-black font-black px-8 py-3 rounded-xl uppercase text-[10px] hover:scale-105 transition-transform italic">Activar Combo (20 Días)</button>
                 </div>
             </div>
@@ -134,7 +149,6 @@
 
             <!-- Contenido Premium -->
             <div id="premium-portal" class="hidden animate-in fade-in zoom-in duration-700">
-                
                 <div class="flex flex-col md:flex-row justify-between items-center mb-10 bg-slate-800 p-8 rounded-[2.5rem] border border-slate-700 gap-6">
                     <div class="text-center md:text-left">
                         <div class="flex items-center gap-2 mb-1 justify-center md:justify-start">
@@ -149,7 +163,6 @@
                     </div>
                 </div>
 
-                <!-- Orden Lógico de Estudio -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
                     <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
                         <i data-lucide="book-open" class="w-6 h-6"></i>
@@ -169,10 +182,7 @@
                     </button>
                 </div>
 
-                <!-- Contenedor del Material -->
                 <div id="material-viewer" class="bg-white rounded-[3rem] p-10 min-h-[500px] shadow-2xl relative overflow-hidden">
-                    
-                    <!-- 1. Resumen -->
                     <div id="mod-resumen" class="module-content hidden text-center py-16">
                         <div class="bg-blue-50 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8">
                             <i data-lucide="file-text" class="text-blue-600 w-12 h-12"></i>
@@ -183,16 +193,12 @@
                             <i data-lucide="download" class="w-6 h-6"></i> DESCARGAR GUÍA PDF
                         </button>
                     </div>
-
-                    <!-- 2. Video -->
                     <div id="mod-video" class="module-content hidden text-center py-16">
                         <div class="aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-gray-100 flex items-center justify-center relative">
                             <p class="text-gray-600 italic text-sm">El material audiovisual se habilitará próximamente.</p>
                         </div>
                         <p class="mt-8 text-xs text-slate-400 italic uppercase font-bold tracking-widest">Contenido educativo exclusivo</p>
                     </div>
-
-                    <!-- 3. Fichas -->
                     <div id="mod-fichas" class="module-content hidden">
                         <div class="flex justify-between items-center mb-8 bg-slate-50 p-6 rounded-3xl">
                             <div>
@@ -202,8 +208,6 @@
                         </div>
                         <div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
                     </div>
-
-                    <!-- 4. Simulador -->
                     <div id="mod-simulador" class="module-content hidden text-center py-20">
                         <div class="bg-orange-50 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8">
                             <i data-lucide="award" class="text-orange-500 w-12 h-12"></i>
@@ -212,7 +216,6 @@
                         <p class="text-slate-500 mb-10 max-w-md mx-auto italic text-sm">Evalúa lo aprendido mediante un simulacro interactivo similar al examen oficial del MOPT.</p>
                         <button class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic hover:scale-105 transition-all">INICIAR EVALUACIÓN</button>
                     </div>
-
                 </div>
 
                 <div class="mt-20 text-center pb-20">
@@ -252,7 +255,7 @@
     </footer>
 
     <!-- MODAL DE PAGO (SINPE) -->
-    <div id="paymentModal" class="modal flex items-center justify-center p-6">
+    <div id="paymentModal" class="modal">
         <div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow">
             <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black p-2 transition-colors"><i data-lucide="x"></i></button>
             <div class="bg-black text-white p-8 text-center">
@@ -286,19 +289,17 @@
     </div>
 
     <!-- MODAL LEGAL -->
-    <div id="legalModal" class="modal overflow-y-auto flex items-center justify-center p-6">
+    <div id="legalModal" class="modal overflow-y-auto">
         <div class="bg-white rounded-[3rem] w-full max-w-2xl p-12 relative shadow-2xl">
             <button onclick="closeModal()" class="absolute top-8 right-8 text-gray-400 hover:text-black p-2"><i data-lucide="x"></i></button>
-            <div id="legalContent" class="prose prose-slate max-w-none text-xs leading-relaxed italic text-slate-600">
-                <!-- Se inyecta dinámicamente -->
-            </div>
+            <div id="legalContent" class="prose prose-slate max-w-none text-xs leading-relaxed italic text-slate-600"></div>
         </div>
     </div>
 
+    <!-- SCRIPTS DE FUNCIONALIDAD -->
     <script>
         lucide.createIcons();
 
-        // 1. VALIDACIÓN PIN
         function verifyPin() {
             const pin = document.getElementById('pin-input').value.trim().toUpperCase();
             const parts = pin.split('-');
@@ -325,7 +326,6 @@
             renderFlashcards();
         }
 
-        // 2. LMS NAVEGACIÓN
         function showModule(modId) {
             document.querySelectorAll('.module-content').forEach(m => m.classList.add('hidden'));
             document.querySelectorAll('.module-tab').forEach(t => t.classList.remove('tab-active'));
@@ -333,7 +333,6 @@
             document.getElementById('tab-' + modId).classList.add('tab-active');
         }
 
-        // 3. FLASHCARDS DATA (65 preguntas basadas en flashcards.csv)
         const flashcardData = [
             { q: "¿En qué año circuló el primer vehículo automóvil en San José, Costa Rica?", a: "En el año 1912." },
             { q: "¿Cuál fue el primer cuerpo normativo de tránsito en Costa Rica, publicado en 1920?", a: "El Código de la Circulación." },
@@ -413,7 +412,6 @@
             });
         }
 
-        // 4. MODALES
         function openPaymentModal(pack) {
             const m = document.getElementById('paymentModal');
             document.getElementById('modalTitle').innerText = pack;
@@ -436,6 +434,13 @@
 
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
         function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+        // Cerrar modal al hacer clic afuera
+        window.onclick = function(event) {
+            if (event.target.className.includes('modal')) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
