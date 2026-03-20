@@ -14,7 +14,6 @@
         .text-traffic-yellow { color: #FFD700; }
         .hero-gradient { background: linear-gradient(180deg, #1a1a1a 0%, #333333 100%); }
         
-        /* Efecto de giro de las fichas */
         .flashcard { perspective: 1000px; height: 160px; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
@@ -27,7 +26,6 @@
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-infinite-scroll { display: flex; width: 200%; animation: scroll 25s linear infinite; }
         
-        /* Estilos base para modales ocultos (Corregido) */
         .modal { 
             display: none; 
             position: fixed; 
@@ -54,8 +52,8 @@
                 <span class="font-bold text-lg tracking-tight uppercase">Teórico CR</span>
             </div>
             <nav class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest">
-                <a href="#inicio" class="hover:text-traffic-yellow transition-colors">Inicio</a>
-                <a href="#categorias" class="hover:text-traffic-yellow transition-colors">Material</a>
+                <a href="#inicio" class="hover:text-traffic-yellow transition-colors text-white">Inicio</a>
+                <a href="#categorias" class="hover:text-traffic-yellow transition-colors text-white">Material</a>
                 <a href="#estudio" class="text-traffic-yellow transition-colors">Acceso Clientes</a>
             </nav>
             <button onclick="scrollToSection('estudio')" class="bg-traffic-yellow text-black text-[10px] font-black px-4 py-2 rounded uppercase italic hover:scale-105 transition-transform">Entrar</button>
@@ -95,7 +93,6 @@
             <p class="text-center text-gray-500 mb-16 italic">Material de apoyo específico para los nuevos objetivos de evaluación.</p>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Pack Carro -->
                 <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
                     <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
                         <i data-lucide="car" class="w-10 h-10 text-blue-600"></i>
@@ -105,7 +102,6 @@
                     <div class="text-5xl font-black mb-8 italic">₡4,500</div>
                     <button onclick="openPaymentModal('Refuerzo Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors uppercase tracking-widest text-xs italic">Obtener Acceso 15 Días</button>
                 </div>
-                <!-- Pack Moto -->
                 <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
                     <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-100 transition-colors text-orange-600">
                         <i data-lucide="bike" class="w-10 h-10"></i>
@@ -130,18 +126,16 @@
     <!-- 4. PORTAL DE CLIENTES (LMS) -->
     <section id="estudio" class="py-24 px-4 bg-slate-900 min-h-screen border-t-8 border-traffic-yellow">
         <div class="max-w-5xl mx-auto">
-            
             <!-- Bloqueo -->
             <div id="lock-screen" class="text-center py-16">
                 <div class="bg-slate-800 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-traffic-yellow shadow-2xl">
                     <i data-lucide="lock" class="text-traffic-yellow w-10 h-10"></i>
                 </div>
                 <h2 class="text-3xl font-black text-white mb-4 italic uppercase tracking-tighter">Área de Clientes</h2>
-                <p class="text-slate-400 mb-10 text-sm max-w-xs mx-auto italic">Ingresa tu PIN exclusivo para activar tu plan de refuerzo educativo.</p>
-                
+                <p class="text-slate-400 mb-10 text-sm max-w-xs mx-auto italic">Ingresa tu PIN reforzado (ID check) para activar tu material.</p>
                 <div class="max-w-xs mx-auto">
-                    <input type="text" id="pin-input" placeholder="PRO-00000000-XXX" 
-                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-2xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
+                    <input type="text" id="pin-input" placeholder="PRO-00000000-XXX-0000" 
+                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-xl md:text-2xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
                     <button onclick="verifyPin()" class="w-full bg-traffic-yellow text-black font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] transition-all uppercase italic">Activar Acceso</button>
                     <p id="error-msg" class="text-red-500 text-[10px] mt-6 font-bold hidden uppercase tracking-widest italic"></p>
                 </div>
@@ -163,149 +157,79 @@
                     </div>
                 </div>
 
+                <!-- Tabs -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
-                    <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
-                        <i data-lucide="book-open" class="w-6 h-6"></i>
-                        <span class="text-[10px] font-black uppercase italic tracking-tighter text-center">1. Resumen<br>Lectura rápida</span>
-                    </button>
-                    <button onclick="showModule('video')" id="tab-video" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
-                        <i data-lucide="play-circle" class="w-6 h-6"></i>
-                        <span class="text-[10px] font-black uppercase italic tracking-tighter text-center">2. Video<br>Explicación</span>
-                    </button>
-                    <button onclick="showModule('fichas')" id="tab-fichas" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
-                        <i data-lucide="layers" class="w-6 h-6"></i>
-                        <span class="text-[10px] font-black uppercase italic tracking-tighter text-center">3. Fichas<br>Memorización</span>
-                    </button>
-                    <button onclick="showModule('simulador')" id="tab-simulador" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
-                        <i data-lucide="zap" class="w-6 h-6"></i>
-                        <span class="text-[10px] font-black uppercase italic tracking-tighter text-center">4. Simulador<br>Validación</span>
-                    </button>
+                    <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="book-open" class="w-6 h-6"></i><span class="text-[10px] font-black uppercase text-center italic leading-tight">1. Resumen<br>Lectura rápida</span></button>
+                    <button onclick="showModule('video')" id="tab-video" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="play-circle" class="w-6 h-6"></i><span class="text-[10px] font-black uppercase text-center italic leading-tight">2. Video<br>Explicación</span></button>
+                    <button onclick="showModule('fichas')" id="tab-fichas" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="layers" class="w-6 h-6"></i><span class="text-[10px] font-black uppercase text-center italic leading-tight">3. Fichas<br>Memorización</span></button>
+                    <button onclick="showModule('simulador')" id="tab-simulador" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="zap" class="w-6 h-6"></i><span class="text-[10px] font-black uppercase text-center italic leading-tight">4. Simulador<br>Validación</span></button>
                 </div>
 
                 <div id="material-viewer" class="bg-white rounded-[3rem] p-10 min-h-[500px] shadow-2xl relative overflow-hidden">
                     <div id="mod-resumen" class="module-content hidden text-center py-16">
-                        <div class="bg-blue-50 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8">
-                            <i data-lucide="file-text" class="text-blue-600 w-12 h-12"></i>
-                        </div>
-                        <h4 class="text-3xl font-black text-slate-900 uppercase italic mb-4 tracking-tighter">Guía Estratégica de Estudio</h4>
-                        <p class="text-slate-500 mb-10 max-w-md mx-auto italic text-sm">Este material sintetiza los pilares fundamentales de la Ley de Tránsito 9078 para un aprendizaje eficiente.</p>
-                        <button class="bg-black text-white font-black py-5 px-12 rounded-2xl shadow-xl flex items-center gap-4 mx-auto hover:scale-105 transition-transform">
-                            <i data-lucide="download" class="w-6 h-6"></i> DESCARGAR GUÍA PDF
-                        </button>
+                        <div class="bg-blue-50 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8"><i data-lucide="file-text" class="text-blue-600 w-12 h-12"></i></div>
+                        <h4 class="text-3xl font-black text-slate-900 uppercase italic mb-4 tracking-tighter">Guía Estratégica 2026</h4>
+                        <p class="text-slate-500 mb-10 max-w-md mx-auto italic text-sm">Este material sintetiza los pilares fundamentales de la Ley de Tránsito para un aprendizaje eficiente.</p>
+                        <button class="bg-black text-white font-black py-5 px-12 rounded-2xl shadow-xl flex items-center gap-4 mx-auto">DESCARGAR PDF</button>
                     </div>
                     <div id="mod-video" class="module-content hidden text-center py-16">
-                        <div class="aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-gray-100 flex items-center justify-center relative">
-                            <p class="text-gray-600 italic text-sm">El material audiovisual se habilitará próximamente.</p>
-                        </div>
+                        <div class="aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-gray-100 flex items-center justify-center relative"><p class="text-gray-600 italic text-sm">Cargando material audiovisual...</p></div>
                         <p class="mt-8 text-xs text-slate-400 italic uppercase font-bold tracking-widest">Contenido educativo exclusivo</p>
                     </div>
                     <div id="mod-fichas" class="module-content hidden">
                         <div class="flex justify-between items-center mb-8 bg-slate-50 p-6 rounded-3xl">
-                            <div>
-                                <h4 class="text-2xl font-black italic uppercase tracking-tighter leading-none">Fichas de Refuerzo</h4>
-                                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Refuerzo de memoria activa</p>
-                            </div>
+                            <div><h4 class="text-2xl font-black italic uppercase tracking-tighter leading-none">Fichas de Refuerzo</h4><p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1">Refuerzo de memoria activa</p></div>
                         </div>
                         <div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
                     </div>
                     <div id="mod-simulador" class="module-content hidden text-center py-20">
-                        <div class="bg-orange-50 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8">
-                            <i data-lucide="award" class="text-orange-500 w-12 h-12"></i>
-                        </div>
-                        <h4 class="text-3xl font-black text-slate-900 uppercase italic mb-4 tracking-tighter">Simulador de Refuerzo</h4>
-                        <p class="text-slate-500 mb-10 max-w-md mx-auto italic text-sm">Evalúa lo aprendido mediante un simulacro interactivo similar al examen oficial del MOPT.</p>
+                        <div class="bg-orange-50 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8"><i data-lucide="award" class="text-orange-500 w-12 h-12"></i></div>
+                        <h4 class="text-3xl font-black text-slate-900 uppercase italic mb-4 tracking-tighter">Simulador Pro</h4>
+                        <p class="text-slate-500 mb-10 max-w-md mx-auto italic text-sm">Evalúa lo aprendido mediante un simulacro interactivo similar al examen oficial.</p>
                         <button class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic hover:scale-105 transition-all">INICIAR EVALUACIÓN</button>
                     </div>
                 </div>
 
-                <div class="mt-20 text-center pb-20">
-                    <button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] border-b border-slate-700 pb-2 transition-colors">Cerrar Sesión Segura</button>
-                </div>
+                <div class="mt-20 text-center pb-20"><button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] border-b border-slate-700 pb-2 transition-colors">Cerrar Sesión</button></div>
             </div>
         </div>
     </section>
 
-    <!-- 5. LEGAL Y CONTACTO -->
+    <!-- FOOTER -->
     <footer class="bg-black text-slate-600 pt-20 pb-10 px-6 border-t border-slate-900">
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-3 gap-12 mb-20 text-left">
-                <div>
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="bg-traffic-yellow text-black font-extrabold px-2 py-0.5 rounded italic text-xs">PRO</span>
-                        <span class="text-white font-bold text-lg uppercase tracking-tight leading-none">Teórico CR</span>
-                    </div>
-                    <p class="text-[11px] leading-relaxed italic">Plataforma educativa privada e independiente. Nuestra misión es el refuerzo académico para aspirantes a conductores mediante técnicas de estudio modernas.</p>
-                </div>
-                <div>
-                    <h5 class="text-white text-xs font-black uppercase mb-6 tracking-widest italic underline decoration-traffic-yellow underline-offset-4">Área Legal</h5>
-                    <ul class="space-y-4 text-[10px] font-bold uppercase tracking-widest">
-                        <li><button onclick="openLegal('terminos')" class="hover:text-white transition-colors">Términos de Uso</button></li>
-                        <li><button onclick="openLegal('propiedad')" class="hover:text-white transition-colors">Propiedad Intelectual</button></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="text-white text-xs font-black uppercase mb-6 tracking-widest italic underline decoration-traffic-yellow underline-offset-4">Atención VIP</h5>
-                    <p class="text-[10px] font-bold uppercase tracking-widest leading-loose">WhatsApp de Soporte:<br>8888-0000</p>
-                </div>
+                <div><h2 class="text-white font-black text-lg uppercase tracking-tight mb-6">TEÓRICO PRO CR</h2><p class="text-[11px] leading-relaxed italic">Plataforma educativa independiente. Refuerzo académico para aspirantes a conductores mediante técnicas modernas.</p></div>
+                <div><h5 class="text-white text-xs font-black uppercase mb-6 tracking-widest italic underline decoration-traffic-yellow underline-offset-4">Legal</h5><ul class="space-y-4 text-[10px] font-bold uppercase tracking-widest"><li><button onclick="openLegal('terminos')" class="hover:text-white transition-colors">Términos</button></li><li><button onclick="openLegal('propiedad')" class="hover:text-white transition-colors">Propiedad</button></li></ul></div>
+                <div><h5 class="text-white text-xs font-black uppercase mb-6 tracking-widest italic underline decoration-traffic-yellow underline-offset-4">Contacto</h5><p class="text-[10px] font-bold uppercase tracking-widest leading-loose">WhatsApp: 8888-0000</p></div>
             </div>
-            <div class="text-center pt-10 border-t border-slate-900">
-                <p class="text-[9px] uppercase font-black tracking-[0.5em]">© 2026 Teórico Pro Costa Rica • Refuerzo Educativo</p>
-            </div>
+            <div class="text-center pt-10 border-t border-slate-900"><p class="text-[9px] uppercase font-black tracking-[0.5em]">© 2026 Teórico Pro Costa Rica • Refuerzo Educativo</p></div>
         </div>
     </footer>
 
-    <!-- MODAL DE PAGO (SINPE) -->
-    <div id="paymentModal" class="modal">
-        <div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black p-2 transition-colors"><i data-lucide="x"></i></button>
-            <div class="bg-black text-white p-8 text-center">
-                <h3 class="font-black text-2xl italic uppercase tracking-tighter" id="modalTitle">Plan de Refuerzo</h3>
-                <p class="text-[10px] font-bold text-traffic-yellow tracking-widest uppercase mt-2 italic">Activación inmediata por WhatsApp</p>
-            </div>
-            <div class="p-10">
-                <div class="space-y-8">
-                    <div class="flex gap-5 items-start">
-                        <div class="bg-black text-white w-10 h-10 rounded-2xl flex items-center justify-center font-black shrink-0">1</div>
-                        <div>
-                            <p class="font-black uppercase text-xs text-slate-400 mb-1">Pago SINPE Móvil</p>
-                            <p class="text-2xl font-black text-slate-900 tracking-tight" id="modalPrice">₡4,500</p>
-                            <p class="text-xl font-mono text-blue-600 font-black select-all bg-blue-50 px-2 rounded mt-1">8888-0000</p>
-                            <p class="text-[9px] text-slate-400 font-bold uppercase mt-1 italic leading-tight">A nombre de:<br>[NOMBRE_DEL_REPRESENTANTE]</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-5 items-start">
-                        <div class="bg-black text-white w-10 h-10 rounded-2xl flex items-center justify-center font-black shrink-0">2</div>
-                        <div>
-                            <p class="font-black uppercase text-xs text-slate-400 mb-1">Comprobante de Pago</p>
-                            <p class="text-sm text-slate-600 italic leading-relaxed">Envíanos captura del SINPE para enviarte tu PIN único de acceso personalizado.</p>
-                        </div>
-                    </div>
-                </div>
-                <a id="whatsappBtn" href="#" class="mt-10 flex items-center justify-center gap-3 bg-[#25D366] text-white text-center font-black py-5 rounded-2xl shadow-xl hover:opacity-90 transition-all uppercase italic text-lg">
-                    <i data-lucide="message-circle"></i> ENVIAR COMPROBANTE
-                </a>
-            </div>
-        </div>
-    </div>
+    <!-- MODAL PAGO -->
+    <div id="paymentModal" class="modal"><div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow"><button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black p-2"><i data-lucide="x"></i></button><div class="bg-black text-white p-8 text-center"><h3 class="font-black text-2xl italic uppercase tracking-tighter" id="modalTitle">Plan Refuerzo</h3><p class="text-[10px] font-bold text-traffic-yellow tracking-widest uppercase mt-2">Activación inmediata</p></div><div class="p-10 text-sm italic"><p class="font-black text-slate-400 uppercase text-[10px] mb-1">Paso 1: SINPE Móvil</p><p class="text-2xl font-black text-slate-900 mb-6" id="modalPrice">₡4,500</p><p class="text-xl font-mono text-blue-600 font-black mb-1 bg-blue-50 p-2 rounded">8888-0000</p><p class="text-[9px] text-slate-400 mb-8 uppercase font-bold">A nombre de: [REPRESENTANTE]</p><a id="whatsappBtn" href="#" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-black py-5 rounded-2xl shadow-xl uppercase italic">ENVIAR COMPROBANTE</a></div></div></div>
 
     <!-- MODAL LEGAL -->
-    <div id="legalModal" class="modal overflow-y-auto">
-        <div class="bg-white rounded-[3rem] w-full max-w-2xl p-12 relative shadow-2xl">
-            <button onclick="closeModal()" class="absolute top-8 right-8 text-gray-400 hover:text-black p-2"><i data-lucide="x"></i></button>
-            <div id="legalContent" class="prose prose-slate max-w-none text-xs leading-relaxed italic text-slate-600"></div>
-        </div>
-    </div>
+    <div id="legalModal" class="modal overflow-y-auto"><div class="bg-white rounded-[3rem] w-full max-w-2xl p-12 relative shadow-2xl"><button onclick="closeModal()" class="absolute top-8 right-8 text-gray-400 hover:text-black p-2"><i data-lucide="x"></i></button><div id="legalContent" class="prose prose-slate max-w-none text-xs leading-relaxed italic text-slate-600"></div></div></div>
 
-    <!-- SCRIPTS DE FUNCIONALIDAD -->
     <script>
         lucide.createIcons();
 
+        // 1. VALIDACIÓN PIN ACTUALIZADA (Ahora espera 4 partes: PRO-FECHA-INI-CEDULA)
         function verifyPin() {
             const pin = document.getElementById('pin-input').value.trim().toUpperCase();
             const parts = pin.split('-');
-            if (parts.length !== 3 || parts[0] !== "PRO") { showErr("Formato Incorrecto"); return; }
-            const dp = parts[1];
+            
+            // Verificamos que tenga 4 partes
+            if (parts.length !== 4 || parts[0] !== "PRO") { 
+                showErr("Formato Incorrecto. Ejemplo: PRO-20260401-JPR-1234"); 
+                return; 
+            }
+
+            const dp = parts[1]; // Fecha YYYYMMDD
             const expiry = new Date(parseInt(dp.substring(0,4)), parseInt(dp.substring(4,6))-1, parseInt(dp.substring(6,8)), 23, 59, 59);
+            
             if (isNaN(expiry.getTime())) { showErr("PIN Corrupto"); return; }
             if (new Date() > expiry) { showErr("Acceso Expirado el " + expiry.toLocaleDateString()); }
             else { unlockPortal(expiry); }
@@ -340,7 +264,7 @@
             { q: "Los tres factores que componen el tránsito son el humano, el vehicular y _____.", a: "La vía y su entorno." },
             { q: "¿Cuál es el elemento más importante de la trilogía vial?", a: "El factor humano." },
             { q: "Concepto: Tránsito", a: "Acción de desplazarse o trasladarse de un lugar a otro." },
-            { q: "Concepto: Transporte", a: "Trasladar una persona o cosa unido al concepto de servicio." },
+            { q: "Concepto: Transporte", a: "Trasladar personas o cosas unido al concepto de servicio." },
             { q: "¿Cuál es el objetivo primordial de la seguridad vial?", a: "Prevenir accidentes de tránsito." },
             { q: "¿Qué artículo de la Constitución garantiza el derecho a circular?", a: "El artículo 22." },
             { q: "¿Cuántos artículos y transitorios tiene la Ley 9078?", a: "252 artículos y 23 transitorios." },
@@ -425,22 +349,16 @@
             const m = document.getElementById('legalModal');
             const c = document.getElementById('legalContent');
             if(type === 'terminos') {
-                c.innerHTML = `<h2 class="text-xl font-black mb-4">TÉRMINOS DE USO</h2><p>1. El acceso a Teórico Pro CR es estrictamente para refuerzo educativo y personal.</p><p class="mt-2">2. El código PIN tiene una validez temporal (15-20 días). Una vez expirado, se deberá adquirir un nuevo acceso.</p><p class="mt-2">3. No garantizamos la aprobación oficial, ya que los resultados dependen del esfuerzo del estudiante.</p><p class="mt-4"><strong>Representante Legal:</strong> [DATO_PENDIENTE]<br><strong>Cédula:</strong> [DATO_PENDIENTE]</p>`;
+                c.innerHTML = `<h2 class="text-xl font-black mb-4 uppercase">Términos de Uso</h2><p>El acceso a Teórico Pro CR es personal e intransferible. El código PIN tiene una validez temporal. Una vez expirado, se deberá adquirir un nuevo acceso.</p><p class="mt-4"><strong>Representante:</strong> [NOMBRE]<br><strong>Cédula:</strong> [ID]</p>`;
             } else {
-                c.innerHTML = `<h2 class="text-xl font-black mb-4">PROPIEDAD INTELECTUAL</h2><p>Toda la estructura visual, el diseño de la aplicación, los resúmenes estratégicos y la base de datos de preguntas interactivas son propiedad exclusiva de Teórico Pro CR.</p><p class="mt-2">Queda prohibida la reproducción, copia, distribución o reventa comercial de cualquier material dentro del portal sin autorización expresa por escrito del propietario legal.</p><p class="mt-4"><strong>Acción Legal:</strong> El uso indebido de los activos digitales facultará al propietario para ejercer las acciones civiles y penales correspondientes según la legislación de Costa Rica.</p>`;
+                c.innerHTML = `<h2 class="text-xl font-black mb-4 uppercase">Propiedad Intelectual</h2><p>Toda la estructura visual, diseño, resúmenes y preguntas son propiedad exclusiva de Teórico Pro CR. Queda prohibida la reproducción o reventa.</p>`;
             }
             m.style.display = 'flex';
         }
 
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
         function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
-
-        // Cerrar modal al hacer clic afuera
-        window.onclick = function(event) {
-            if (event.target.className.includes('modal')) {
-                closeModal();
-            }
-        }
+        window.onclick = function(e) { if (e.target.className.includes('modal')) closeModal(); }
     </script>
 </body>
 </html>
