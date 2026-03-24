@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teórico Pro CR - Refuerzo Educativo 2026</title>
-    <!-- Framework de diseño y paquete de iconos -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -14,7 +13,7 @@
         .text-traffic-yellow { color: #FFD700; }
         .hero-gradient { background: linear-gradient(180deg, #1a1a1a 0%, #333333 100%); }
         
-        /* Estilos Flashcards */
+        /* Flashcards */
         .flashcard { perspective: 1000px; height: 160px; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
@@ -45,283 +44,171 @@
         .quiz-option {
             @apply w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-[#FFD700] hover:bg-yellow-50 transition-all font-medium text-slate-700 mb-3 block;
         }
-        .quiz-option.selected {
-            @apply border-[#FFD700] bg-yellow-50 font-bold;
-        }
+        .quiz-option.selected { @apply border-[#FFD700] bg-yellow-50 font-bold; }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
 
-    <!-- 1. NAVEGACIÓN -->
+    <!-- HEADER -->
     <header class="bg-black text-white py-4 px-6 sticky top-0 z-50 shadow-lg">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="bg-traffic-yellow text-black font-extrabold px-2 py-0.5 rounded italic text-sm">PRO</span>
                 <span class="font-bold text-lg tracking-tight uppercase">Teórico CR</span>
             </div>
-            <nav class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest">
-                <a href="#inicio" class="hover:text-traffic-yellow transition-colors text-white">Inicio</a>
-                <a href="#categorias" class="hover:text-traffic-yellow transition-colors text-white">Material</a>
-                <a href="#estudio" class="text-traffic-yellow transition-colors">Acceso Clientes</a>
+            <nav class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-white">
+                <a href="#inicio" class="hover:text-traffic-yellow transition-colors">Inicio</a>
+                <a href="#categorias" class="hover:text-traffic-yellow transition-colors">Material</a>
+                <a href="#estudio" class="text-traffic-yellow">Acceso Clientes</a>
             </nav>
             <button onclick="scrollToSection('estudio')" class="bg-traffic-yellow text-black text-[10px] font-black px-4 py-2 rounded uppercase italic hover:scale-105 transition-transform">Entrar</button>
         </div>
     </header>
 
-    <!-- 2. HERO -->
+    <!-- HERO -->
     <main id="inicio">
         <section class="hero-gradient text-white pt-24 pb-32 px-6 text-center">
             <div class="max-w-3xl mx-auto">
-                <div class="inline-block bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full mb-6 uppercase tracking-widest italic">Actualizado Marzo 2026</div>
+                <div class="inline-block bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full mb-6 uppercase tracking-widest italic">Actualización Marzo 2026</div>
                 <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight italic uppercase tracking-tighter">
                     Pasa tu examen de manejo <span class="text-traffic-yellow">a la primera.</span>
                 </h1>
-                <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto italic leading-relaxed">Nuestro material de refuerzo educativo está diseñado para fortalecer tus conocimientos con un método de estudio inteligente.</p>
+                <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto italic">Refuerzo educativo inteligente basado en los nuevos manuales del MOPT.</p>
                 <div class="flex flex-col md:flex-row justify-center gap-4">
-                    <button onclick="scrollToSection('categorias')" class="bg-traffic-yellow text-black font-black py-5 px-10 rounded-2xl text-lg shadow-2xl hover:bg-yellow-400 transition-all uppercase italic">Ver Paquetes de Estudio</button>
-                    <button onclick="scrollToSection('estudio')" class="border-2 border-gray-700 text-gray-300 font-bold py-5 px-10 rounded-2xl text-lg hover:bg-white hover:text-black transition-all uppercase">Acceder con mi PIN</button>
+                    <button onclick="scrollToSection('categorias')" class="bg-traffic-yellow text-black font-black py-5 px-10 rounded-2xl text-lg shadow-2xl hover:bg-yellow-400 transition-all uppercase italic">Ver Planes</button>
+                    <button onclick="scrollToSection('estudio')" class="border-2 border-gray-700 text-gray-300 font-bold py-5 px-10 rounded-2xl text-lg hover:bg-white hover:text-black transition-all uppercase">Ya tengo mi PIN</button>
                 </div>
             </div>
         </section>
 
-        <!-- Barra Social Proof -->
-        <div class="bg-traffic-yellow py-3 overflow-hidden border-y-2 border-black shadow-inner">
+        <!-- Cinta Pruebas -->
+        <div class="bg-traffic-yellow py-3 overflow-hidden border-y-2 border-black">
             <div class="animate-infinite-scroll font-bold text-black uppercase text-[10px]">
                 <span class="mx-8">⭐ MATERIAL DE REFUERZO MARZO 2026</span>
                 <span class="mx-8">⭐ METODOLOGÍA DE APRENDIZAJE ACELERADO</span>
                 <span class="mx-8">⭐ EXÁMENES DIFERENCIADOS CARRO/MOTO</span>
-                <span class="mx-8">⭐ EL COMPLEMENTO IDEAL PARA TU ESTUDIO</span>
                 <span class="mx-8">⭐ +1,500 APROBADOS ESTE MES</span>
             </div>
         </div>
 
-        <!-- 3. CATEGORÍAS -->
+        <!-- CATEGORÍAS -->
         <section id="categorias" class="py-24 px-6 max-w-6xl mx-auto">
-            <h2 class="text-4xl font-black text-center mb-4 italic uppercase">¿Qué licencia vas a obtener?</h2>
-            <p class="text-center text-gray-500 mb-16 italic text-sm">Contenido especializado para los nuevos objetivos de evaluación del MOPT.</p>
-            
+            <h2 class="text-4xl font-black text-center mb-16 italic uppercase">¿Qué licencia vas a obtener?</h2>
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Carro -->
                 <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
-                    <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors text-blue-600">
-                        <i data-lucide="car" class="w-10 h-10"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Refuerzo B1 (Carro)</h3>
-                    <p class="text-gray-500 mb-8 text-sm italic">Resumen VIP + Video + 65 Fichas Maestro + Simulador.</p>
+                    <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-blue-600"><i data-lucide="car" class="w-10 h-10"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 italic">Refuerzo B1 (Carro)</h3>
                     <div class="text-5xl font-black mb-8 italic">₡4,500</div>
-                    <button onclick="openPaymentModal('Refuerzo Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors uppercase tracking-widest text-xs italic">Adquirir Acceso 15 Días</button>
+                    <button onclick="openPaymentModal('Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
                 </div>
-                <!-- Moto -->
                 <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
-                    <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-100 transition-colors text-orange-600">
-                        <i data-lucide="bike" class="w-10 h-10"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-black">Refuerzo Moto (A1-A3)</h3>
-                    <p class="text-gray-500 mb-8 text-sm italic">Material específico para el nuevo manual de Motociclistas.</p>
+                    <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-orange-600"><i data-lucide="bike" class="w-10 h-10"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 italic text-black">Refuerzo Moto (A1-A3)</h3>
                     <div class="text-5xl font-black mb-8 italic text-black">₡4,500</div>
-                    <button onclick="openPaymentModal('Refuerzo Moto (A1/A2/A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors uppercase tracking-widest text-xs italic">Adquirir Acceso 15 Días</button>
-                </div>
-            </div>
-            
-            <div class="mt-12 text-center">
-                <div class="inline-block bg-slate-900 text-white p-6 rounded-3xl border-2 border-traffic-yellow shadow-xl">
-                    <p class="text-xs font-bold uppercase text-traffic-yellow mb-2 tracking-widest italic">Plan Integral Combo</p>
-                    <p class="text-lg font-black italic leading-tight">¿Ocupas ambos? Llevate el <span class="text-traffic-yellow">COMBO</span> por <span class="text-2xl">₡6,000</span></p>
-                    <button onclick="openPaymentModal('Combo Refuerzo Carro + Moto')" class="mt-4 bg-traffic-yellow text-black font-black px-8 py-3 rounded-xl uppercase text-[10px] hover:scale-105 transition-transform italic">Activar Combo (20 Días)</button>
+                    <button onclick="openPaymentModal('Moto (A1-A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- 4. ÁREA DE CLIENTES (PORTAL LMS) -->
+    <!-- ÁREA DE CLIENTES -->
     <section id="estudio" class="py-24 px-4 bg-slate-900 min-h-screen border-t-8 border-traffic-yellow">
         <div class="max-w-5xl mx-auto">
-            
-            <!-- Bloqueo -->
             <div id="lock-screen" class="text-center py-16">
                 <div class="bg-slate-800 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-traffic-yellow shadow-2xl">
                     <i data-lucide="lock" class="text-traffic-yellow w-10 h-10"></i>
                 </div>
-                <h2 class="text-3xl font-black text-white mb-4 italic uppercase tracking-tighter">Área de Clientes</h2>
-                <p class="text-slate-400 mb-10 text-sm max-w-xs mx-auto italic leading-relaxed">Ingresa tu PIN de seguridad (Anti-Hack) para activar tu material de refuerzo.</p>
-                
+                <h2 class="text-3xl font-black text-white mb-4 italic uppercase">Portal Premium</h2>
+                <p class="text-slate-400 mb-10 text-sm italic">Ingresa tu PIN de 5 partes para activar tu material.</p>
                 <div class="max-w-xs mx-auto">
                     <input type="text" id="pin-input" placeholder="PRO-00000000-XXX-0000-XXXX" 
-                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-xl md:text-2xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
+                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
                     <button onclick="verifyPin()" class="w-full bg-traffic-yellow text-black font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] transition-all uppercase italic">Activar Mi Acceso</button>
                     <p id="error-msg" class="text-red-500 text-[10px] mt-6 font-bold hidden uppercase tracking-widest italic"></p>
                 </div>
             </div>
 
-            <!-- Portal de Estudio Revealed -->
+            <!-- Portal de Estudio -->
             <div id="premium-portal" class="hidden animate-in fade-in zoom-in duration-700">
-                
-                <div class="flex flex-col md:flex-row justify-between items-center mb-10 bg-slate-800 p-8 rounded-[2.5rem] border border-slate-700 gap-6">
-                    <div class="text-center md:text-left">
-                        <div class="flex items-center gap-2 mb-1 justify-center md:justify-start">
-                            <span id="badge-tipo" class="bg-black text-traffic-yellow text-[9px] font-black px-2 py-0.5 rounded uppercase italic"></span>
-                            <h3 class="text-white font-black text-2xl italic uppercase tracking-tight leading-none">Mi Plan de Refuerzo</h3>
-                        </div>
-                        <p id="expiry-label" class="text-slate-400 text-[10px] font-bold uppercase tracking-widest italic"></p>
+                <div class="flex flex-col md:flex-row justify-between items-center mb-10 bg-slate-800 p-8 rounded-[2.5rem] border border-slate-700 gap-6 text-white">
+                    <div>
+                        <span id="badge-tipo" class="bg-black text-traffic-yellow text-[9px] font-black px-2 py-0.5 rounded uppercase italic mb-1 inline-block"></span>
+                        <h3 class="font-black text-2xl italic uppercase tracking-tight">Mi Material Maestro</h3>
+                        <p id="expiry-label" class="text-slate-400 text-[10px] font-bold uppercase tracking-widest italic mt-1"></p>
                     </div>
-                    <div class="bg-black text-white px-8 py-4 rounded-[1.5rem] text-center min-w-[150px] border-b-4 border-traffic-yellow shadow-inner">
+                    <div class="bg-black px-8 py-4 rounded-[1.5rem] text-center min-w-[150px] border-b-4 border-traffic-yellow">
                         <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1">Fichas Dominadas</p>
-                        <p id="prog-val" class="text-3xl font-black text-traffic-yellow leading-none">0 / 65</p>
+                        <p id="prog-val" class="text-3xl font-black text-traffic-yellow">0 / 65</p>
                     </div>
                 </div>
 
-                <!-- Tabs (Orden Lógico) -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
-                    <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
-                        <i data-lucide="book-open" class="w-6 h-6"></i>
-                        <span class="text-[10px] font-black uppercase italic tracking-tighter text-center leading-tight">1. Resumen<br>Lectura rápida</span>
-                    </button>
-                    <button onclick="showModule('video')" id="tab-video" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
-                        <i data-lucide="play-circle" class="w-6 h-6"></i>
-                        <span class="text-[10px] font-black uppercase italic tracking-tighter text-center leading-tight">2. Video<br>Explicación</span>
-                    </button>
-                    <button onclick="showModule('fichas')" id="tab-fichas" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
-                        <i data-lucide="layers" class="w-6 h-6"></i>
-                        <span class="text-[10px] font-black uppercase italic tracking-tighter text-center leading-tight">3. Fichas<br>Memorización</span>
-                    </button>
-                    <button onclick="showModule('simulador')" id="tab-simulador" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
-                        <i data-lucide="zap" class="w-6 h-6"></i>
-                        <span class="text-[10px] font-black uppercase italic tracking-tighter text-center leading-tight">4. Simulador<br>Validación</span>
-                    </button>
+                <!-- Tabs -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 text-center">
+                    <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="book-open"></i><span class="text-[10px] font-black uppercase italic leading-tight">1. Resumen</span></button>
+                    <button onclick="showModule('video')" id="tab-video" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="play-circle"></i><span class="text-[10px] font-black uppercase italic leading-tight">2. Video</span></button>
+                    <button onclick="showModule('fichas')" id="tab-fichas" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="layers"></i><span class="text-[10px] font-black uppercase italic leading-tight">3. Fichas</span></button>
+                    <button onclick="showModule('simulador')" id="tab-simulador" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="zap"></i><span class="text-[10px] font-black uppercase italic leading-tight">4. Simulador</span></button>
                 </div>
 
-                <!-- Contenedor del Material -->
                 <div id="material-viewer" class="bg-white rounded-[3rem] p-6 md:p-10 min-h-[500px] shadow-2xl relative overflow-hidden">
-                    
-                    <!-- 1. Resumen -->
                     <div id="mod-resumen" class="module-content hidden text-center py-16">
-                        <div class="bg-blue-50 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 text-blue-600"><i data-lucide="file-text" class="w-12 h-12"></i></div>
-                        <h4 class="text-3xl font-black text-slate-900 uppercase italic mb-4 tracking-tighter">Guía Estratégica 2026</h4>
-                        <p class="text-slate-500 mb-10 max-w-md mx-auto italic text-sm">Este material sintetiza los pilares de la Ley 9078 para un aprendizaje eficiente.</p>
-                        <button class="bg-black text-white font-black py-5 px-12 rounded-2xl shadow-xl flex items-center gap-4 mx-auto hover:scale-105 transition-transform">DESCARGAR PDF</button>
+                        <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i>
+                        <h4 class="text-3xl font-black uppercase italic mb-4">Guía Estratégica 2026</h4>
+                        <p class="text-slate-500 mb-10 max-w-md mx-auto italic">Resumen de los pilares fundamentales de la Ley de Tránsito.</p>
+                        <button class="bg-black text-white font-black py-5 px-12 rounded-2xl">DESCARGAR PDF</button>
                     </div>
-
-                    <!-- 2. Video -->
                     <div id="mod-video" class="module-content hidden text-center py-16">
-                        <div class="aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-gray-100 flex items-center justify-center">
-                            <p class="text-gray-600 italic text-sm">El material audiovisual se habilitará próximamente.</p>
-                        </div>
+                        <div class="aspect-video bg-black rounded-[2.5rem] flex items-center justify-center"><p class="text-gray-600 italic">Cargando video clases...</p></div>
                     </div>
-
-                    <!-- 3. Fichas -->
-                    <div id="mod-fichas" class="module-content hidden">
-                        <div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-                    </div>
-
-                    <!-- 4. Simulador -->
+                    <div id="mod-fichas" class="module-content hidden"><div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div></div>
                     <div id="mod-simulador" class="module-content hidden">
                         <div id="quiz-intro" class="text-center py-16">
                             <i data-lucide="award" class="text-orange-500 w-16 h-16 mx-auto mb-6"></i>
-                            <h4 class="text-3xl font-black text-slate-900 uppercase italic mb-4 tracking-tighter">Simulador Pro</h4>
-                            <p class="text-slate-500 mb-10 max-w-md mx-auto italic text-sm">15 preguntas aleatorias. Necesitas 80 para aprobar.</p>
-                            <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic">Empezar Evaluación</button>
+                            <h4 class="text-3xl font-black uppercase italic mb-4">Simulador Pro</h4>
+                            <p class="text-slate-500 mb-10 italic">15 preguntas aleatorias. Necesitas 80% para aprobar.</p>
+                            <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic">Empezar Examen</button>
                         </div>
-
                         <div id="quiz-play" class="hidden">
-                            <div class="flex justify-between items-center mb-8 border-b pb-4">
-                                <span class="text-xs font-black text-slate-400 uppercase">Pregunta <span id="q-num">1</span> de 15</span>
-                                <span class="text-[10px] font-black uppercase text-orange-500 italic">Cronómetro Activo</span>
-                            </div>
-                            <h5 id="q-text" class="text-xl md:text-2xl font-black text-slate-900 mb-8 italic"></h5>
+                            <div class="flex justify-between items-center mb-8 border-b pb-4"><span class="text-xs font-black text-slate-400 uppercase">Pregunta <span id="q-num">1</span> de 15</span></div>
+                            <h5 id="q-text" class="text-xl md:text-2xl font-black text-slate-900 mb-8 italic leading-tight"></h5>
                             <div id="q-options" class="space-y-3"></div>
-                            <div class="mt-12 flex justify-end">
-                                <button id="q-next" onclick="nextQuestion()" disabled class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 cursor-not-allowed">Siguiente</button>
-                            </div>
+                            <div class="mt-12 flex justify-end"><button id="q-next" onclick="nextQuestion()" disabled class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50">Siguiente</button></div>
                         </div>
-
                         <div id="quiz-result" class="hidden text-center py-16">
                             <div id="res-icon" class="w-24 h-24 rounded-full mx-auto mb-8 flex items-center justify-center"></div>
-                            <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2 tracking-tighter"></h4>
+                            <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2"></h4>
                             <div class="text-6xl font-black text-slate-900 mb-12 italic" id="res-score">0</div>
-                            <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic shadow-lg">Intentar de nuevo</button>
+                            <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic">Intentar de nuevo</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="mt-20 text-center pb-20"><button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] border-b border-slate-700 pb-2 transition-colors">Cerrar Sesión Segura</button></div>
+                <div class="mt-20 text-center pb-20"><button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] border-b border-slate-700 pb-2">Cerrar Sesión</button></div>
             </div>
         </div>
     </section>
 
-    <!-- 5. LEGAL -->
-    <footer class="bg-black text-slate-600 pt-20 pb-10 px-6 border-t border-slate-900">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-12 mb-20">
-                <div>
-                    <h2 class="text-white font-black text-lg uppercase tracking-tight mb-6">TEÓRICO PRO CR</h2>
-                    <p class="text-[11px] leading-relaxed italic">Plataforma educativa independiente. Nuestra misión es el refuerzo académico mediante técnicas de aprendizaje modernas y actualizadas.</p>
-                </div>
-                <div>
-                    <h5 class="text-white text-xs font-black uppercase mb-6 tracking-widest italic underline decoration-traffic-yellow underline-offset-4">Legal</h5>
-                    <ul class="space-y-4 text-[10px] font-bold uppercase tracking-widest">
-                        <li><button onclick="openLegal('terminos')" class="hover:text-white transition-colors">Términos de Uso</button></li>
-                        <li><button onclick="openLegal('propiedad')" class="hover:text-white transition-colors">Propiedad Intelectual</button></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="text-white text-xs font-black uppercase mb-6 tracking-widest italic underline decoration-traffic-yellow underline-offset-4">Contacto</h5>
-                    <p class="text-[10px] font-bold uppercase tracking-widest leading-loose">Soporte WhatsApp:<br>8888-0000</p>
-                </div>
-            </div>
-            <div class="text-center pt-10 border-t border-slate-900"><p class="text-[9px] uppercase font-black tracking-[0.5em]">© 2026 Teórico Pro Costa Rica • VIP Access</p></div>
-        </div>
-    </footer>
+    <!-- MODAL PAGO -->
+    <div id="paymentModal" class="modal"><div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow"><button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 p-2"><i data-lucide="x"></i></button><div class="bg-black text-white p-8 text-center"><h3 class="font-black text-2xl italic uppercase tracking-tighter" id="modalTitle"></h3></div><div class="p-10 italic text-center"><p class="text-2xl font-black text-slate-900 mb-6" id="modalPrice"></p><p class="text-xl font-mono text-blue-600 font-black mb-1 bg-blue-50 p-2 rounded">8888-0000</p><p class="text-[9px] text-slate-400 mb-8 uppercase font-bold">Pago vía SINPE Móvil</p><a id="whatsappBtn" href="#" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-black py-5 rounded-2xl shadow-xl uppercase italic">ENVIAR COMPROBANTE</a></div></div></div>
 
-    <!-- MODALES -->
-    <div id="paymentModal" class="modal">
-        <div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 p-2"><i data-lucide="x"></i></button>
-            <div class="bg-black text-white p-8 text-center"><h3 class="font-black text-2xl italic uppercase tracking-tighter" id="modalTitle"></h3><p class="text-[10px] font-bold text-traffic-yellow uppercase tracking-widest mt-2">Entrega Inmediata</p></div>
-            <div class="p-10 italic">
-                <p class="text-2xl font-black text-slate-900 mb-6" id="modalPrice"></p>
-                <p class="text-xl font-mono text-blue-600 font-black mb-1 bg-blue-50 p-2 rounded text-center select-all">8888-0000</p>
-                <p class="text-[9px] text-slate-400 mb-8 uppercase font-bold text-center">A nombre de: [NOMBRE_DATO]</p>
-                <a id="whatsappBtn" href="#" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-black py-5 rounded-2xl shadow-xl uppercase italic">ENVIAR COMPROBANTE</a>
-            </div>
-        </div>
-    </div>
-
-    <div id="legalModal" class="modal overflow-y-auto">
-        <div class="bg-white rounded-[3rem] w-full max-w-2xl p-12 relative shadow-2xl shadow-black/50">
-            <button onclick="closeModal()" class="absolute top-8 right-8 text-gray-400 p-2"><i data-lucide="x"></i></button>
-            <div id="legalContent" class="prose prose-slate max-w-none text-xs leading-relaxed italic text-slate-600"></div>
-        </div>
-    </div>
-
-    <!-- SCRIPTS -->
     <script>
         lucide.createIcons();
 
-        // 1. SEGURIDAD ANTI-HACK (5 PARTES)
-        const SECRET_KEY = "PuraVida2026_Secure_Refuerzo";
+        // 1. BLINDAJE DE SEGURIDAD (Ofuscado)
+        const _s = "UHVyYVZpZGEyMDI2X1NlY3VyZV9SZWZ1ZXJ6bw=="; // Llave disfrazada en Base64
 
-        function generateChecksum(data) {
-            let hash = 0; const str = data + SECRET_KEY;
-            for (let i = 0; i < str.length; i++) { hash = ((hash << 5) - hash) + str.charCodeAt(i); hash |= 0; }
-            return Math.abs(hash).toString(36).toUpperCase().substring(0, 4);
+        function _chk(d) {
+            let h = 0, k = atob(_s); let s = d + k;
+            for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h |= 0; }
+            return Math.abs(h).toString(36).toUpperCase().substring(0, 4);
         }
 
         function verifyPin() {
-            const pin = document.getElementById('pin-input').value.trim().toUpperCase();
-            const parts = pin.split('-');
-            
-            if (parts.length !== 5 || parts[0] !== "PRO") { 
-                showErr("Formato Incorrecto. (PRO-FECHA-INI-CED-SUM)"); return; 
-            }
-
-            const dateStr = parts[1], iniStr = parts[2], cedStr = parts[3], userSum = parts[4];
-            const validSum = generateChecksum(dateStr + iniStr + cedStr);
-
-            if (userSum !== validSum) { showErr("PIN Inválido o Alterado."); return; }
-
-            const expiry = new Date(parseInt(dateStr.substring(0,4)), parseInt(dateStr.substring(4,6))-1, parseInt(dateStr.substring(6,8)), 23, 59, 59);
-            if (isNaN(expiry.getTime())) { showErr("Error en fecha."); return; }
-            if (new Date() > expiry) { showErr("Acceso Expirado el " + expiry.toLocaleDateString()); }
+            const val = document.getElementById('pin-input').value.trim().toUpperCase();
+            const p = val.split('-');
+            if (p.length !== 5 || p[0] !== "PRO") { showErr("PIN Incompleto (PRO-FECHA-INI-CED-SUM)"); return; }
+            if (p[4] !== _chk(p[1] + p[2] + p[3])) { showErr("PIN Alterado o Inválido."); return; }
+            const expiry = new Date(parseInt(p[1].substring(0,4)), parseInt(p[1].substring(4,6))-1, parseInt(p[1].substring(6,8)), 23, 59, 59);
+            if (new Date() > expiry) { showErr("PIN Expirado el " + expiry.toLocaleDateString()); }
             else { unlockPortal(expiry); }
         }
 
@@ -333,7 +220,7 @@
             const diff = Math.ceil(Math.abs(expiry - new Date()) / (1000 * 60 * 60 * 24));
             let type = "Individual"; if (diff <= 2) type = "Prueba"; if (diff > 16) type = "Combo Pro";
             document.getElementById('badge-tipo').innerText = type;
-            document.getElementById('expiry-label').innerText = `Activo por ${diff} días más`;
+            document.getElementById('expiry-label').innerText = `Expira en ${diff} días`;
             showModule('resumen');
             renderFlashcards();
         }
@@ -345,50 +232,41 @@
             document.getElementById('tab-' + modId).classList.add('tab-active');
         }
 
-        // 2. SIMULADOR
+        // SIMULADOR
         const quizBank = [
-            { q: "¿Velocidad mínima en autopista sin señales?", options: ["40 km/h", "50 km/h", "60 km/h"], correct: 1 },
+            { q: "¿Velocidad mínima en autopista si no hay señales?", options: ["40 km/h", "50 km/h", "60 km/h"], correct: 1 },
             { q: "¿Distancia mínima a un hidrante?", options: ["5 metros", "10 metros", "15 metros"], correct: 0 },
             { q: "¿Sanción alcohol delito novato?", options: ["Multa", "Suspensión 1 año", "Nada"], correct: 1 },
-            { q: "¿Límite en zona escolar con niños?", options: ["25 km/h", "30 km/h", "40 km/h"], correct: 0 },
-            { q: "¿Profundidad mínima de llanta?", options: ["1.0mm", "1.6mm", "2.0mm"], correct: 1 },
-            { q: "¿Vigencia licencia con 0 puntos?", options: ["3 años", "6 años", "10 años"], correct: 1 }
+            { q: "¿Lado para caminar en zona rural sin acera?", options: ["Derecho", "Izquierdo", "Medio"], correct: 1 }
         ];
 
-        let qActive = [], qIdx = 0, qScore = 0, qSel = null;
-
+        let qA = [], qI = 0, qS = 0, qSel = null;
         function startQuiz() {
-            qScore = 0; qIdx = 0; qSel = null;
-            qActive = [...quizBank].sort(() => 0.5 - Math.random()).slice(0, 15);
+            qS = 0; qI = 0; qSel = null;
+            qA = [...quizBank].sort(() => 0.5 - Math.random()).slice(0, 15);
             document.getElementById('quiz-intro').classList.add('hidden');
             document.getElementById('quiz-result').classList.add('hidden');
             document.getElementById('quiz-play').classList.remove('hidden');
             renderQ();
         }
-
         function renderQ() {
-            const q = qActive[qIdx];
-            document.getElementById('q-num').innerText = qIdx + 1;
-            document.getElementById('q-text').innerText = q.q;
-            const optDiv = document.getElementById('q-options'); optDiv.innerHTML = '';
+            const q = qA[qI]; document.getElementById('q-num').innerText = qI + 1; document.getElementById('q-text').innerText = q.q;
+            const oD = document.getElementById('q-options'); oD.innerHTML = '';
             q.options.forEach((o, i) => {
                 const b = document.createElement('button'); b.className = 'quiz-option'; b.innerText = o;
-                b.onclick = () => { qSel = i; document.querySelectorAll('.quiz-option').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); document.getElementById('q-next').disabled = false; document.getElementById('q-next').classList.remove('opacity-50','cursor-not-allowed'); };
-                optDiv.appendChild(b);
+                b.onclick = () => { qSel = i; document.querySelectorAll('.quiz-option').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); document.getElementById('q-next').disabled = false; document.getElementById('q-next').classList.remove('opacity-50'); };
+                oD.appendChild(b);
             });
-            document.getElementById('q-next').disabled = true; document.getElementById('q-next').classList.add('opacity-50','cursor-not-allowed');
+            document.getElementById('q-next').disabled = true; document.getElementById('q-next').classList.add('opacity-50');
         }
-
         function nextQuestion() {
-            if (qSel === qActive[qIdx].correct) qScore++;
-            qIdx++;
-            if (qIdx < qActive.length) renderQ(); else finishQuiz();
+            if (qSel === qA[qI].correct) qS++;
+            qI++; if (qI < qA.length) renderQ(); else finishQuiz();
         }
-
         function finishQuiz() {
             document.getElementById('quiz-play').classList.add('hidden');
             document.getElementById('quiz-result').classList.remove('hidden');
-            const score = Math.round((qScore / qActive.length) * 100);
+            const score = Math.round((qS / qA.length) * 100);
             document.getElementById('res-score').innerText = score + "%";
             const s = document.getElementById('res-status'), i = document.getElementById('res-icon');
             if (score >= 80) { s.innerText = "¡APROBADO!"; s.className = "text-4xl font-black text-green-600 italic"; i.className = "w-24 h-24 rounded-full mx-auto mb-8 bg-green-100 text-green-600 flex items-center justify-center"; i.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>'; }
@@ -396,20 +274,19 @@
             lucide.createIcons();
         }
 
-        // 3. FLASHCARDS
-        const flashData = [{q:"¿Año 1er auto en SJ?", a:"1912"}, {q:"¿Ley vigente?", a:"Ley 9078"}, {q:"Factor más importante?", a:"Humano"}, {q:"Vía Urbana consta de:", a:"Acera, calzada, caño, borde"}];
+        // FLASHCARDS
+        const fD = [{q:"¿Año 1er auto en Costa Rica?", a:"1912"}, {q:"¿Ley de Tránsito vigente?", a:"Ley 9078"}];
         function renderFlashcards() {
             const g = document.getElementById('flashcards-grid'); g.innerHTML = '';
-            flashData.forEach((d,i) => {
+            fD.forEach((d,i) => {
                 const c = document.createElement('div'); c.className = 'flashcard';
-                c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped'); document.getElementById('prog-val').innerText = 'Dinamizando...';"><div class="flashcard-front"><p class="text-[11px] font-bold px-2">${d.q}</p></div><div class="flashcard-back"><p class="leading-tight px-2 italic">"${d.a}"</p></div></div>`;
+                c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');"><div class="flashcard-front"><p class="text-xs font-bold px-2">${d.q}</p></div><div class="flashcard-back"><p class="italic text-sm px-2">"${d.a}"</p></div></div>`;
                 g.appendChild(c);
             });
         }
 
-        // 4. UTILS
         function openPaymentModal(p) { document.getElementById('modalTitle').innerText = p; document.getElementById('modalPrice').innerText = p.includes('Combo') ? '₡6,000' : '₡4,500'; document.getElementById('paymentModal').style.display = 'flex'; }
-        function openLegal(t) { document.getElementById('legalModal').style.display = 'flex'; document.getElementById('legalContent').innerHTML = t === 'terminos' ? '<h2>Términos de Uso</h2><p>Contenido educativo personal e intransferible. El código PIN tiene validez temporal según el plan adquirido.</p>' : '<h2>Propiedad Intelectual</h2><p>Todo el contenido visual, resúmenes y preguntas son propiedad exclusiva de Teórico Pro CR 2026. Prohibida su reventa.</p>'; }
+        function openLegal(t) { alert(t === 'terminos' ? 'Términos: Acceso personal educativo.' : 'Propiedad: Contenido protegido 2026.'); }
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
         function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
         window.onclick = function(e) { if(e.target.className.includes('modal')) closeModal(); }
