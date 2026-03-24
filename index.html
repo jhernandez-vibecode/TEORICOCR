@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teórico Pro CR - Refuerzo Educativo 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .bg-traffic-yellow { background-color: #FFD700; }
         .text-traffic-yellow { color: #FFD700; }
         .hero-gradient { background: linear-gradient(180deg, #1a1a1a 0%, #333333 100%); }
-        
-        /* Flashcards */
+
         .flashcard { perspective: 1000px; height: 160px; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
@@ -21,30 +20,32 @@
         .flashcard-front { background-color: white; border: 2px solid #f1f5f9; color: #1e293b; font-weight: 600; }
         .flashcard-back { background-color: #FFD700; color: black; transform: rotateY(180deg); font-weight: 800; font-size: 0.85rem; }
 
-        .tab-active { @apply border-[#FFD700] text-white bg-slate-800 shadow-lg; }
-        
+        .tab-active { border-color: #FFD700; color: white; background-color: #1e293b; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-infinite-scroll { display: flex; width: 200%; animation: scroll 25s linear infinite; }
-        
-        .modal { 
-            display: none; 
-            position: fixed; 
-            z-index: 100; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0,0,0,0.9); 
-            backdrop-filter: blur(8px); 
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
         }
 
         .quiz-option {
-            @apply w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-[#FFD700] hover:bg-yellow-50 transition-all font-medium text-slate-700 mb-3 block;
+            width: 100%; text-align: left; padding: 1rem; border-radius: 1rem;
+            border: 2px solid #f1f5f9; cursor: pointer; font-weight: 500;
+            color: #334155; margin-bottom: 0.75rem; display: block;
+            transition: all 0.2s; background: white;
         }
-        .quiz-option.selected { @apply border-[#FFD700] bg-yellow-50 font-bold; }
+        .quiz-option:hover { border-color: #FFD700; background: #fefce8; }
+        .quiz-option.selected { border-color: #FFD700; background: #fefce8; font-weight: 700; }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
@@ -81,9 +82,13 @@
             </div>
         </section>
 
-        <!-- Cinta Pruebas -->
+        <!-- Cinta -->
         <div class="bg-traffic-yellow py-3 overflow-hidden border-y-2 border-black">
             <div class="animate-infinite-scroll font-bold text-black uppercase text-[10px]">
+                <span class="mx-8">⭐ MATERIAL DE REFUERZO MARZO 2026</span>
+                <span class="mx-8">⭐ METODOLOGÍA DE APRENDIZAJE ACELERADO</span>
+                <span class="mx-8">⭐ EXÁMENES DIFERENCIADOS CARRO/MOTO</span>
+                <span class="mx-8">⭐ +1,500 APROBADOS ESTE MES</span>
                 <span class="mx-8">⭐ MATERIAL DE REFUERZO MARZO 2026</span>
                 <span class="mx-8">⭐ METODOLOGÍA DE APRENDIZAJE ACELERADO</span>
                 <span class="mx-8">⭐ EXÁMENES DIFERENCIADOS CARRO/MOTO</span>
@@ -95,17 +100,21 @@
         <section id="categorias" class="py-24 px-6 max-w-6xl mx-auto">
             <h2 class="text-4xl font-black text-center mb-16 italic uppercase">¿Qué licencia vas a obtener?</h2>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
-                    <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-blue-600"><i data-lucide="car" class="w-10 h-10"></i></div>
+                <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm">
+                    <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-blue-600">
+                        <i data-lucide="car" class="w-10 h-10"></i>
+                    </div>
                     <h3 class="text-2xl font-bold mb-4 italic">Refuerzo B1 (Carro)</h3>
                     <div class="text-5xl font-black mb-8 italic">₡4,500</div>
-                    <button onclick="openPaymentModal('Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
+                    <button onclick="openPaymentModal('Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest hover:bg-gray-800 transition-all">Obtener 15 Días</button>
                 </div>
-                <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
-                    <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-orange-600"><i data-lucide="bike" class="w-10 h-10"></i></div>
-                    <h3 class="text-2xl font-bold mb-4 italic text-black">Refuerzo Moto (A1-A3)</h3>
-                    <div class="text-5xl font-black mb-8 italic text-black">₡4,500</div>
-                    <button onclick="openPaymentModal('Moto (A1-A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
+                <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm">
+                    <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-orange-600">
+                        <i data-lucide="bike" class="w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 italic">Refuerzo Moto (A1-A3)</h3>
+                    <div class="text-5xl font-black mb-8 italic">₡4,500</div>
+                    <button onclick="openPaymentModal('Moto (A1-A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest hover:bg-gray-800 transition-all">Obtener 15 Días</button>
                 </div>
             </div>
         </section>
@@ -114,6 +123,8 @@
     <!-- ÁREA DE CLIENTES -->
     <section id="estudio" class="py-24 px-4 bg-slate-900 min-h-screen border-t-8 border-traffic-yellow">
         <div class="max-w-5xl mx-auto">
+
+            <!-- Pantalla de login -->
             <div id="lock-screen" class="text-center py-16">
                 <div class="bg-slate-800 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-traffic-yellow shadow-2xl">
                     <i data-lucide="lock" class="text-traffic-yellow w-10 h-10"></i>
@@ -121,15 +132,19 @@
                 <h2 class="text-3xl font-black text-white mb-4 italic uppercase">Portal Premium</h2>
                 <p class="text-slate-400 mb-10 text-sm italic">Ingresa tu PIN de 5 partes para activar tu material.</p>
                 <div class="max-w-xs mx-auto">
-                    <input type="text" id="pin-input" placeholder="PRO-00000000-XXX-0000-XXXX" 
-                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
-                    <button onclick="verifyPin()" class="w-full bg-traffic-yellow text-black font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] transition-all uppercase italic">Activar Mi Acceso</button>
-                    <p id="error-msg" class="text-red-500 text-[10px] mt-6 font-bold hidden uppercase tracking-widest italic"></p>
+                    <input type="text" id="pin-input"
+                           placeholder="PRO-00000000-XXX-0000-XXXX"
+                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-lg font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest"
+                           onkeydown="if(event.key==='Enter') verifyPin()">
+                    <button onclick="verifyPin()" class="w-full bg-traffic-yellow text-black font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] transition-all uppercase italic">
+                        Activar Mi Acceso
+                    </button>
+                    <p id="error-msg" class="text-red-400 text-[10px] mt-6 font-bold hidden uppercase tracking-widest italic"></p>
                 </div>
             </div>
 
-            <!-- Portal de Estudio -->
-            <div id="premium-portal" class="hidden animate-in fade-in zoom-in duration-700">
+            <!-- Portal de estudio -->
+            <div id="premium-portal" class="hidden">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-10 bg-slate-800 p-8 rounded-[2.5rem] border border-slate-700 gap-6 text-white">
                     <div>
                         <span id="badge-tipo" class="bg-black text-traffic-yellow text-[9px] font-black px-2 py-0.5 rounded uppercase italic mb-1 inline-block"></span>
@@ -144,152 +159,341 @@
 
                 <!-- Tabs -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 text-center">
-                    <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="book-open"></i><span class="text-[10px] font-black uppercase italic leading-tight">1. Resumen</span></button>
-                    <button onclick="showModule('video')" id="tab-video" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="play-circle"></i><span class="text-[10px] font-black uppercase italic leading-tight">2. Video</span></button>
-                    <button onclick="showModule('fichas')" id="tab-fichas" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="layers"></i><span class="text-[10px] font-black uppercase italic leading-tight">3. Fichas</span></button>
-                    <button onclick="showModule('simulador')" id="tab-simulador" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="zap"></i><span class="text-[10px] font-black uppercase italic leading-tight">4. Simulador</span></button>
+                    <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
+                        <i data-lucide="book-open"></i><span class="text-[10px] font-black uppercase italic leading-tight">1. Resumen</span>
+                    </button>
+                    <button onclick="showModule('video')" id="tab-video" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
+                        <i data-lucide="play-circle"></i><span class="text-[10px] font-black uppercase italic leading-tight">2. Video</span>
+                    </button>
+                    <button onclick="showModule('fichas')" id="tab-fichas" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
+                        <i data-lucide="layers"></i><span class="text-[10px] font-black uppercase italic leading-tight">3. Fichas</span>
+                    </button>
+                    <button onclick="showModule('simulador')" id="tab-simulador" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all">
+                        <i data-lucide="zap"></i><span class="text-[10px] font-black uppercase italic leading-tight">4. Simulador</span>
+                    </button>
                 </div>
 
-                <div id="material-viewer" class="bg-white rounded-[3rem] p-6 md:p-10 min-h-[500px] shadow-2xl relative overflow-hidden">
+                <div id="material-viewer" class="bg-white rounded-[3rem] p-6 md:p-10 min-h-[500px] shadow-2xl">
+
+                    <!-- Módulo Resumen -->
                     <div id="mod-resumen" class="module-content hidden text-center py-16">
                         <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i>
                         <h4 class="text-3xl font-black uppercase italic mb-4">Guía Estratégica 2026</h4>
                         <p class="text-slate-500 mb-10 max-w-md mx-auto italic">Resumen de los pilares fundamentales de la Ley de Tránsito.</p>
-                        <button class="bg-black text-white font-black py-5 px-12 rounded-2xl">DESCARGAR PDF</button>
+                        <button class="bg-black text-white font-black py-5 px-12 rounded-2xl hover:bg-gray-800 transition-all">DESCARGAR PDF</button>
                     </div>
+
+                    <!-- Módulo Video -->
                     <div id="mod-video" class="module-content hidden text-center py-16">
-                        <div class="aspect-video bg-black rounded-[2.5rem] flex items-center justify-center"><p class="text-gray-600 italic">Cargando video clases...</p></div>
+                        <div class="aspect-video bg-black rounded-[2.5rem] flex items-center justify-center">
+                            <p class="text-gray-500 italic text-sm">Cargando video clases...</p>
+                        </div>
                     </div>
-                    <div id="mod-fichas" class="module-content hidden"><div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div></div>
+
+                    <!-- Módulo Fichas -->
+                    <div id="mod-fichas" class="module-content hidden">
+                        <div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+                    </div>
+
+                    <!-- Módulo Simulador -->
                     <div id="mod-simulador" class="module-content hidden">
                         <div id="quiz-intro" class="text-center py-16">
                             <i data-lucide="award" class="text-orange-500 w-16 h-16 mx-auto mb-6"></i>
                             <h4 class="text-3xl font-black uppercase italic mb-4">Simulador Pro</h4>
                             <p class="text-slate-500 mb-10 italic">15 preguntas aleatorias. Necesitas 80% para aprobar.</p>
-                            <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic">Empezar Examen</button>
+                            <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic hover:bg-orange-700 transition-all">Empezar Examen</button>
                         </div>
                         <div id="quiz-play" class="hidden">
-                            <div class="flex justify-between items-center mb-8 border-b pb-4"><span class="text-xs font-black text-slate-400 uppercase">Pregunta <span id="q-num">1</span> de 15</span></div>
+                            <div class="flex justify-between items-center mb-8 border-b pb-4">
+                                <span class="text-xs font-black text-slate-400 uppercase">Pregunta <span id="q-num">1</span> de 15</span>
+                            </div>
                             <h5 id="q-text" class="text-xl md:text-2xl font-black text-slate-900 mb-8 italic leading-tight"></h5>
-                            <div id="q-options" class="space-y-3"></div>
-                            <div class="mt-12 flex justify-end"><button id="q-next" onclick="nextQuestion()" disabled class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50">Siguiente</button></div>
+                            <div id="q-options"></div>
+                            <div class="mt-12 flex justify-end">
+                                <button id="q-next" onclick="nextQuestion()" disabled class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 transition-all">Siguiente</button>
+                            </div>
                         </div>
                         <div id="quiz-result" class="hidden text-center py-16">
                             <div id="res-icon" class="w-24 h-24 rounded-full mx-auto mb-8 flex items-center justify-center"></div>
                             <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2"></h4>
-                            <div class="text-6xl font-black text-slate-900 mb-12 italic" id="res-score">0</div>
-                            <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic">Intentar de nuevo</button>
+                            <div class="text-6xl font-black text-slate-900 mb-12 italic" id="res-score"></div>
+                            <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic hover:bg-gray-800 transition-all">Intentar de nuevo</button>
                         </div>
                     </div>
                 </div>
-                <div class="mt-20 text-center pb-20"><button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] border-b border-slate-700 pb-2">Cerrar Sesión</button></div>
+
+                <div class="mt-20 text-center pb-20">
+                    <button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] border-b border-slate-700 pb-2 transition-colors">
+                        Cerrar Sesión
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- MODAL PAGO -->
-    <div id="paymentModal" class="modal"><div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow"><button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 p-2"><i data-lucide="x"></i></button><div class="bg-black text-white p-8 text-center"><h3 class="font-black text-2xl italic uppercase tracking-tighter" id="modalTitle"></h3></div><div class="p-10 italic text-center"><p class="text-2xl font-black text-slate-900 mb-6" id="modalPrice"></p><p class="text-xl font-mono text-blue-600 font-black mb-1 bg-blue-50 p-2 rounded">8888-0000</p><p class="text-[9px] text-slate-400 mb-8 uppercase font-bold">Pago vía SINPE Móvil</p><a id="whatsappBtn" href="#" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-black py-5 rounded-2xl shadow-xl uppercase italic">ENVIAR COMPROBANTE</a></div></div></div>
+    <div id="paymentModal" class="modal">
+        <div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 p-2 hover:text-gray-700">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="bg-black text-white p-8 text-center">
+                <h3 class="font-black text-2xl italic uppercase tracking-tighter" id="modalTitle"></h3>
+            </div>
+            <div class="p-10 italic text-center">
+                <p class="text-2xl font-black text-slate-900 mb-6" id="modalPrice"></p>
+                <p class="text-xl font-mono text-blue-600 font-black mb-1 bg-blue-50 p-2 rounded">8888-0000</p>
+                <p class="text-[9px] text-slate-400 mb-8 uppercase font-bold">Pago vía SINPE Móvil</p>
+                <a id="whatsappBtn" href="#" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-black py-5 rounded-2xl shadow-xl uppercase italic hover:bg-green-500 transition-all">
+                    ENVIAR COMPROBANTE
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        lucide.createIcons();
+<script>
+window.addEventListener('load', function(){ lucide.createIcons(); });
 
-        // 1. BLINDAJE DE SEGURIDAD (Ofuscado)
-        const _s = "UHVyYVZpZGEyMDI2X1NlY3VyZV9SZWZ1ZXJ6bw=="; // Llave disfrazada en Base64
+// =====================================================================
+// SISTEMA DE VALIDACIÓN — sincronizado con admin_generador.html
+// =====================================================================
 
-        function _chk(d) {
-            let h = 0, k = atob(_s); let s = d + k;
-            for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h |= 0; }
-            return Math.abs(h).toString(36).toUpperCase().substring(0, 4);
-        }
+// Señuelo A — variable falsa que distrae
+var _rx = (function(){ var _a=[]; _a[0]=0x1; _a[1]=0x2; return _a; })();
+var _decoyStr = "\x61\x75\x74\x68\x5f\x74\x6f\x6b\x65\x6e"; // "auth_token" — señuelo
 
-        function verifyPin() {
-            const val = document.getElementById('pin-input').value.trim().toUpperCase();
-            const p = val.split('-');
-            if (p.length !== 5 || p[0] !== "PRO") { showErr("PIN Incompleto (PRO-FECHA-INI-CED-SUM)"); return; }
-            if (p[4] !== _chk(p[1] + p[2] + p[3])) { showErr("PIN Alterado o Inválido."); return; }
-            const expiry = new Date(parseInt(p[1].substring(0,4)), parseInt(p[1].substring(4,6))-1, parseInt(p[1].substring(6,8)), 23, 59, 59);
-            if (new Date() > expiry) { showErr("PIN Expirado el " + expiry.toLocaleDateString()); }
-            else { unlockPortal(expiry); }
-        }
+// Llave partida en 7 fragmentos (mismos que admin_generador.html)
+// Orden aparente en el código ≠ orden real de ensamblaje
+var _k0 = atob("\x56\x6d\x6c\x6b\x59\x51\x3d\x3d"); // B → Vida
+var _k1 = atob("\x55\x48\x56\x79\x59\x51\x3d\x3d"); // A → Pura
+var _k2 = atob("\x64\x58\x4a\x6c\x58\x77\x3d\x3d"); // E → ure_
+var _k3 = atob("\x58\x31\x4e\x6c\x59\x77\x3d\x3d"); // D → _Sec
+var _k4 = atob("\x55\x6d\x56\x6d\x64\x51\x3d\x3d"); // F → Refu
+var _k5 = atob("\x4d\x6a\x41\x79\x4e\x67\x3d\x3d"); // C → 2026
+var _k6 = atob("\x5a\x58\x4a\x36\x62\x77\x3d\x3d"); // G → erzo
 
-        function showErr(m) { const e = document.getElementById('error-msg'); e.innerText = m; e.classList.remove('hidden'); }
+// Señuelo B — operación falsa que parece importante
+var _noiseVal = 0xDEAD;
+var _fakeOp = function(z){ return z ^ 0xFF; };
 
-        function unlockPortal(expiry) {
-            document.getElementById('lock-screen').classList.add('hidden');
-            document.getElementById('premium-portal').classList.remove('hidden');
-            const diff = Math.ceil(Math.abs(expiry - new Date()) / (1000 * 60 * 60 * 24));
-            let type = "Individual"; if (diff <= 2) type = "Prueba"; if (diff > 16) type = "Combo Pro";
-            document.getElementById('badge-tipo').innerText = type;
-            document.getElementById('expiry-label').innerText = `Expira en ${diff} días`;
-            showModule('resumen');
-            renderFlashcards();
-        }
+// Ensamblaje de llave en tiempo de ejecución (orden real: A+B+C+D+E+F+G = 1+0+5+3+2+4+6)
+var _assembleKey = function() {
+    var _ghost = _k2 + _k0; // combinación falsa señuelo
+    var _ghost2 = _k6 + _k3; // combinación falsa señuelo
+    return _k1 + _k0 + _k5 + _k3 + _k2 + _k4 + _k6;
+};
 
-        function showModule(modId) {
-            document.querySelectorAll('.module-content').forEach(m => m.classList.add('hidden'));
-            document.querySelectorAll('.module-tab').forEach(t => t.classList.remove('tab-active'));
-            document.getElementById('mod-' + modId).classList.remove('hidden');
-            document.getElementById('tab-' + modId).classList.add('tab-active');
-        }
+// Función de firma — idéntica al admin
+var _computeHash = function(_d) {
+    var _hv = 0;
+    var _ky = _assembleKey();
+    var _combined = _d + _ky;
+    var _noise = 0xBEEF; // señuelo
+    for (var _i = 0; _i < _combined['\x6c\x65\x6e\x67\x74\x68']; _i++) {
+        _hv = ((_hv << 5) - _hv) + _combined['\x63\x68\x61\x72\x43\x6f\x64\x65\x41\x74'](_i);
+        _hv |= 0;
+        _noise = (_noise + _i) & 0xFFFF; // señuelo
+    }
+    return Math['\x61\x62\x73'](_hv)['\x74\x6f\x53\x74\x72\x69\x6e\x67'](36)['\x74\x6f\x55\x70\x70\x65\x72\x43\x61\x73\x65']()['\x73\x75\x62\x73\x74\x72\x69\x6e\x67'](0, 4);
+};
 
-        // SIMULADOR
-        const quizBank = [
-            { q: "¿Velocidad mínima en autopista si no hay señales?", options: ["40 km/h", "50 km/h", "60 km/h"], correct: 1 },
-            { q: "¿Distancia mínima a un hidrante?", options: ["5 metros", "10 metros", "15 metros"], correct: 0 },
-            { q: "¿Sanción alcohol delito novato?", options: ["Multa", "Suspensión 1 año", "Nada"], correct: 1 },
-            { q: "¿Lado para caminar en zona rural sin acera?", options: ["Derecho", "Izquierdo", "Medio"], correct: 1 }
-        ];
+// =====================================================================
+// VALIDACIÓN DE PIN
+// =====================================================================
+function verifyPin() {
+    var _val = document.getElementById('\x70\x69\x6e\x2d\x69\x6e\x70\x75\x74').value.trim().toUpperCase();
+    var _p   = _val.split('\x2d'); // split por '-'
 
-        let qA = [], qI = 0, qS = 0, qSel = null;
-        function startQuiz() {
-            qS = 0; qI = 0; qSel = null;
-            qA = [...quizBank].sort(() => 0.5 - Math.random()).slice(0, 15);
-            document.getElementById('quiz-intro').classList.add('hidden');
-            document.getElementById('quiz-result').classList.add('hidden');
-            document.getElementById('quiz-play').classList.remove('hidden');
-            renderQ();
-        }
-        function renderQ() {
-            const q = qA[qI]; document.getElementById('q-num').innerText = qI + 1; document.getElementById('q-text').innerText = q.q;
-            const oD = document.getElementById('q-options'); oD.innerHTML = '';
-            q.options.forEach((o, i) => {
-                const b = document.createElement('button'); b.className = 'quiz-option'; b.innerText = o;
-                b.onclick = () => { qSel = i; document.querySelectorAll('.quiz-option').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); document.getElementById('q-next').disabled = false; document.getElementById('q-next').classList.remove('opacity-50'); };
-                oD.appendChild(b);
-            });
-            document.getElementById('q-next').disabled = true; document.getElementById('q-next').classList.add('opacity-50');
-        }
-        function nextQuestion() {
-            if (qSel === qA[qI].correct) qS++;
-            qI++; if (qI < qA.length) renderQ(); else finishQuiz();
-        }
-        function finishQuiz() {
-            document.getElementById('quiz-play').classList.add('hidden');
-            document.getElementById('quiz-result').classList.remove('hidden');
-            const score = Math.round((qS / qA.length) * 100);
-            document.getElementById('res-score').innerText = score + "%";
-            const s = document.getElementById('res-status'), i = document.getElementById('res-icon');
-            if (score >= 80) { s.innerText = "¡APROBADO!"; s.className = "text-4xl font-black text-green-600 italic"; i.className = "w-24 h-24 rounded-full mx-auto mb-8 bg-green-100 text-green-600 flex items-center justify-center"; i.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>'; }
-            else { s.innerText = "REPROBADO"; s.className = "text-4xl font-black text-red-600 italic"; i.className = "w-24 h-24 rounded-full mx-auto mb-8 bg-red-100 text-red-600 flex items-center justify-center"; i.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>'; }
-            lucide.createIcons();
-        }
+    // Estructura: PRO-YYYYMMDD-INI-CED-HASH (5 partes)
+    if (_p.length !== 5 || _p[0] !== '\x50\x52\x4f') {
+        showErr('\x50\x49\x4e\x20\x49\x6e\x63\x6f\x6d\x70\x6c\x65\x74\x6f\x20\x28\x50\x52\x4f\x2d\x46\x45\x43\x48\x41\x2d\x49\x4e\x49\x2d\x43\x45\x44\x2d\x53\x55\x4d\x29');
+        return;
+    }
 
-        // FLASHCARDS
-        const fD = [{q:"¿Año 1er auto en Costa Rica?", a:"1912"}, {q:"¿Ley de Tránsito vigente?", a:"Ley 9078"}];
-        function renderFlashcards() {
-            const g = document.getElementById('flashcards-grid'); g.innerHTML = '';
-            fD.forEach((d,i) => {
-                const c = document.createElement('div'); c.className = 'flashcard';
-                c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');"><div class="flashcard-front"><p class="text-xs font-bold px-2">${d.q}</p></div><div class="flashcard-back"><p class="italic text-sm px-2">"${d.a}"</p></div></div>`;
-                g.appendChild(c);
-            });
-        }
+    // Verificar firma
+    var _expectedHash = _computeHash(_p[1] + _p[2] + _p[3]);
+    if (_p[4] !== _expectedHash) {
+        showErr('\x50\x49\x4e\x20\x41\x6c\x74\x65\x72\x61\x64\x6f\x20\x6f\x20\x49\x6e\x76\x61\x6c\x69\x64\x6f\x2e');
+        return;
+    }
 
-        function openPaymentModal(p) { document.getElementById('modalTitle').innerText = p; document.getElementById('modalPrice').innerText = p.includes('Combo') ? '₡6,000' : '₡4,500'; document.getElementById('paymentModal').style.display = 'flex'; }
-        function openLegal(t) { alert(t === 'terminos' ? 'Términos: Acceso personal educativo.' : 'Propiedad: Contenido protegido 2026.'); }
-        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
-        window.onclick = function(e) { if(e.target.className.includes('modal')) closeModal(); }
-    </script>
+    // Verificar expiración
+    var _yr  = parseInt(_p[1].substring(0, 4));
+    var _mo  = parseInt(_p[1].substring(4, 6)) - 1;
+    var _da  = parseInt(_p[1].substring(6, 8));
+    var _exp = new Date(_yr, _mo, _da, 23, 59, 59);
+
+    if (new Date() > _exp) {
+        showErr('PIN Expirado el ' + _exp.toLocaleDateString());
+    } else {
+        unlockPortal(_exp);
+    }
+}
+
+function showErr(m) {
+    var e = document.getElementById('error-msg');
+    e.innerText = m;
+    e.classList.remove('hidden');
+}
+
+function unlockPortal(expiry) {
+    document.getElementById('lock-screen').classList.add('hidden');
+    document.getElementById('premium-portal').classList.remove('hidden');
+    var diff = Math.ceil(Math.abs(expiry - new Date()) / (1000 * 60 * 60 * 24));
+    var type = diff <= 2 ? "Prueba" : diff > 16 ? "Combo Pro" : "Individual";
+    document.getElementById('badge-tipo').innerText = type;
+    document.getElementById('expiry-label').innerText = 'Expira en ' + diff + ' d\xEDas';
+    showModule('resumen');
+    renderFlashcards();
+    window.scrollTo({ top: document.getElementById('estudio').offsetTop, behavior: 'smooth' });
+}
+
+// =====================================================================
+// MÓDULOS DE ESTUDIO
+// =====================================================================
+function showModule(modId) {
+    document.querySelectorAll('.module-content').forEach(function(m){ m.classList.add('hidden'); });
+    document.querySelectorAll('.module-tab').forEach(function(t){ t.classList.remove('tab-active'); });
+    document.getElementById('mod-' + modId).classList.remove('hidden');
+    document.getElementById('tab-' + modId).classList.add('tab-active');
+}
+
+// SIMULADOR
+var quizBank = [
+    { q: "\xBFVelocidad m\xEDnima en autopista si no hay se\xF1ales?", options: ["40 km/h", "50 km/h", "60 km/h"], correct: 1 },
+    { q: "\xBFDistancia m\xEDnima a un hidrante?", options: ["5 metros", "10 metros", "15 metros"], correct: 0 },
+    { q: "\xBFSanci\xF3n alcohol delito novato?", options: ["Multa", "Suspensi\xF3n 1 a\xF1o", "Nada"], correct: 1 },
+    { q: "\xBFLado para caminar en zona rural sin acera?", options: ["Derecho", "Izquierdo", "Medio"], correct: 1 },
+    { q: "\xBFCu\xE1l es la velocidad m\xE1xima en zona urbana?", options: ["40 km/h", "50 km/h", "60 km/h"], correct: 1 },
+    { q: "\xBFQu\xE9 significa una l\xEDnea continua amarilla al centro?", options: ["Se puede adelantar", "Prohibido adelantar", "S\xF3lo de noche"], correct: 1 },
+    { q: "\xBFCu\xE1ntos metros antes se debe indicar el giro?", options: ["15 metros", "30 metros", "50 metros"], correct: 1 },
+    { q: "\xBFQu\xE9 hacer en caso de accidente con heridos?", options: ["Huir", "Llamar al 911", "Esperar al d\xEDa siguiente"], correct: 1 },
+    { q: "\xBFLa luz amarilla del sem\xE1foro indica?", options: ["Acelerar", "Precauci\xF3n, prepararse a detener", "Seguir normal"], correct: 1 },
+    { q: "\xBFCu\xE1l es la distancia de seguridad m\xEDnima entre veh\xEDculos?", options: ["1 segundo", "2 segundos", "3 segundos"], correct: 1 },
+    { q: "\xBFQu\xE9 significa la se\xF1al de PARE?", options: ["Disminuir velocidad", "Detenci\xF3n total obligatoria", "Ceder el paso"], correct: 1 },
+    { q: "\xBFQui\xE9n tiene la prioridad en una rotonda?", options: ["Quien entra", "Quien ya est\xE1 dentro", "Veh\xEDculos m\xE1s grandes"], correct: 1 },
+    { q: "\xBFCu\xE1ndo se usa la luz alta?", options: ["Siempre de noche", "En zonas despobladas sin tr\xE1fico", "En ciudad"], correct: 1 },
+    { q: "\xBFQu\xE9 se debe hacer al ver luz roja parpadeante?", options: ["Parar completamente", "Disminuir velocidad", "Ignorar"], correct: 0 },
+    { q: "\xBFLa licencia B1 permite conducir?", options: ["Motocicletas", "Autom\xF3viles hasta 3.5T", "Camiones pesados"], correct: 1 },
+    { q: "\xBFCu\xE1l es la multa por no usar casco en moto?", options: ["No hay multa", "Multa fija", "Suspensi\xF3n"], correct: 1 },
+    { q: "\xBFQu\xE9 indica una se\xF1al triangular roja?", options: ["Informaci\xF3n", "Peligro o advertencia", "Prohibici\xF3n"], correct: 1 },
+    { q: "\xBFEn qu\xE9 carril se debe circular en autopista?", options: ["El de la derecha", "El del centro", "Cualquiera"], correct: 0 },
+    { q: "\xBFCu\xE1l es la edad m\xEDnima para licencia B1?", options: ["16 a\xF1os", "17 a\xF1os", "18 a\xF1os"], correct: 2 },
+    { q: "\xBFQu\xE9 hacer al acercarse a un paso de ferrocarril?", options: ["Acelerar", "Detenerse y verificar", "Continuar si no hay tren"], correct: 1 }
+];
+
+var qActive = [], qIdx = 0, qScore = 0, qSelected = null;
+
+function startQuiz() {
+    qScore = 0; qIdx = 0; qSelected = null;
+    qActive = quizBank.slice().sort(function(){ return 0.5 - Math.random(); }).slice(0, 15);
+    document.getElementById('quiz-intro').classList.add('hidden');
+    document.getElementById('quiz-result').classList.add('hidden');
+    document.getElementById('quiz-play').classList.remove('hidden');
+    renderQuestion();
+}
+
+function renderQuestion() {
+    var q = qActive[qIdx];
+    document.getElementById('q-num').innerText = qIdx + 1;
+    document.getElementById('q-text').innerText = q.q;
+    var oDiv = document.getElementById('q-options');
+    oDiv.innerHTML = '';
+    q.options.forEach(function(o, i) {
+        var b = document.createElement('button');
+        b.className = 'quiz-option';
+        b.innerText = o;
+        b.onclick = function() {
+            qSelected = i;
+            document.querySelectorAll('.quiz-option').forEach(function(x){ x.classList.remove('selected'); });
+            b.classList.add('selected');
+            var nxt = document.getElementById('q-next');
+            nxt.disabled = false;
+            nxt.classList.remove('opacity-50');
+        };
+        oDiv.appendChild(b);
+    });
+    var nxt = document.getElementById('q-next');
+    nxt.disabled = true;
+    nxt.classList.add('opacity-50');
+}
+
+function nextQuestion() {
+    if (qSelected === qActive[qIdx].correct) qScore++;
+    qIdx++;
+    if (qIdx < qActive.length) renderQuestion();
+    else finishQuiz();
+}
+
+function finishQuiz() {
+    document.getElementById('quiz-play').classList.add('hidden');
+    document.getElementById('quiz-result').classList.remove('hidden');
+    var score = Math.round((qScore / qActive.length) * 100);
+    document.getElementById('res-score').innerText = score + '%';
+    var sEl = document.getElementById('res-status');
+    var iEl = document.getElementById('res-icon');
+    if (score >= 80) {
+        sEl.innerText = '\xA1APROBADO!';
+        sEl.className = 'text-4xl font-black text-green-600 italic';
+        iEl.className = 'w-24 h-24 rounded-full mx-auto mb-8 bg-green-100 text-green-600 flex items-center justify-center';
+        iEl.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>';
+    } else {
+        sEl.innerText = 'REPROBADO';
+        sEl.className = 'text-4xl font-black text-red-600 italic';
+        iEl.className = 'w-24 h-24 rounded-full mx-auto mb-8 bg-red-100 text-red-600 flex items-center justify-center';
+        iEl.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>';
+    }
+    lucide.createIcons();
+}
+
+// FLASHCARDS
+var flashData = [
+    { q: "\xBFA\xF1o del primer auto en Costa Rica?", a: "1912" },
+    { q: "\xBFLey de Tr\xE1nsito vigente?", a: "Ley 9078" },
+    { q: "\xBFVelocidad m\xE1x. zona escolar?", a: "25 km/h" },
+    { q: "\xBFDistancia m\xEDnima a hidrante?", a: "5 metros" },
+    { q: "\xBFAlcohol m\xE1ximo licencia B1?", a: "0.75 g/L" },
+    { q: "\xBFF\xF3rmula distancia de frenado?", a: "v\xB2 / (2 \xD7 \xB5 \xD7 g)" },
+    { q: "\xBFColor se\xF1al PARE?", a: "Rojo y Blanco" },
+    { q: "\xBFQui\xE9n cede en intersecciones iguales?", a: "Quien viene por la izquierda" },
+    { q: "\xBFAng\xFAlo m\xEDnimo de visibilidad espejo retrovisor?", a: "200 metros" },
+    { q: "\xBFVigencia licencia B1?", a: "5 a\xF1os" }
+];
+
+function renderFlashcards() {
+    var g = document.getElementById('flashcards-grid');
+    g.innerHTML = '';
+    flashData.forEach(function(d) {
+        var c = document.createElement('div');
+        c.className = 'flashcard';
+        c.innerHTML = '<div class="flashcard-inner" onclick="this.parentElement.classList.toggle(\'flipped\')">'
+            + '<div class="flashcard-front"><p class="text-xs font-bold px-2 text-center">' + d.q + '</p></div>'
+            + '<div class="flashcard-back"><p class="italic text-sm px-2">' + d.a + '</p></div>'
+            + '</div>';
+        g.appendChild(c);
+    });
+}
+
+// =====================================================================
+// UTILIDADES
+// =====================================================================
+function openPaymentModal(plan) {
+    document.getElementById('modalTitle').innerText = plan;
+    document.getElementById('modalPrice').innerText = plan.includes('Combo') ? '\u20A24,500' : '\u20A24,500';
+    document.getElementById('paymentModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.querySelectorAll('.modal').forEach(function(m){ m.style.display = 'none'; });
+}
+
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+window.onclick = function(e) {
+    if (e.target.classList.contains('modal')) closeModal();
+};
+</script>
 </body>
 </html>
