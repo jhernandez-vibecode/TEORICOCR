@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teórico Pro CR - Refuerzo Educativo 2026</title>
+    <!-- Tailwind y Lucide -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -13,6 +14,7 @@
         .text-traffic-yellow { color: #FFD700; }
         .hero-gradient { background: linear-gradient(180deg, #1a1a1a 0%, #333333 100%); }
         
+        /* Flashcards */
         .flashcard { perspective: 1000px; height: 160px; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
@@ -83,17 +85,27 @@
         <section id="categorias" class="py-24 px-6 max-w-6xl mx-auto">
             <h2 class="text-4xl font-black text-center mb-16 italic uppercase">¿Qué licencia vas a obtener?</h2>
             <div class="grid md:grid-cols-2 gap-8">
+                <!-- Tarjeta Carro -->
                 <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
                     <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-blue-600"><i data-lucide="car" class="w-10 h-10"></i></div>
                     <h3 class="text-2xl font-bold mb-4 italic">Refuerzo B1 (Carro)</h3>
                     <div class="text-5xl font-black mb-8 italic">₡4,500</div>
                     <button onclick="openPaymentModal('Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
                 </div>
+                <!-- Tarjeta Moto -->
                 <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
                     <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-orange-600"><i data-lucide="bike" class="w-10 h-10"></i></div>
                     <h3 class="text-2xl font-bold mb-4 italic text-black">Refuerzo Moto (A1-A3)</h3>
                     <div class="text-5xl font-black mb-8 italic text-black">₡4,500</div>
                     <button onclick="openPaymentModal('Moto (A1-A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
+                </div>
+            </div>
+            <!-- Tarjeta Combo -->
+            <div class="mt-12 text-center">
+                <div class="inline-block bg-slate-900 text-white p-6 rounded-3xl border-2 border-traffic-yellow shadow-xl">
+                    <p class="text-xs font-bold uppercase text-traffic-yellow mb-2 tracking-widest italic">Plan Maestro Integral</p>
+                    <p class="text-lg font-black italic leading-tight">Adquiere ambos refuerzos (COMBO) por solo <span class="text-2xl text-traffic-yellow">₡6,000</span></p>
+                    <button onclick="openPaymentModal('Combo Refuerzo Carro + Moto')" class="mt-4 bg-traffic-yellow text-black font-black px-8 py-3 rounded-xl uppercase text-[10px] hover:scale-105 transition-transform italic">Activar Combo (20 Días)</button>
                 </div>
             </div>
         </section>
@@ -109,7 +121,8 @@
                 <h2 class="text-3xl font-black text-white mb-4 italic uppercase">Portal Premium</h2>
                 <p class="text-slate-400 mb-10 text-sm italic">Ingresa tu PIN de 5 partes para activar tu material.</p>
                 <div class="max-w-xs mx-auto">
-                    <input type="text" id="pin-input" placeholder="PRO-00000000-XXX-0000-XXXX" 
+                    <!-- Placeholder actualizado con los nuevos prefijos -->
+                    <input type="text" id="pin-input" placeholder="B1-00000000-XXX-0000-XXXX" 
                            class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
                     <button onclick="verifyPin()" class="w-full bg-traffic-yellow text-black font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] transition-all uppercase italic">Activar Mi Acceso</button>
                     <p id="error-msg" class="text-red-500 text-[10px] mt-6 font-bold hidden uppercase tracking-widest italic"></p>
@@ -121,7 +134,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center mb-10 bg-slate-800 p-8 rounded-[2.5rem] border border-slate-700 gap-6 text-white">
                     <div>
                         <span id="badge-tipo" class="bg-black text-traffic-yellow text-[9px] font-black px-2 py-0.5 rounded uppercase italic mb-1 inline-block"></span>
-                        <h3 class="font-black text-2xl italic uppercase tracking-tight">Mi Material Maestro</h3>
+                        <h3 class="font-black text-2xl italic uppercase tracking-tight" id="plan-title">Mi Material Maestro</h3>
                         <p id="expiry-label" class="text-slate-400 text-[10px] font-bold uppercase tracking-widest italic mt-1"></p>
                     </div>
                     <div class="bg-black px-8 py-4 rounded-[1.5rem] text-center min-w-[150px] border-b-4 border-traffic-yellow">
@@ -139,10 +152,10 @@
                 </div>
 
                 <div id="material-viewer" class="bg-white rounded-[3rem] p-6 md:p-10 min-h-[500px] shadow-2xl relative overflow-hidden">
-                    <!-- Resumen / Video / Fichas (Simplificados) -->
                     <div id="mod-resumen" class="module-content hidden text-center py-16">
                         <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i>
                         <h4 class="text-3xl font-black uppercase italic mb-4">Guía Estratégica 2026</h4>
+                        <p class="text-slate-500 mb-10 max-w-md mx-auto italic text-sm">Documento focalizado según tu licencia.</p>
                         <button class="bg-black text-white font-black py-5 px-12 rounded-2xl">DESCARGAR PDF</button>
                     </div>
                     <div id="mod-video" class="module-content hidden text-center py-16">
@@ -150,35 +163,27 @@
                     </div>
                     <div id="mod-fichas" class="module-content hidden"><div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div></div>
                     
-                    <!-- NUEVO: SIMULADOR AVANZADO -->
+                    <!-- SIMULADOR AVANZADO -->
                     <div id="mod-simulador" class="module-content hidden">
-                        
-                        <!-- Intro -->
                         <div id="quiz-intro" class="text-center py-16">
                             <i data-lucide="award" class="text-orange-500 w-16 h-16 mx-auto mb-6"></i>
-                            <h4 class="text-3xl font-black uppercase italic mb-4">Simulador Maestro: Motos</h4>
-                            <p class="text-slate-500 mb-8 italic">40 preguntas aleatorias de los 10 capítulos. Tiempo límite: 50 minutos. Aprobación: 80%.</p>
+                            <h4 class="text-3xl font-black uppercase italic mb-4" id="quiz-title">Simulador Maestro</h4>
+                            <p class="text-slate-500 mb-8 italic">Se generará un examen aleatorio basado en tu plan. Necesitas 80% para aprobar.</p>
                             <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic">INICIAR PRUEBA</button>
                         </div>
-
-                        <!-- Panel de Examen -->
                         <div id="quiz-play" class="hidden">
                             <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b pb-4 gap-4">
-                                <span class="text-xs font-black text-slate-400 uppercase bg-slate-100 px-3 py-1 rounded-lg">Pregunta <span id="q-num" class="text-black text-lg">1</span> / 40</span>
+                                <span class="text-xs font-black text-slate-400 uppercase bg-slate-100 px-3 py-1 rounded-lg">Pregunta <span id="q-num" class="text-black text-lg">1</span></span>
                                 <div class="flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-100">
                                     <i data-lucide="timer" class="w-4 h-4"></i>
                                     <span id="q-timer" class="font-black font-mono text-lg">50:00</span>
                                 </div>
                             </div>
-                            
-                            <p class="text-[10px] text-blue-500 font-bold uppercase tracking-widest mb-2" id="q-chapter">Capítulo X</p>
                             <h5 id="q-text" class="text-xl md:text-2xl font-black text-slate-900 mb-8 italic leading-tight"></h5>
-                            
                             <div id="q-options" class="space-y-3"></div>
-
-                            <!-- Feedback Panel -->
+                            
                             <div id="q-feedback" class="hidden mt-6 bg-slate-50 p-5 rounded-2xl border-l-4 border-black">
-                                <p class="text-[10px] font-black uppercase text-slate-400 mb-2 flex items-center gap-1"><i data-lucide="info" class="w-3 h-3"></i> Explicación de la ley</p>
+                                <p class="text-[10px] font-black uppercase text-slate-400 mb-2 flex items-center gap-1"><i data-lucide="info" class="w-3 h-3"></i> Explicación</p>
                                 <p id="q-exp" class="text-sm font-semibold text-slate-700 italic"></p>
                             </div>
 
@@ -186,8 +191,6 @@
                                 <button id="q-next" onclick="nextQuestion()" disabled class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 cursor-not-allowed transition-all">Siguiente <i data-lucide="chevron-right" class="inline w-4 h-4 mb-0.5"></i></button>
                             </div>
                         </div>
-
-                        <!-- Resultados -->
                         <div id="quiz-result" class="hidden text-center py-12">
                             <div id="res-icon" class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center"></div>
                             <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2"></h4>
@@ -198,18 +201,15 @@
                                 <span class="bg-red-50 text-red-700 px-4 py-2 rounded-lg">Fallos: <span id="res-wrong">0</span></span>
                             </div>
                             <div class="flex flex-col md:flex-row justify-center gap-4">
-                                <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-8 rounded-xl uppercase italic hover:bg-slate-800 transition-colors">Nuevo Intento</button>
-                                <button onclick="showReview()" id="btn-review" class="bg-traffic-yellow text-black font-black py-4 px-8 rounded-xl uppercase italic hover:bg-yellow-400 transition-colors hidden">Modo Repaso</button>
+                                <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-8 rounded-xl uppercase italic">Nuevo Intento</button>
+                                <button onclick="showReview()" id="btn-review" class="bg-traffic-yellow text-black font-black py-4 px-8 rounded-xl uppercase italic hidden">Ver Errores</button>
                             </div>
                         </div>
-
-                        <!-- Modo Repaso (Errores) -->
                         <div id="quiz-review" class="hidden text-left">
                             <div class="flex items-center justify-between mb-8 border-b pb-4">
                                 <h4 class="text-2xl font-black uppercase italic">Modo Repaso</h4>
                                 <button onclick="document.getElementById('quiz-review').classList.add('hidden'); document.getElementById('quiz-result').classList.remove('hidden');" class="text-sm font-bold text-slate-500 hover:text-black">Volver</button>
                             </div>
-                            <p class="text-slate-500 mb-6 text-sm">Estas son las preguntas que fallaste. Léelas con atención.</p>
                             <div id="review-list" class="space-y-6"></div>
                         </div>
                     </div>
@@ -225,32 +225,72 @@
     <script>
         lucide.createIcons();
 
-        // 1. BLINDAJE DE SEGURIDAD (INTACTO)
-        const _s = "UHVyYVZpZGEyMDI2X1NlY3VyZV9SZWZ1ZXJ6bw=="; 
+        // 1. LLAVE Y FUNCIÓN DE VERIFICACIÓN (LIMPIA Y EXACTA)
+        // Usamos una llave única en Base64 para ofuscarla ligeramente
+        const _s = "UHVyYVZpZGEyMDI2X1NlY3VyZV9SZWZ1ZXJ6bw=="; // Corresponde a "PuraVida2026_Secure_Refuerzo"
+        
         function _chk(d) {
             let h = 0, k = atob(_s); let s = d + k;
             for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h |= 0; }
             return Math.abs(h).toString(36).toUpperCase().substring(0, 4);
         }
+
+        // Variable global para guardar el plan del usuario (B1, A2, PRO, DEMO)
+        let userPlan = "";
+
         function verifyPin() {
             const val = document.getElementById('pin-input').value.trim().toUpperCase();
+
             const p = val.split('-');
-            if (p.length !== 5 || p[0] !== "PRO") { showErr("PIN Incompleto (PRO-FECHA-INI-CED-SUM)"); return; }
-            if (p[4] !== _chk(p[1] + p[2] + p[3])) { showErr("PIN Alterado o Inválido."); return; }
+            const validPrefixes = ["B1", "A2", "PRO", "DEMO"];
+
+            // Validar que tenga 5 partes y empiece con un prefijo válido
+            if (p.length !== 5 || !validPrefixes.includes(p[0])) { 
+                showErr("Formato Incorrecto. (Ej: B1-FECHA-INI-CED-SUM)"); return; 
+            }
+            
+            // Validar Checksum (Firma Digital)
+            // Se calcula con: FECHA + INICIALES + CEDULA
+            if (p[4] !== _chk(p[1] + p[2] + p[3])) { 
+                showErr("PIN ALTERADO O INVÁLIDO."); return; 
+            }
+
+            // Validar Fecha
             const expiry = new Date(parseInt(p[1].substring(0,4)), parseInt(p[1].substring(4,6))-1, parseInt(p[1].substring(6,8)), 23, 59, 59);
-            if (new Date() > expiry) { showErr("PIN Expirado el " + expiry.toLocaleDateString()); }
-            else { unlockPortal(expiry); }
+            if (new Date() > expiry) { showErr("Este PIN expiró el " + expiry.toLocaleDateString()); return; }
+            
+            // Si todo está bien, guardamos el tipo de plan y desbloqueamos
+            userPlan = p[0];
+            
+            // Etiquetas visuales
+            let planLabel = "";
+            if (userPlan === "B1") planLabel = "Licencia B1 (Carro)";
+            else if (userPlan === "A2") planLabel = "Licencia A1-A3 (Moto)";
+            else if (userPlan === "DEMO") planLabel = "Prueba de 24 Horas";
+            else planLabel = "Combo Premium Pro";
+
+            unlockPortal(expiry, planLabel);
         }
+
         function showErr(m) { const e = document.getElementById('error-msg'); e.innerText = m; e.classList.remove('hidden'); }
-        function unlockPortal(expiry) {
+
+        function unlockPortal(expiry, planLabel) {
             document.getElementById('lock-screen').classList.add('hidden');
             document.getElementById('premium-portal').classList.remove('hidden');
+            
             const diff = Math.ceil(Math.abs(expiry - new Date()) / (1000 * 60 * 60 * 24));
-            document.getElementById('badge-tipo').innerText = "Membresía Activa";
+            
+            document.getElementById('badge-tipo').innerText = userPlan === "DEMO" ? "PRUEBA ACTIVA" : "MEMBRESÍA ACTIVA";
+            document.getElementById('plan-title').innerText = `Material: ${planLabel}`;
             document.getElementById('expiry-label').innerText = `Expira en ${diff} días`;
-            showModule('simulador'); // Forzamos simulador para que lo veas al entrar
+            
+            // Preparamos el simulador para decir qué tipo de examen es
+            document.getElementById('quiz-title').innerText = `Simulador: ${planLabel}`;
+            
+            showModule('simulador'); // Forzamos el simulador al entrar
             renderFlashcards();
         }
+
         function showModule(modId) {
             document.querySelectorAll('.module-content').forEach(m => m.classList.add('hidden'));
             document.querySelectorAll('.module-tab').forEach(t => t.classList.remove('tab-active'));
@@ -259,156 +299,40 @@
         }
 
         // ==============================================================
-        // 2. MOTOR DEL SIMULADOR AVANZADO (100 PREGUNTAS MOTO)
+        // MOTOR DEL SIMULADOR 
+        // Lógica de separación de planes (Carro vs Moto)
         // ==============================================================
         
-        // Dataset estructurado: [Capítulo, Pregunta, [Opción Correcta, Falsa 1, Falsa 2], Explicación]
-        const rawData = [
-            // CAP 1
-            [1,"¿Objetivo primordial de la seguridad vial?",["Prevenir accidentes y salvar vidas.","Aumentar la fluidez vehicular.","Recaudar dinero por multas."],"Prevenir accidentes y salvar vidas es el objetivo principal según el Capítulo 1."],
-            [1,"¿Elementos de la trilogía vial?",["Factor Humano, Vehicular y Vía/Entorno.","Automóviles, Motocicletas y Peatones.","Señales, Semáforos y Policías."],"La trilogía vial compone el sistema de tránsito y sus elementos interactúan entre sí."],
-            [1,"¿Factor responsable del 90% de accidentes?",["Factor Humano.","Factor Vehicular.","Factor Climatológico."],"El error humano (distracción, alcohol, velocidad) causa casi la totalidad de los incidentes."],
-            [1,"¿Qué es el derecho de circulación?",["Pago anual obligatorio (marchamo).","Tener licencia al día.","Pagar los peajes nacionales."],"Se adquiere al pagar el marchamo anualmente."],
-            [1,"¿Ley vigente de tránsito en CR?",["Ley 9078.","Ley 7331.","Ley 2026."],"La Ley de Tránsito por Vías Públicas Terrestres y Seguridad Vial vigente es la No. 9078."],
-            [1,"¿Qué significa que el tránsito es un sistema?",["Sus elementos interactúan y dependen entre sí.","Que está controlado por computadoras.","Que solo incluye carros y calles."],"Un fallo en cualquiera de sus elementos afecta a todo el sistema."],
-            [1,"¿Fin principal de la educación vial?",["Formar ciudadanos con hábitos de respeto y cortesía.","Enseñar mecánica de emergencia.","Preparar para carreras deportivas."],"Busca crear cultura ciudadana más allá de saber manejar."],
-            [1,"¿Qué es seguridad vial activa?",["Elementos que previenen el accidente (ej. frenos).","Elementos que protegen durante el choque.","El seguro del vehículo."],"Actúa ANTES del accidente. La pasiva (casco, cinturón) actúa DURANTE."],
-            [1,"¿Definición legal de Tránsito?",["Acción de trasladarse de un lugar a otro por una vía.","Conducir un vehículo a motor.","Transportar mercancías por pago."],"Involucra todo desplazamiento, sea peatonal, animal o vehicular."],
-            [1,"¿Principal causa de muerte en jóvenes en CR?",["Accidentes de tránsito.","Enfermedades respiratorias.","Violencia callejera."],"Estadísticamente es la primera causa de mortalidad en menores de 35 años."],
-            
-            // CAP 2
-            [2,"¿Edad mínima licencia A1?",["16 años (con autorización).","15 años.","18 años."],"Requiere carta de los padres y póliza de seguro especial."],
-            [2,"¿Documentos obligatorios para circular?",["Licencia, Marchamo e IVE (RITEVE) vigentes.","Solo la licencia de conducir.","Cédula y Marchamo."],"Transitar sin alguno de estos documentos amerita multa y retiro de placas."],
-            [2,"¿Límite de cilindrada para licencia A2?",["Hasta 500cc.","Hasta 125cc.","Sin límite."],"La A1 es hasta 125cc, A2 hasta 500cc y A3 sin límite de cilindraje."],
-            [2,"¿Uso obligatorio de prendas reflectivas?",["Las 24 horas del día.","Solo de noche.","Solo en autopistas."],"El chaleco o cinta reflectiva debe usarse en todo momento al manejar moto."],
-            [2,"¿Velocidad máx. para filtrar entre carros detenidos?",["25 km/h.","40 km/h.","No está permitido filtrar."],"Se permite filtrar solo si los vehículos están detenidos y a máximo 25 km/h."],
-            [2,"¿Categoría de multa por conducir ebrio?",["Categoría A (la más alta).","Categoría B.","Categoría D."],"Implica la multa económica más alta, retiro de 6 puntos y posible proceso penal."],
-            [2,"¿Sanción por no usar casco protector?",["Multa Categoría A y pérdida de puntos.","Llamado de atención verbal.","Retiro de la motocicleta."],"Es obligatorio tanto para el conductor como para el acompañante."],
-            [2,"¿Requisito legal del casco para moto?",["Homologación internacional (DOT, ECE, Snell).","Ser de color reflectivo.","Cerrar con broche de plástico."],"El casco debe cumplir con normas de seguridad certificadas."],
-            [2,"¿Vigencia de la licencia por primera vez?",["3 años.","6 años.","10 años."],"Para conductores novatos se emite por 3 años."],
-            [2,"¿Accidente menor sin heridos?",["Se deben mover los vehículos si hay acuerdo (Ley DAM).","Debe esperar al tráfico sin moverlos.","Llamar al 911 de inmediato."],"Para evitar congestionamiento, se usa la Declaración de Accidente Menor."],
-
-            // CAP 3
-            [3,"¿Definición de vía pública?",["Terreno para tránsito de personas, vehículos y animales.","Calle asfaltada por el MOPT.","Solo autopistas nacionales."],"Cualquier espacio destinado al libre tránsito público."],
-            [3,"¿Zona exclusiva para el tránsito de peatones?",["Acera.","Espaldón.","Cuneta."],"Los vehículos y motos no pueden circular por la acera bajo ninguna circunstancia."],
-            [3,"¿Función principal del espaldón?",["Soporte lateral de la vía y detención de emergencia.","Carril para adelantar por la derecha.","Estacionamiento público."],"No se debe circular por el espaldón salvo emergencia."],
-            [3,"¿Equivalente a la acera en zona rural?",["Berma o faja lateral.","Espaldón.","Cuneta."],"En zonas rurales sin acera, el peatón transita por la berma al lado izquierdo."],
-            [3,"¿Factor climático que genera el peligroso hidroplaneo?",["La lluvia.","El calor extremo.","La neblina."],"Capa de agua entre la llanta y el asfalto que causa pérdida total de control."],
-            [3,"¿Definición de calzada?",["Parte de la vía destinada exclusivamente a vehículos.","Orilla de la carretera.","Línea central amarilla."],"Comprende los carriles de circulación vehicular."],
-            [3,"¿Regla fundamental de la conducción nocturna?",["Poder detenerse dentro del alcance visual de las luces.","Manejar siempre con luces altas.","Ir a la mitad de la velocidad máxima."],"Si un obstáculo aparece, debes poder frenar antes de llegar a la zona oscura."],
-            [3,"¿Función de la cuneta en vías rurales?",["Desagüe de aguas pluviales (lluvia).","Paso seguro de peatones.","Parada de autobuses."],"Evita que el agua inunde la calzada."],
-            [3,"¿Luz recomendada para manejar en neblina?",["Luz baja (la alta rebota contra la niebla).","Luz alta.","Solo intermitentes."],"Las gotas de niebla actúan como espejos reflejando la luz alta hacia el conductor."],
-            [3,"¿Qué afecta la curva de visibilidad?",["Obstáculos físicos como edificios, árboles o taludes.","El desgaste de las llantas.","La presión atmosférica."],"Limitan la distancia visual al tomar una curva horizontal o vertical."],
-
-            // CAP 4
-            [4,"¿Función del sistema de suspensión?",["Absorber irregularidades del camino y dar estabilidad.","Evitar que el motor se apague.","Aumentar la velocidad final."],"Mantiene las llantas pegadas al asfalto en todo momento."],
-            [4,"¿Profundidad mínima legal del dibujo de llanta de moto?",["1.0 mm (no llegar al testigo).","1.6 mm.","2.0 mm."],"A diferencia de los carros (1.6mm), la ley permite 1.0mm para motos, aunque lo ideal es más."],
-            [4,"¿Qué indica humo azul saliendo del escape?",["Quema de aceite dentro del motor.","Exceso de gasolina en la mezcla.","Evaporación de agua."],"Indica desgaste en anillos o sellos de válvula."],
-            [4,"¿Cuándo es el momento ideal para revisar la presión de llantas?",["Semanalmente y con las llantas en frío.","Después de un viaje largo.","Solo cuando se vean desinfladas."],"El calor del rodamiento expande el aire y da lecturas falsas."],
-            [4,"¿Sistemas comunes de transmisión final en motos?",["Cadena, faja o eje cardán.","Transmisión automática o manual.","Embrague seco o húmedo."],"Llevan la fuerza del motor a la rueda trasera."],
-            [4,"¿Qué pasa si el nivel de líquido de frenos está muy bajo?",["Causa pérdida drástica de potencia de frenado.","La moto no arranca.","Las luces parpadean."],"Permite que entre aire al sistema, volviendo el tacto esponjoso."],
-            [4,"¿Cuál es la función del odómetro en el panel?",["Indicar la distancia total que ha recorrido la moto.","Medir las RPM del motor.","Indicar la velocidad en km/h."],"Esencial para llevar el control de los mantenimientos."],
-            [4,"¿Componente eléctrico que genera la chispa en la cámara de combustión?",["La bujía.","El alternador.","La batería."],"Ignita la mezcla de aire y combustible."],
-            [4,"¿Estado ideal de mantenimiento de la cadena?",["Limpia, lubricada y con la tensión recomendada.","Seca y muy tensada.","Bañada en aceite quemado."],"Aumenta su vida útil y previene que se rompa en marcha."],
-            [4,"¿Qué es el 'Kill Switch' (Interruptor cortacorriente)?",["Interruptor de parada de emergencia del motor en el manillar derecho.","Botón de encendido eléctrico.","Gatillo de luces de parqueo."],"Corta la ignición inmediatamente en caso de caída o emergencia."],
-
-            // CAP 5
-            [5,"¿Qué indica la línea blanca continua de borde de vía?",["Separa la calzada del espaldón y prohíbe cruzarla.","Divide carriles en mismo sentido.","Es zona de estacionamiento."],"Demarca el límite seguro de circulación."],
-            [5,"¿Cómo se debe actuar ante un semáforo en rojo intermitente?",["Funciona exactamente como una señal de ALTO.","Pasar con cuidado sin detenerse.","Ceder el paso solo a peatones."],"Requiere detención total obligatoria."],
-            [5,"¿Cuál es el color base de las señales de prevención?",["Amarillo (con símbolos negros).","Rojo y Blanco.","Azul y Blanco."],"Advierten sobre peligros próximos en la vía."],
-            [5,"¿Qué indica una doble línea amarilla continua en el centro?",["Prohibición total de adelantar para ambos sentidos.","Precaución por zona escolar.","Límite de carriles reversibles."],"Indica zona de alto riesgo donde invadir el carril contrario es fatal."],
-            [5,"¿Qué indica una señal de forma octagonal roja?",["Señal de ALTO.","Señal de CEDA.","No Estacionar."],"Es la única señal con 8 lados para ser reconocida incluso de espaldas."],
-            [5,"¿Qué significan los números pintados en la calzada dentro de un círculo?",["La velocidad máxima permitida en ese tramo.","La distancia hacia el próximo pueblo.","El número de ruta nacional."],"Señalización horizontal de reglamentación."],
-            [5,"¿Quién tiene la autoridad máxima en carretera ante señales contradictorias?",["El Oficial de Tránsito.","El Semáforo.","La señal vertical."],"Las órdenes del inspector prevalecen sobre semáforos y señales fijas."],
-            [5,"¿Qué significa la luz verde del semáforo?",["Paso con precaución, no paso absoluto.","Acelerar para cruzar rápido.","Giro a la izquierda permitido siempre."],"Debes revisar que la intersección esté despejada antes de avanzar."],
-            [5,"¿Cuál es la función de las señales con fondo azul?",["Informar sobre servicios (gasolineras, hospitales, hoteles).","Marcar áreas protegidas.","Dar indicaciones de rutas turísticas."],"Pertenecen al grupo de señales de información general."],
-            [5,"¿Qué es la línea de parada?",["Línea blanca horizontal que indica dónde detenerse ante un ALTO.","Línea que marca la zona escolar.","Demarcación de estacionamiento."],"Debes detenerte ANTES de que la llanta toque esta línea."],
-
-            // CAP 6
-            [6,"¿Qué suma la distancia total de parada de un vehículo?",["Percepción + Reacción + Frenado.","Velocidad + Peso + Clima.","Frenos + Llantas + Asfalto."],"Es la distancia desde que ves el peligro hasta que la moto se detiene a cero."],
-            [6,"¿Cuál es la técnica correcta para tomar una curva?",["Frenar antes de entrar, acelerar suave saliendo de la curva.","Frenar dentro de la curva.","Acelerar a fondo antes de entrar."],"Frenar dentro de la curva endereza la moto y causa derrapes."],
-            [6,"¿Qué fenómeno se conoce como hidroplaneo?",["Deslizamiento sin control de las llantas sobre una capa de agua.","Calentamiento excesivo de las llantas.","Patinar sobre manchas de aceite."],"Ocurre al ir muy rápido bajo lluvia; las llantas no logran evacuar el agua."],
-            [6,"¿Para qué se utiliza la técnica del contramanilleo?",["Para inclinar y girar la moto a velocidades superiores a 30 km/h.","Para frenar de emergencia.","Para esquivar a baja velocidad."],"Empujar el manillar derecho hace que la moto se incline y gire a la derecha."],
-            [6,"¿Cuál es la posición correcta de las rodillas en marcha normal?",["Pegadas al tanque de combustible.","Abiertas para mantener equilibrio.","Apoyadas en las defensas del motor."],"Baja el centro de gravedad y da control absoluto al piloto."],
-            [6,"¿Cuál es el riesgo de frenar fuerte usando solo el freno trasero?",["Bloqueo y derrape incontrolable de la rueda trasera.","Que la moto haga un 'caballito' invertido.","Calentamiento del motor."],"El 70% del poder de frenado está en la llanta delantera por el traslado de pesos."],
-            [6,"¿Qué significa 'Conducir a la defensiva'?",["Manejar anticipando los posibles errores de otros conductores.","Ir despacio por la derecha.","Tocar la bocina en cada cruce."],"Es un estado de alerta mental constante para evitar colisiones."],
-            [6,"¿Cómo se debe descender una cuesta larga y pronunciada?",["Usar la compresión del motor (marchas bajas) para no calentar frenos.","En neutro o apretando el embrague (clutch).","Frenando constantemente con ambos frenos."],"Frenar en exceso cristaliza las pastillas y el líquido hirviendo deja sin frenos."],
-            [6,"¿Qué factores afectan negativamente el tiempo de reacción del conductor?",["Fatiga, consumo de alcohol/drogas y uso del celular.","La lluvia y el estado de la calle.","Escuchar música moderada."],"Incrementan el tiempo promedio de reacción (que normalmente es 1 segundo)."],
-            [6,"¿Qué son los 'puntos ciegos' de los vehículos pesados?",["Áreas laterales y traseras enormes donde el chofer no puede vernos por los espejos.","El espacio debajo del cajón del camión.","El frente del camión."],"Si no le ves la cara al trailero por su espejo, él no te está viendo a ti."],
-
-            // CAP 7
-            [7,"¿Acción obligatoria ante una señal de CEDA?",["Reducir velocidad y detenerse si vienen vehículos con prioridad.","Detenerse por completo siempre durante 3 segundos.","Tocar la bocina y cruzar rápido."],"A diferencia del ALTO, si no viene nadie puedes pasar sin detenerte a cero."],
-            [7,"¿Quién tiene la prioridad de paso en una rotonda?",["El vehículo que ya está circulando dentro de la rotonda.","El vehículo que va a ingresar a la rotonda.","El vehículo más rápido o pesado."],"Quien ingresa tiene señal de CEDA y debe esperar su turno."],
-            [7,"¿Con cuánta distancia de antelación se deben poner las luces direccionales?",["Mínimo 30 metros antes de la maniobra.","Al momento exacto de girar.","10 metros antes."],"Permite a los conductores de atrás reaccionar y bajar la velocidad."],
-            [7,"¿Límite de velocidad en zona escolar con estudiantes presentes?",["25 km/h.","40 km/h.","15 km/h."],"Es una norma de tolerancia cero en protección a menores."],
-            [7,"¿En un cruce sin señales ni semáforos, quién tiene prioridad?",["El vehículo que aparece por la derecha.","El que va directo sin girar.","El vehículo que llega primero."],"La Ley establece prioridad de paso a quien circula por la derecha en vías de igual jerarquía."],
-            [7,"¿Por qué está prohibido adelantar en curvas o pendientes ascendentes?",["Por la falta de visibilidad del carril contrario.","Porque la moto pierde potencia.","Porque hay mucha gravilla en la orilla."],"Adelantar a ciegas es causa principal de choques frontales graves."],
-            [7,"¿Qué hacer si viene un vehículo de emergencia (ambulancia/bomberos) con sirena?",["Ceder el paso apartándose y deteniéndose al lado derecho.","Acelerar para abrirle camino adelante.","Orillarse al lado izquierdo."],"Dejar el centro libre asegura que la emergencia pase fluido."],
-            [7,"¿Cuál es la distancia mínima de seguridad a mantener con el vehículo de adelante?",["Regla de los 2 segundos de separación en condiciones óptimas.","Regla de 1 metro por cada 10 km/h.","3 metros de distancia."],"Si llueve, esta distancia debe duplicarse a 4 segundos o más."],
-            [7,"¿Cuándo es legal adelantar haciendo fila o filtrando en moto?",["Solo cuando el tránsito está totalmente detenido y a no más de 25 km/h.","En cualquier momento si hay espacio suficiente.","En autopistas para evitar presas altas."],"No se permite zigzaguear con el flujo vehicular en movimiento."],
-            [7,"¿En un puente estrecho donde solo cabe un vehículo, quién tiene prioridad?",["Si no hay señales, quien llegó primero al puente.","El vehículo más pesado o de carga.","El vehículo que va de salida de la ciudad."],"El sentido común y la cortesía aplican, pero la ley ampara a quien ingresa primero a la estructura estrecha."],
-
-            // CAP 8
-            [8,"¿Qué se considera contaminación sónica en una moto?",["Producir ruido excesivo superior al permitido por tener muflas libres o alteradas.","Tocar la bocina para evitar un choque.","El ruido natural del motor al acelerar fuerte."],"Sujeto a multas y retiro de placas en operativos de tránsito."],
-            [8,"¿Práctica de conducción para contaminar menos (Econducción)?",["Evitar acelerones bruscos y mantener el motor afinado.","Acelerar a fondo al cambiar de marchas.","Andar en marchas bajas revolucionando el motor."],"Los cambios suaves reducen el consumo y la huella de carbono."],
-            [8,"¿Cuál es el gas más tóxico e imperceptible que libera el escape del motor?",["Monóxido de Carbono (CO).","Dióxido de azufre.","Ozono."],"Es letal al respirarse en lugares cerrados sin ventilación."],
-            [8,"¿Recomendación técnica para el ahorro de combustible en moto?",["Mantener velocidad constante y las llantas infladas correctamente.","Usar gasolina súper en lugar de regular.","Apagar el motor en las bajadas largas."],"Llantas desinfladas causan arrastre y obligan al motor a quemar más gasolina."],
-            [8,"¿Forma correcta de desechar aceites quemados tras el mantenimiento?",["Entregarlos en centros de acopio o gasolineras autorizadas.","Tirarlos por la alcantarilla de la calle.","Enterrarlos en el patio para que se absorban."],"Un solo litro de aceite contamina miles de litros de agua potable."],
-            [8,"¿Función del sistema de carburación o inyección en la contaminación?",["Dosificar la mezcla exacta de aire y combustible para quema limpia.","Filtrar los humos antes de que salgan por la mufla.","Enfriar los gases de escape."],"Si está mal regulado, tira gasolina cruda (humo negro) y contamina más."],
-            [8,"¿Qué es la contaminación visual en las vías?",["Exceso de vallas publicitarias o letreros que distraen al conductor.","Vehículos pintados con colores reflectivos.","Basura tirada en las orillas de la calle."],"La ley regula el tamaño y ubicación de vallas para prevenir distracciones fatales."],
-            [8,"¿Razón principal para no eliminar el silenciador de fábrica de la moto?",["Porque aumenta drásticamente la contaminación sónica e incumple la ley.","Para evitar que el motor pierda potencia en altas RPM.","Para que el motor suene más deportivo y seguro."],"Alterar la mufla contamina el ambiente acústico de las ciudades y barrios."],
-            [8,"¿Qué indica la salida de humo blanco espeso y continuo por el escape (moto enfriada por líquido)?",["Paso de agua o líquido refrigerante a la cámara de combustión (empaque de cabezote dañado).","Es vapor normal por el frío de la mañana.","Exceso de lubricación en la cadena."],"A diferencia del humo azul (aceite) o negro (mezcla rica), el blanco dulce indica falla grave del motor."],
-            [8,"¿Ventaja medioambiental directa de las motos 100% eléctricas?",["Producen cero emisiones de gases tóxicos y reducen la contaminación acústica.","Las baterías no contaminan al desecharse.","No necesitan aceite en los frenos."],"No contribuyen al smog de la ciudad al no quemar hidrocarburos."],
-
-            // CAP 9
-            [9,"¿Qué significan las siglas PAS en el protocolo de accidentes?",["Proteger (la zona), Avisar (al 911), Socorrer (a las víctimas).","Parar, Analizar, Salir.","Prevenir, Atender, Solucionar."],"Es la regla de oro internacional en primeros auxilios en carretera."],
-            [9,"¿Por qué NO se le debe quitar el casco a un motociclista accidentado?",["Riesgo altísimo de causar lesiones medulares o parálisis irreversible.","Para evitar que entre en shock térmico.","Por higiene y protocolo de cruz roja."],"Solo personal paramédico capacitado debe retirarlo con técnica de tracción."],
-            [9,"¿Número oficial para reportar emergencias con heridos en CR?",["9-1-1.","112.","800-TRANSITO."],"Despacha ambulancias, oficiales y bomberos."],
-            [9,"¿Qué es lo primero a revisar al socorrer a un herido inconsciente?",["Signos vitales básicos: que respire y tenga pulso.","Si tiene huesos rotos o fracturas expuestas.","Sacarlo del camino arrastrándolo."],"Si no respira, se debe iniciar RCP inmediatamente."],
-            [9,"¿Qué define legalmente a un 'Accidente de Tránsito'?",["Evento eventual que ocurre en vía pública o privada y resulta en daños materiales o humanos.","Cualquier caída de una moto por clima lluvioso.","Choque intencional entre dos carros."],"Debe intervenir al menos un vehículo y generar daños o lesiones comprobables."],
-            [9,"¿En qué caso extremo se justifica mover a un herido grave de la escena?",["Solo si existe riesgo inminente de muerte (ej: incendio o explosión del vehículo).","Para que pasen los demás carros y evitar congestionamiento.","Para acomodarlo en posición más cómoda en la acera."],"Mover heridos sin equipo espinal agrava las lesiones. Se debe esperar a la ambulancia."],
-            [9,"¿Qué procede legalmente si chocas con un objeto fijo (poste, muro público)?",["Se debe reportar a las autoridades y asumir el costo de reparación pública o privada.","Darse a la fuga antes de que llegue el tráfico.","Es considerado accidente sin culpabilidad civil."],"Destruir patrimonio estatal acarrea responsabilidad civil y cobros del MOPT."],
-            [9,"¿Causa principal del derrape y caída en motocicleta durante una emergencia?",["Frenado de pánico incorrecto (bloqueo de ruedas) sobre asfalto sucio o húmedo.","Acelerar a fondo para esquivar.","Tomar curvas a velocidad moderada."],"Falta de técnica de frenado progresivo causa pérdida de tracción frontal."],
-            [9,"¿A qué se le llama 'Estado de Shock' en un paciente accidentado?",["Estado clínico de debilidad o colapso por falta de irrigación sanguínea a los órganos.","Susto temporal por ver sangre.","Quedarse paralizado de miedo en la escena."],"Se nota por palidez, sudoración fría, pulso rápido y confusión. Se deben abrigar y levantar las piernas."],
-            [9,"¿Quién tiene la responsabilidad legal en un 'Choque por detrás' (colisión por alcance)?",["El conductor que golpeó por detrás, por incumplir la distancia de seguridad.","El que frenó de golpe adelante.","Ambos comparten la culpa 50/50."],"La ley presume culpa de quien pega atrás por no acatar la regla de los 2 segundos."],
-
-            // CAP 10 (Específico Motos)
-            [10,"¿Cuál es el equipo de protección recomendado para los pies del motociclista?",["Botas de caña alta que cubran y protejan el tobillo.","Tenis deportivas de tela ligera.","Zapatos con punta de acero para construcción."],"En caídas, el tobillo es la articulación más expuesta a fracturas y quemaduras con el escape."],
-            [10,"¿Qué significa el método de inspección preventiva T-CLOC?",["Neumáticos (Tires), Controles, Luces, Aceites (Oil), Chasis y Cadena.","Técnicas de Conducción Lógicas, Ordenadas y Cautas.","Frenos, Clutch, Luces y Claxon."],"Revisión rápida diaria para prevenir fallos mecánicos antes de arrancar."],
-            [10,"¿Qué efecto físico produce llevar un pasajero (acompañante) o carga pesada?",["Altera el centro de gravedad y alarga significativamente la distancia de frenado.","Hace que la moto gaste menos gasolina por el peso.","Mejora la velocidad tope de la motocicleta."],"Al llevar más peso, se necesita más fuerza y metros para detener la moto a tiempo."],
-            [10,"¿A qué se le llama 'Punto de fricción' en el manejo de embrague (clutch)?",["Zona del recorrido de la manilla donde el motor comienza a transmitir fuerza a la llanta trasera.","El punto donde los frenos comienzan a chillar por desgaste.","El momento antes de que la moto se apague (cale)."],"Es fundamental dominarlo para salir suavemente desde cero sin tirones o apagones."],
-            [10,"¿Cómo debe ser el visor (pantalla) del casco para conducción nocturna o bajo lluvia?",["Completamente transparente y sin rayones.","De color negro polarizado para evitar el deslumbramiento de las luces.","Se debe conducir con el visor abierto para que no se empañe."],"Micas polarizadas de noche reducen la visión crítica hasta en un 80%."],
-            [10,"¿Cómo reaccionar ante un estallido repentino de la llanta delantera en marcha?",["Sujetar firmemente la manivela, desacelerar soltando el gas gradualmente y NO tocar el freno delantero.","Apretar ambos frenos al máximo de inmediato.","Acelerar para compensar el desequilibrio."],"Frenar con la llanta delantera vacía causará una caída instantánea por desllante."],
-            [10,"¿Dónde se ubica tradicionalmente el pedal del freno trasero en motocicletas estándar?",["En el lado derecho de la motocicleta, accionado por el pie derecho.","En el manillar izquierdo.","En el lado izquierdo, accionado por el pie izquierdo."],"El pie izquierdo opera la palanca de cambios de marchas."],
-            [10,"¿Para qué sirve el sistema de Ahogador (Choke) en motos carburadas?",["Enriquece temporalmente la mezcla de gasolina para facilitar el arranque del motor en frío.","Sirve para apagar el motor en bajadas.","Inyecta aceite directo al pistón."],"Se debe cerrar (quitar) una vez que el motor alcanza su temperatura de operación."],
-            [10,"¿Cuál es la edad legal mínima permitida en Costa Rica para llevar un niño como acompañante en moto?",["5 años cumplidos, siempre que alcance los apoyapiés y use casco certificado.","7 años de edad obligatoria.","No hay edad mínima si va amarrado al conductor."],"Llevar niños menores a 5 años conlleva multa severa."],
-            [10,"¿Estrategia fundamental para ser visible y evitar choques en cruces?",["Usar prendas reflectivas y mantener la luz principal siempre encendida (incluso de día).","Tocar el pito fuertemente al acercarse a cada esquina.","Manejar siempre por la línea blanca del centro para destacar."],"Las motos son vehículos pequeños que se pierden en los puntos ciegos, la luz de día es legalmente obligatoria."]
+        // Simulación del Banco de Datos. 
+        // type: "ALL" (Para ambos), "B1" (Solo Carro), "A2" (Solo Moto)
+        const quizBank = [
+            { type: "ALL", q: "¿Cuál es el elemento más importante de la trilogía vial?", options: ["El Vehículo", "El Factor Humano", "La Vía"], correct: 1, exp: "El error humano causa el 90% de los accidentes." },
+            { type: "ALL", q: "¿Cuál es la velocidad mínima en autopista si no hay señalización?", options: ["40 km/h", "50 km/h", "60 km/h"], correct: 1, exp: "La ley establece 50 km/h como mínima en autopistas." },
+            { type: "A2", q: "¿Cuál es la técnica correcta para inclinar una motocicleta?", options: ["Contra-manillar", "Frenar atrás", "Sacar el pie"], correct: 0, exp: "El contra-manillar permite girar a más de 30 km/h." },
+            { type: "A2", q: "¿Profundidad mínima legal de ranura en llanta de MOTO?", options: ["1.0 mm", "1.6 mm", "2.0 mm"], correct: 0, exp: "Para motos es 1.0mm, a diferencia de carros." },
+            { type: "B1", q: "¿Profundidad mínima legal de ranura en llanta de CARRO?", options: ["1.0 mm", "1.6 mm", "2.0 mm"], correct: 1, exp: "Los automóviles requieren 1.6mm hasta el testigo." },
+            { type: "ALL", q: "¿Sanción por alcohol delito en conductor novato?", options: ["Multa", "Suspensión 1 año", "Nada"], correct: 1, exp: "Tolerancia cero para novatos." }
         ];
 
-        // Generador dinámico de base de datos
-        const quizBank = rawData.map((d, i) => {
-            let opts = [d[2][0], d[2][1], d[2][2]];
-            let correctText = opts[0];
-            opts.sort(() => 0.5 - Math.random()); // Barajar opciones
-            return { id: i, cap: d[0], q: d[1], options: opts, correct: opts.indexOf(correctText), exp: d[3] };
-        });
-
-        // Variables de Estado
         let qActive = [], qIdx = 0, qScore = 0, qSel = null, failedQs = [];
         let timerInt;
-        let timeLeft = 50 * 60; // 50 minutos en segundos
+        let timeLeft = 50 * 60; // 50 min
 
         function startQuiz() {
             qScore = 0; qIdx = 0; qSel = null; failedQs = [];
             timeLeft = 50 * 60;
             
-            // Selección Avanzada: 4 de cada capítulo (1 al 10) = 40 preguntas
-            qActive = [];
-            for(let c=1; c<=10; c++) {
-                let capQs = quizBank.filter(q => q.cap === c).sort(() => 0.5 - Math.random());
-                qActive.push(...capQs.slice(0, 4));
-            }
-            qActive.sort(() => 0.5 - Math.random()); // Barajar las 40 finales
+            // FILTRADO POR PLAN:
+            // Si es B1, saca preguntas ALL + B1. Si es A2, ALL + A2. Si es PRO/DEMO, saca todas.
+            let filteredBank = quizBank.filter(q => {
+                if (userPlan === "B1") return q.type === "ALL" || q.type === "B1";
+                if (userPlan === "A2") return q.type === "ALL" || q.type === "A2";
+                return true; // Combo o Demo ven todo
+            });
+
+            // Para la demo solo sacamos 5, para lo real idealmente 40
+            let questionsToAsk = Math.min(15, filteredBank.length); // Ajusta a 40 cuando tengas la BD llena
+            qActive = filteredBank.sort(() => 0.5 - Math.random()).slice(0, questionsToAsk);
 
             document.getElementById('quiz-intro').classList.add('hidden');
             document.getElementById('quiz-result').classList.add('hidden');
@@ -427,129 +351,80 @@
                 const m = Math.floor(timeLeft / 60);
                 const s = (timeLeft % 60).toString().padStart(2, '0');
                 document.getElementById('q-timer').innerText = `${m}:${s}`;
-                if(timeLeft < 300) document.getElementById('q-timer').parentElement.classList.replace('text-red-600', 'text-red-800', 'animate-pulse');
             }, 1000);
         }
 
         function renderQ() {
-            const q = qActive[qIdx]; 
-            qSel = null;
-            document.getElementById('q-num').innerText = qIdx + 1; 
-            document.getElementById('q-chapter').innerText = `Eje Temático: Capítulo ${q.cap}`;
+            const q = qActive[qIdx]; qSel = null;
+            document.getElementById('q-num').innerText = `${qIdx + 1} / ${qActive.length}`;
             document.getElementById('q-text').innerText = q.q;
             document.getElementById('q-feedback').classList.add('hidden');
             
             const oD = document.getElementById('q-options'); oD.innerHTML = '';
             q.options.forEach((o, i) => {
-                const b = document.createElement('button'); 
-                b.className = 'quiz-option'; 
-                b.innerText = o;
-                b.id = `opt-${i}`;
+                const b = document.createElement('button'); b.className = 'quiz-option'; b.innerText = o; b.id = `opt-${i}`;
                 b.onclick = () => selectAnswer(i, b, q);
                 oD.appendChild(b);
             });
-            
-            document.getElementById('q-next').disabled = true; 
-            document.getElementById('q-next').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('q-next').disabled = true; document.getElementById('q-next').classList.add('opacity-50', 'cursor-not-allowed');
         }
 
         function selectAnswer(i, btn, q) {
-            if(qSel !== null) return; // Bloquear si ya respondió
-            qSel = i;
-            
-            // Deshabilitar todos los botones
-            document.querySelectorAll('.quiz-option').forEach(b => {
-                b.disabled = true;
-                b.classList.add('opt-disabled');
-            });
-
-            if (i === q.correct) {
-                qScore++;
-                btn.classList.replace('opt-disabled', 'opt-correct');
-            } else {
-                btn.classList.replace('opt-disabled', 'opt-wrong');
-                document.getElementById(`opt-${q.correct}`).classList.replace('opt-disabled', 'opt-correct');
-                failedQs.push({ q: q.q, user: q.options[i], corr: q.options[q.correct], exp: q.exp });
+            if(qSel !== null) return; qSel = i;
+            document.querySelectorAll('.quiz-option').forEach(b => { b.disabled = true; b.classList.add('opt-disabled'); });
+            if (i === q.correct) { qScore++; btn.classList.replace('opt-disabled', 'opt-correct'); } 
+            else { 
+                btn.classList.replace('opt-disabled', 'opt-wrong'); 
+                document.getElementById(`opt-${q.correct}`).classList.replace('opt-disabled', 'opt-correct'); 
+                failedQs.push({ q: q.q, user: q.options[i], corr: q.options[q.correct], exp: q.exp }); 
             }
-
             document.getElementById('q-exp').innerText = q.exp;
             document.getElementById('q-feedback').classList.remove('hidden');
-            document.getElementById('q-next').disabled = false; 
-            document.getElementById('q-next').classList.remove('opacity-50', 'cursor-not-allowed');
+            document.getElementById('q-next').disabled = false; document.getElementById('q-next').classList.remove('opacity-50', 'cursor-not-allowed');
         }
 
         function nextQuestion() {
-            qIdx++; 
-            if (qIdx < qActive.length) renderQ(); else finishQuiz();
+            qIdx++; if (qIdx < qActive.length) renderQ(); else finishQuiz();
         }
 
         function finishQuiz() {
             clearInterval(timerInt);
             document.getElementById('quiz-play').classList.add('hidden');
             document.getElementById('quiz-result').classList.remove('hidden');
-            
             const score = Math.round((qScore / qActive.length) * 100);
             document.getElementById('res-score').innerText = score + "%";
             document.getElementById('res-correct').innerText = qScore;
             document.getElementById('res-wrong').innerText = qActive.length - qScore;
             
             const s = document.getElementById('res-status'), i = document.getElementById('res-icon');
-            if (score >= 80) { 
-                s.innerText = "¡APROBADO!"; s.className = "text-4xl font-black text-green-600 italic tracking-tighter mb-2"; 
-                i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-green-100 text-green-600 flex items-center justify-center shadow-lg border-4 border-green-200"; 
-                i.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>'; 
-            } else { 
-                s.innerText = "REPROBADO"; s.className = "text-4xl font-black text-red-600 italic tracking-tighter mb-2"; 
-                i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-red-100 text-red-600 flex items-center justify-center shadow-lg border-4 border-red-200"; 
-                i.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>'; 
-            }
+            if (score >= 80) { s.innerText = "¡APROBADO!"; s.className = "text-4xl font-black text-green-600 italic tracking-tighter mb-2"; i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-green-100 text-green-600 flex items-center justify-center shadow-lg"; i.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>'; }
+            else { s.innerText = "REPROBADO"; s.className = "text-4xl font-black text-red-600 italic tracking-tighter mb-2"; i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-red-100 text-red-600 flex items-center justify-center shadow-lg"; i.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>'; }
             
-            if(failedQs.length > 0) {
-                document.getElementById('btn-review').classList.remove('hidden');
-                generateReviewList();
-            } else {
-                document.getElementById('btn-review').classList.add('hidden');
-            }
+            if(failedQs.length > 0) { document.getElementById('btn-review').classList.remove('hidden'); generateReviewList(); } 
+            else { document.getElementById('btn-review').classList.add('hidden'); }
             lucide.createIcons();
         }
 
         function generateReviewList() {
-            const list = document.getElementById('review-list');
-            list.innerHTML = '';
+            const list = document.getElementById('review-list'); list.innerHTML = '';
             failedQs.forEach((f, idx) => {
-                list.innerHTML += `
-                <div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 mb-4">
-                    <p class="font-bold text-gray-900 mb-3">${idx+1}. ${f.q}</p>
-                    <p class="text-sm text-red-600 mb-1"><span class="font-bold">Tu respuesta:</span> ${f.user}</p>
-                    <p class="text-sm text-green-600 mb-3"><span class="font-bold">Correcta:</span> ${f.corr}</p>
-                    <div class="bg-white p-3 rounded-xl border-l-4 border-traffic-yellow text-xs italic text-gray-600">
-                        ${f.exp}
-                    </div>
-                </div>`;
+                list.innerHTML += `<div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 mb-4"><p class="font-bold text-gray-900 mb-3">${idx+1}. ${f.q}</p><p class="text-sm text-red-600 mb-1"><span class="font-bold">Tu respuesta:</span> ${f.user}</p><p class="text-sm text-green-600 mb-3"><span class="font-bold">Correcta:</span> ${f.corr}</p><div class="bg-white p-3 rounded-xl border-l-4 border-traffic-yellow text-xs italic text-gray-600">${f.exp}</div></div>`;
             });
         }
 
-        function showReview() {
-            document.getElementById('quiz-result').classList.add('hidden');
-            document.getElementById('quiz-review').classList.remove('hidden');
-        }
+        function showReview() { document.getElementById('quiz-result').classList.add('hidden'); document.getElementById('quiz-review').classList.remove('hidden'); }
 
-        // ==============================================================
-        // FICHAS (Actualizado Muestra)
-        // ==============================================================
+        const fD = [{q:"¿Año primer auto en CR?", a:"1912"}, {q:"¿Ley de Tránsito vigente?", a:"Ley 9078"}];
         function renderFlashcards() {
             const g = document.getElementById('flashcards-grid'); g.innerHTML = '';
-            // Se cargan 5 de muestra del Dataset Real
-            const muestra = quizBank.slice(0, 5); 
-            muestra.forEach((d) => {
+            fD.forEach((d) => {
                 const c = document.createElement('div'); c.className = 'flashcard';
-                c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');"><div class="flashcard-front"><p class="text-xs font-bold px-2">${d.q}</p></div><div class="flashcard-back"><p class="italic text-xs px-2">"${d.options[d.correct]}"</p></div></div>`;
+                c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');"><div class="flashcard-front"><p class="text-xs font-bold px-2">${d.q}</p></div><div class="flashcard-back"><p class="italic text-sm px-2">"${d.a}"</p></div></div>`;
                 g.appendChild(c);
             });
-            document.getElementById('prog-val').innerText = "5 / 65"; // Simulado
+            document.getElementById('prog-val').innerText = fD.length + " / 65";
         }
 
-        // --- UTILS MODALES ---
         function openPaymentModal(p) { document.getElementById('modalTitle').innerText = p; document.getElementById('modalPrice').innerText = p.includes('Combo') ? '₡6,000' : '₡4,500'; document.getElementById('paymentModal').style.display = 'flex'; }
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
         function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
