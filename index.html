@@ -55,6 +55,20 @@
         details summary::-webkit-details-marker { display: none; }
         details[open] summary .chevron { transform: rotate(180deg); }
         .chevron { transition: transform 0.3s; }
+        @media print {
+            header, footer, nav, #faq, #categorias, section:not(#estudio),
+            .modal-overlay, .module-tab, #mod-simulador, #mod-fichas, #mod-video,
+            #lock-screen { display: none !important; }
+            body, #estudio { background: white !important; }
+            #estudio { padding: 0 !important; border: none !important; }
+            #premium-portal, #mod-resumen { display: block !important; }
+            #material-viewer { box-shadow: none !important; padding: 0 !important; }
+            .module-content { display: block !important; }
+            details.resumen-cap { display: block !important; border: 1px solid #e2e8f0 !important; margin-bottom: 12pt !important; break-inside: avoid; }
+            details.resumen-cap > div { display: block !important; }
+            table { border-collapse: collapse; width: 100%; font-size: 9pt; }
+            td, th { border: 1px solid #ccc; padding: 4pt 6pt; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
@@ -363,11 +377,377 @@
                 </div>
 
                 <!-- RESUMEN -->
-                <div id="mod-resumen" class="module-content hidden text-center py-16">
-                    <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i>
-                    <h4 class="text-3xl font-black uppercase italic mb-4">Guía Estratégica</h4>
-                    <p class="text-gray-400 text-sm mb-8">El resumen en PDF estará disponible próximamente.<br>Se descargará directo a tu dispositivo.</p>
-                    <button class="bg-slate-100 text-slate-400 font-black py-5 px-12 rounded-2xl cursor-not-allowed" disabled>PRÓXIMAMENTE</button>
+                <div id="mod-resumen" class="module-content hidden">
+                    <!-- Header -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b pb-6 gap-4">
+                        <div>
+                            <h4 class="text-2xl font-black uppercase italic">Guía de Estudio – Licencia B1</h4>
+                            <p class="text-xs text-gray-400 mt-1">6 capítulos · Basado en el manual oficial del MOPT 2026</p>
+                        </div>
+                        <button onclick="printResumen()"
+                            class="flex items-center gap-2 bg-black text-white font-black py-3 px-6 rounded-xl uppercase text-xs italic hover:bg-gray-800 transition-colors shrink-0">
+                            <i data-lucide="download" class="w-4 h-4"></i> Guardar / Imprimir
+                        </button>
+                    </div>
+
+                    <!-- ACORDEÓN -->
+                    <div id="resumen-acordeon" class="space-y-3">
+
+                        <!-- CAP 1 -->
+                        <details class="resumen-cap rounded-2xl border border-gray-100 overflow-hidden group">
+                            <summary class="flex items-center justify-between p-5 cursor-pointer bg-gray-50 hover:bg-yellow-50 transition-colors select-none">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-black text-traffic-yellow font-black text-xs px-2 py-1 rounded-lg uppercase italic shrink-0">Cap 01</span>
+                                    <span class="font-bold text-sm text-slate-800">Conceptos y Generalidades para una Conducción Segura</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 shrink-0 ml-3 transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <div class="p-5 pt-4 text-sm text-gray-700 space-y-4 border-t border-gray-100">
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Tipos de conductor</h5>
+                                    <p>La conducción exige manejar el vehículo respetando la seguridad vial como prioridad en un espacio compartido. Los conductores se clasifican en: <strong>novato</strong> (menos de 3 años de experiencia), <strong>profesional</strong> (transporte remunerado), <strong>común</strong> (más de 3 años sin ser profesional) y <strong>no acreditado</strong>.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Movilidad Segura y Sostenible</h5>
+                                    <p>Reconoce la vulnerabilidad humana y promueve un <strong>enfoque de sistema seguro</strong> que adecúe las vías para evitar consecuencias fatales por errores humanos.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Factores de riesgo y accidentes</h5>
+                                    <p>Los accidentes (colisiones, vuelcos, atropellos) implican al menos un vehículo y derivan de la infracción a la normativa. Destacan las <strong>colisiones frontales, traseras y laterales</strong>. La colisión frontal es considerada la más grave.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Infraestructura vial</h5>
+                                    <p>Los vehículos se clasifican en <strong>motorizados</strong> (carga, público, emergencias) y <strong>no motorizados</strong> (bicicletas). La vía incluye: aceras, ciclovías, calzada, carril, espaldón. Las vías se clasifican en carreteras primarias, locales y caminos.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Licencia de conducir</h5>
+                                    <p>Requisitos: edad mínima, examen teórico y dictamen médico. Tipos: <strong>B1</strong> (vehículos livianos hasta 4.000 kg), B2, B3, B4 según peso. También existe el Permiso Temporal de Aprendizaje. La licencia A1 se puede obtener con <strong>16 años con autorización de los padres</strong>.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Documentos obligatorios</h5>
+                                    <p>Se debe portar: <strong>Título de Propiedad, Inspección Técnica Vehicular (IVE), Marchamo</strong> y las placas correspondientes. El marchamo acredita el pago del seguro obligatorio y derechos de circulación anuales.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Usuarios vulnerables</h5>
+                                    <p>Se prioriza la protección de <strong>peatones, ciclistas, motociclistas, menores de edad y adultos mayores</strong>. Es obligatorio ceder el paso a vehículos de emergencia con sirena activa.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Conducción inteligente</h5>
+                                    <p>Incluye el uso adecuado de carriles (ascenso, exclusivos, reversibles) y la planificación de la <strong>distancia segura mediante la regla de los 2 segundos</strong> (para vehículos livianos) o 3 segundos según condiciones.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- CAP 2 -->
+                        <details class="resumen-cap rounded-2xl border border-gray-100 overflow-hidden group">
+                            <summary class="flex items-center justify-between p-5 cursor-pointer bg-gray-50 hover:bg-yellow-50 transition-colors select-none">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-black text-traffic-yellow font-black text-xs px-2 py-1 rounded-lg uppercase italic shrink-0">Cap 02</span>
+                                    <span class="font-bold text-sm text-slate-800">Señalamiento Vial</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 shrink-0 ml-3 transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <div class="p-5 pt-4 text-sm text-gray-700 space-y-4 border-t border-gray-100">
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Señales verticales</h5>
+                                    <p>Placas metálicas retrorreflectivas clasificadas en tres tipos:</p>
+                                    <ul class="mt-2 space-y-1 pl-4">
+                                        <li>🔴 <strong>Reglamentación</strong> – Blancas con rojo. Indican prohibiciones u obligaciones (ALTO, CEDA, velocidad máxima).</li>
+                                        <li>🟡 <strong>Prevención</strong> – Amarillas o naranjas en forma de rombo. Advierten sobre peligros reales o potenciales.</li>
+                                        <li>🔵 <strong>Información</strong> – Azules, verdes o cafés. Orientan sobre destinos, distancias y servicios.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Señales horizontales (marcas en pavimento)</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>🟡 <strong>Líneas amarillas</strong> – Separan flujos de sentido contrario. Continuas: prohíben adelantar.</li>
+                                        <li>⬜ <strong>Líneas blancas</strong> – Separan carriles del mismo sentido. Discontinuas: permiten cambio de carril.</li>
+                                        <li>Las <strong>zonas de paso peatonal</strong> se marcan con franjas blancas perpendiculares a la acera.</li>
+                                        <li>Bordillo o caño pintado de <strong>amarillo</strong>: prohibición de estacionamiento.</li>
+                                        <li><strong>Captaluces rojos</strong> (ojos de gato): indican el borde de la calzada.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Semáforos y señales luminosas</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>🟢 <strong>Verde</strong>: Avanzar con precaución.</li>
+                                        <li>🟡 <strong>Amarillo</strong>: Precaución, el semáforo cambiará a rojo pronto.</li>
+                                        <li>🔴 <strong>Rojo</strong>: Detención total obligatoria.</li>
+                                        <li>🔴 <strong>Rojo intermitente</strong>: Equivale a señal de ALTO.</li>
+                                        <li>Semáforo peatonal en verde: derecho de paso para el peatón.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Velocidades</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>Sin señalización: <strong>máximo 60 km/h</strong></li>
+                                        <li>Zonas escolares con estudiantes: <strong>máximo 25 km/h</strong></li>
+                                        <li>Autopistas: velocidad mínima <strong>50 km/h</strong></li>
+                                        <li>Rotondas: velocidad máxima <strong>30 km/h</strong></li>
+                                        <li>Más de 120 km/h: <strong>infracción categoría A</strong> (6 puntos)</li>
+                                        <li>Más de 150 km/h: <strong>delito penal</strong></li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Señalamiento naranja y manual</h5>
+                                    <p>El color <strong>naranja</strong> indica prevención en zonas de obras en la vía. Los <strong>oficiales de tránsito</strong> utilizan señalamiento manual y tienen prioridad sobre cualquier señal estática en una emergencia. El tren tiene <strong>prioridad número uno</strong> sobre todos los demás usuarios.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- CAP 3 -->
+                        <details class="resumen-cap rounded-2xl border border-gray-100 overflow-hidden group">
+                            <summary class="flex items-center justify-between p-5 cursor-pointer bg-gray-50 hover:bg-yellow-50 transition-colors select-none">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-black text-traffic-yellow font-black text-xs px-2 py-1 rounded-lg uppercase italic shrink-0">Cap 03</span>
+                                    <span class="font-bold text-sm text-slate-800">Vehículos Seguros: Características y Elementos</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 shrink-0 ml-3 transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <div class="p-5 pt-4 text-sm text-gray-700 space-y-4 border-t border-gray-100">
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Panel de instrumentos</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>🔴 <strong>Luces rojas</strong>: Atención inmediata — peligro grave.</li>
+                                        <li>🟡 <strong>Luces amarillas</strong>: Advertencia — revisión necesaria (ej: Check Engine).</li>
+                                        <li>🟢 <strong>Luces verdes/azules</strong>: Informativas.</li>
+                                        <li><strong>Velocímetro</strong>: velocidad actual. <strong>Tacómetro</strong>: RPM del motor. <strong>Zona verde del tacómetro</strong>: rango óptimo de rendimiento.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Visibilidad y espejos</h5>
+                                    <p>Los espejos retrovisores deben ajustarse para minimizar el <strong>punto ciego o ángulo muerto</strong> — zona alrededor del vehículo no visible a través de los espejos. Es obligatorio revisar espejos y punto ciego antes de cambiar de carril.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Iluminación</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>Luz baja obligatoria: <strong>6:00 p.m. a 6:00 a.m.</strong></li>
+                                        <li>Luz alta: visibilidad mínima de <strong>250 metros</strong>. Bajar a <strong>150 metros</strong> del vehículo de frente.</li>
+                                        <li>Si lo encandilan: dirigir la vista hacia <strong>la línea de borde derecha</strong> de la calzada.</li>
+                                        <li>Las <strong>luces direccionales</strong> comunican maniobras de giro o cambio de carril.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Llantas</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>Llanta nueva: profundidad de ranura ≈ <strong>9 mm</strong></li>
+                                        <li>Desgaste máximo permitido: <strong>2 mm</strong> (no alcanzar el testigo de 1.6 mm)</li>
+                                        <li>Se usa <strong>manómetro</strong> para medir la presión de las llantas.</li>
+                                        <li>Primer paso para cambiar llanta: escoger un lugar seguro fuera de la carretera.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Frenos y seguridad activa</h5>
+                                    <p>El <strong>sistema ABS</strong> (Anti-lock Braking System) evita el bloqueo de las llantas durante el frenado de emergencia — es seguridad activa. El <strong>catalizador</strong> convierte los gases del motor en menos contaminantes. El <strong>alternador</strong> genera la corriente eléctrica del vehículo.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Revisión diaria</h5>
+                                    <p>Antes de salir verificar: <strong>niveles de líquidos, luces, llantas y posibles fugas</strong>. El extintor debe llevarse <strong>debajo del asiento del pasajero o copiloto</strong>.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Motor y eficiencia</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li><strong>Conducción técnica eficiente (eco-conducción)</strong>: técnica para ahorrar combustible.</li>
+                                        <li>Cambios de marcha en gasolina: entre <strong>2000 y 2800 RPM</strong>.</li>
+                                        <li><strong>Pie de pluma</strong>: uso suave del acelerador para regular el combustible.</li>
+                                        <li>Ventanas cerradas en autopista: mejora aerodinámica y reduce consumo.</li>
+                                        <li>Sistema Lambda: regula la mezcla exacta de aire y combustible en motores inyectados.</li>
+                                        <li>Par torsional: fuerza de giro que el motor transmite a las ruedas.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- CAP 4 -->
+                        <details class="resumen-cap rounded-2xl border border-gray-100 overflow-hidden group">
+                            <summary class="flex items-center justify-between p-5 cursor-pointer bg-gray-50 hover:bg-yellow-50 transition-colors select-none">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-black text-traffic-yellow font-black text-xs px-2 py-1 rounded-lg uppercase italic shrink-0">Cap 04</span>
+                                    <span class="font-bold text-sm text-slate-800">Conducción y Maniobras Seguras en Carretera</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 shrink-0 ml-3 transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <div class="p-5 pt-4 text-sm text-gray-700 space-y-4 border-t border-gray-100">
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Antes de arrancar</h5>
+                                    <p>Configurar ergonómicamente el asiento y los apoyacabezas. <strong>Uso del cinturón de seguridad es obligatorio</strong> para todos los ocupantes. El cinturón es el principal dispositivo de seguridad pasiva — evita que los ocupantes sean expulsados en un choque.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Adelantamiento</h5>
+                                    <p>Es una maniobra de <strong>alto riesgo</strong>. Está <strong>taxativamente prohibido</strong> adelantar en:</p>
+                                    <ul class="mt-2 space-y-1 pl-4">
+                                        <li>❌ Curvas y puentes</li>
+                                        <li>❌ Intersecciones</li>
+                                        <li>❌ Donde haya línea amarilla continua</li>
+                                        <li>✅ Solo se permite donde haya línea discontinua y visibilidad suficiente.</li>
+                                    </ul>
+                                    <p class="mt-2">Distancia lateral mínima al adelantar a un ciclista: <strong>1,5 metros</strong>.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Reversa</h5>
+                                    <p>Limitada a tramos <strong>no mayores a 50 metros</strong>. Prohibida en autopistas. Antes de retroceder: verificar que no haya personas u objetos detrás y usar espejos.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Frenado seguro</h5>
+                                    <p>La velocidad, el peso, las llantas y el <strong>tiempo de reacción (1,5 segundos promedio)</strong> determinan la eficacia del frenado. En descensos prolongados: usar técnica de <strong>"compresionar"</strong> (freno motor) para no sobrecalentar los frenos.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Intersecciones y rotondas</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>Sin señales: prioridad al vehículo que viene <strong>por el lado derecho</strong> (Ley de la mano derecha).</li>
+                                        <li>Rotondas: prioridad absoluta al vehículo que <strong>ya circula dentro</strong>. Velocidad máxima: <strong>30 km/h</strong>.</li>
+                                        <li>Triángulos de seguridad en emergencia: <strong>90 metros atrás y 15 metros adelante</strong>.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Hidroplaneamiento (aquaplaning)</h5>
+                                    <p>Pérdida total de contacto de las llantas con el pavimento por una capa de agua. Se previene reduciendo la velocidad bajo lluvia y manteniendo llantas en buen estado.</p>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Estacionamiento prohibido</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>❌ Aceras y pasos peatonales</li>
+                                        <li>❌ Hidrantes y zonas amarillas</li>
+                                        <li>❌ En pendiente: girar llantas hacia la acera y usar freno de mano.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Conducción nocturna</h5>
+                                    <p>La visibilidad se reduce y aumenta el riesgo por fatiga. Si es encandilado: dirigir la vista a la <strong>línea de borde derecha</strong>. En autopistas: usar carril de aceleración correctamente y circular preferentemente por el carril derecho.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- CAP 5 -->
+                        <details class="resumen-cap rounded-2xl border border-gray-100 overflow-hidden group">
+                            <summary class="flex items-center justify-between p-5 cursor-pointer bg-gray-50 hover:bg-yellow-50 transition-colors select-none">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-black text-traffic-yellow font-black text-xs px-2 py-1 rounded-lg uppercase italic shrink-0">Cap 05</span>
+                                    <span class="font-bold text-sm text-slate-800">Seguridad Vial, Factores de Riesgo y Prevención</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 shrink-0 ml-3 transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <div class="p-5 pt-4 text-sm text-gray-700 space-y-4 border-t border-gray-100">
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Seguridad pasiva</h5>
+                                    <p>Actúa <em>durante</em> el accidente para minimizar lesiones. Incluye:</p>
+                                    <ul class="mt-1 space-y-1 pl-4">
+                                        <li>Carrocería deformable, cinturón de seguridad, apoyacabezas, airbag.</li>
+                                        <li><strong>SRI (Sistema de Retención Infantil)</strong>: obligatorio para menores de 12 años y menos de 1,45 metros de estatura. No transportar menores de 5 años en moto: infracción categoría B (4 puntos).</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Distracciones de alta mortalidad</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>📵 Celular sin manos libres: infracción categoría C.</li>
+                                        <li>Manipulación de radio y otros distractores dentro del vehículo.</li>
+                                        <li>El estrés provoca conductas agresivas, pérdida de concentración e irritabilidad.</li>
+                                        <li>La fatiga exige pausas activas — la conducción nocturna intensifica el riesgo por fatiga.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Alcohol y sustancias</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>El alcohol disminuye gravemente los reflejos, afecta la coordinación y el juicio, y crea una <strong>falsa sensación de seguridad</strong>.</li>
+                                        <li>Límite para conductor profesional/novato: <strong>0,50 g por litro de sangre</strong>.</li>
+                                        <li>Límite para conductor común: <strong>0,75 g por litro de sangre</strong>.</li>
+                                        <li>Negarse a la prueba de alcoholemia: infracción categoría A + proceso judicial.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Accidente de tránsito – protocolos</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>Solo daños materiales: rellenar la <strong>Declaración de Accidente Menor (DAM)</strong>.</li>
+                                        <li>Hay heridos: llamar urgente al <strong>9-1-1</strong>. No mover a las víctimas sin adiestramiento médico.</li>
+                                    </ul>
+                                </div>
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Contaminación</h5>
+                                    <ul class="space-y-1 pl-4">
+                                        <li>Motores en mal estado producen <strong>nube negra de hollín</strong>.</li>
+                                        <li>Un litro de aceite usado mancha <strong>1 hectárea</strong> de agua.</li>
+                                        <li>Las bocinas producen <strong>contaminación sónica</strong>.</li>
+                                        <li>Solución al problema de basura: <strong>reciclaje</strong>.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- CAP 6 -->
+                        <details class="resumen-cap rounded-2xl border border-gray-100 overflow-hidden group">
+                            <summary class="flex items-center justify-between p-5 cursor-pointer bg-gray-50 hover:bg-yellow-50 transition-colors select-none">
+                                <div class="flex items-center gap-3">
+                                    <span class="bg-black text-traffic-yellow font-black text-xs px-2 py-1 rounded-lg uppercase italic shrink-0">Cap 06</span>
+                                    <span class="font-bold text-sm text-slate-800">Normas, Sanciones y Sistema de Puntos</span>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 shrink-0 ml-3 transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <div class="p-5 pt-4 text-sm text-gray-700 space-y-4 border-t border-gray-100">
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-2 uppercase text-xs tracking-widest">Tabla de infracciones</h5>
+                                    <div class="overflow-x-auto rounded-xl border border-gray-100">
+                                        <table class="w-full text-xs">
+                                            <thead><tr class="bg-black text-white"><th class="p-3 text-left">Categoría</th><th class="p-3 text-center">Puntos</th><th class="p-3 text-left">Ejemplos</th></tr></thead>
+                                            <tbody>
+                                                <tr class="border-t border-gray-100 bg-red-50"><td class="p-3 font-black text-red-700">A</td><td class="p-3 text-center font-black text-red-700">6 pts</td><td class="p-3">Más de 120 km/h, alcohol, adelantar en curva/puente, licencia suspendida, negarse a alcoholemia.</td></tr>
+                                                <tr class="border-t border-gray-100 bg-orange-50"><td class="p-3 font-black text-orange-700">B</td><td class="p-3 text-center font-black text-orange-700">4 pts</td><td class="p-3">Irrespetar ALTO o semáforo en rojo, niños sin SRI, placas alteradas, exceder 40 km/h el límite, menores en moto.</td></tr>
+                                                <tr class="border-t border-gray-100"><td class="p-3 font-black text-gray-600">C</td><td class="p-3 text-center text-gray-500">0 pts</td><td class="p-3">Celular sin manos libres. Solo multa económica.</td></tr>
+                                                <tr class="border-t border-gray-100"><td class="p-3 font-black text-gray-600">D</td><td class="p-3 text-center text-gray-500">0 pts</td><td class="p-3">Extranjero con licencia extranjera tras 3 meses. Solo multa.</td></tr>
+                                                <tr class="border-t border-gray-100"><td class="p-3 font-black text-gray-600">E</td><td class="p-3 text-center text-gray-500">0 pts</td><td class="p-3">Otras maniobras menores. Solo multa económica.</td></tr>
+                                                <tr class="border-t border-gray-100 bg-purple-50"><td class="p-3 font-black text-purple-700">Delito penal</td><td class="p-3 text-center font-black text-purple-700">12 pts</td><td class="p-3">Más de 150 km/h, piques ilegales, alcoholemia grave. Pena: 1 a 3 años de prisión.</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-2 uppercase text-xs tracking-widest">Sistema de puntos – límites por tipo de licencia</h5>
+                                    <div class="overflow-x-auto rounded-xl border border-gray-100">
+                                        <table class="w-full text-xs">
+                                            <thead><tr class="bg-slate-800 text-white"><th class="p-3 text-left">Vigencia de licencia</th><th class="p-3 text-center">Puntos máximos</th></tr></thead>
+                                            <tbody>
+                                                <tr class="border-t border-gray-100"><td class="p-3">3 años (conductor novato)</td><td class="p-3 text-center font-black">6 puntos</td></tr>
+                                                <tr class="border-t border-gray-100"><td class="p-3">4 años</td><td class="p-3 text-center font-black">8 puntos</td></tr>
+                                                <tr class="border-t border-gray-100"><td class="p-3">6 años</td><td class="p-3 text-center font-black">12 puntos</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Consecuencias de acumular puntos</h5>
+                                    <ul class="space-y-2 pl-4">
+                                        <li><strong>Acumulación parcial (5 pts o más sin llegar al límite):</strong> restricción para renovar la licencia. Debe aprobar curso de sensibilización o realizar trabajo comunal.</li>
+                                        <li><strong>Acumulación total (límite alcanzado):</strong> suspensión por <strong>12 meses</strong>. Se reduce a 6 meses si depende laboralmente de conducir.</li>
+                                        <li><strong>Reincidencia (segunda suspensión):</strong> inhabilitación por <strong>24 meses</strong>.</li>
+                                        <li>Para reacreditarse: aprobar curso de sensibilización, programa de adicciones o control de conductas violentas según corresponda.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Descuento de puntos</h5>
+                                    <p>Por cada infracción se puede descontar la <strong>mitad de los puntos asignados</strong> mediante horas de trabajo comunitario en entidad pública o aprobando el curso de sensibilización y reeducación vial.</p>
+                                </div>
+
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Conducir con licencia suspendida</h5>
+                                    <p>Se clasifica como <strong>infracción categoría A</strong> (6 puntos adicionales). Conlleva retiro inmediato del vehículo. Si vuelve a alcanzar el límite: <strong>suspensión por 24 meses</strong> más programa de conductas violentas y/o adicciones.</p>
+                                </div>
+
+                                <div class="resumen-bloque">
+                                    <h5 class="font-black text-slate-900 mb-1 uppercase text-xs tracking-widest">Impugnar una boleta</h5>
+                                    <p>Se impugna ante el <strong>COSEVI</strong>, dentro de los <strong>10 días hábiles</strong> posteriores a la citación.</p>
+                                </div>
+                            </div>
+                        </details>
+
+                    </div><!-- fin acordeón -->
+
+                    <!-- Nota al pie -->
+                    <div class="mt-8 bg-yellow-50 border border-yellow-200 rounded-2xl p-4 flex items-start gap-3">
+                        <i data-lucide="info" class="w-5 h-5 text-yellow-600 shrink-0 mt-0.5"></i>
+                        <p class="text-xs text-yellow-800">Este resumen está basado en los manuales oficiales del MOPT 2026. Para el examen real, complementá con el simulador y las fichas de estudio.</p>
+                    </div>
                 </div>
 
                 <!-- VIDEO -->
@@ -475,6 +855,13 @@ lucide.createIcons();
 function scrollToSection(id) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── IMPRIMIR / GUARDAR PDF ─────────────────
+function printResumen() {
+    // Abrir todos los acordeones antes de imprimir
+    document.querySelectorAll('details.resumen-cap').forEach(d => d.open = true);
+    setTimeout(() => window.print(), 300);
 }
 
 // ── MODAL SINPE ────────────────────────────
