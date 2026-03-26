@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin – Generador de Accesos | Teórico Pro CR</title>
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    </style>
+</head>
+<body class="p-4 md:p-10 flex flex-col items-center min-h-screen">
+
+<div class="w-full max-w-xl space-y-8">
+
+    <!-- Encabezado -->
+    <div class="bg-black text-white p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden border-b-8 border-[#FFD700]">
+        <div class="relative z-10 text-center">
+            <div class="flex items-center justify-center gap-3 mb-2">
+                <span class="bg-[#FFD700] text-black font-black px-2 py-1 rounded italic text-xs leading-none">PRO</span>
+                <h1 class="text-2xl font-black uppercase italic tracking-tighter">Generador de Accesos</h1>
+            </div>
+            <p class="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]">Panel Administrador – Teórico CR v3.0</p>
+        </div>
+        <i data-lucide="shield-check" class="absolute -right-6 -bottom-6 w-32 h-32 text-white opacity-10"></i>
+    </div>
+
+    <!-- CONFIGURACIÓN GOOGLE APPS SCRIPT -->
+    <div class="bg-blue-50 border-2 border-blue-200 rounded-[2rem] p-6 space-y-4">
+        <div class="flex items-center gap-2">
+            <i data-lucide="settings" class="w-4 h-4 text-blue-600"></i>
+            <p class="text-[10px] font-black text-blue-700 uppercase tracking-widest">Configuración (solo primera vez)</p>
+        </div>
+        <div>
+            <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">URL del Google Apps Script</label>
+            <input type="text" id="script-url" placeholder="https://script.google.com/macros/s/XXXX/exec"
+                class="w-full bg-white border-2 border-blue-100 rounded-2xl px-5 py-3 font-mono text-xs outline-none focus:border-blue-400 transition-colors">
+            <p class="text-[9px] text-slate-400 mt-2">Instrucciones para obtener esta URL están al final de la página.</p>
+        </div>
+        <button onclick="saveConfig()"
+            class="w-full bg-blue-600 text-white font-black py-3 rounded-2xl uppercase text-xs hover:bg-blue-700 transition-colors">
+            Guardar
+        </button>
+        <p id="config-status" class="text-[10px] text-center font-bold hidden"></p>
+    </div>
+
+    <!-- Formulario generador -->
+    <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-200 space-y-5">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Iniciales (3 letras)</label>
+                <input type="text" id="name" placeholder="EJ: JPR" maxlength="3"
+                    class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 font-bold outline-none focus:border-[#FFD700] uppercase transition-colors text-center tracking-widest">
+            </div>
+            <div>
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Últimos 4 Cédula</label>
+                <input type="text" id="cedula" maxlength="4" placeholder="EJ: 0840"
+                    class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 font-bold outline-none focus:border-[#FFD700] transition-colors text-center tracking-widest">
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nombre del cliente</label>
+            <input type="text" id="client-name" placeholder="EJ: Juan Pérez Rodríguez"
+                class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 font-bold outline-none focus:border-[#FFD700] transition-colors">
+        </div>
+
+        <div>
+            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Plan a Generar</label>
+            <select id="plan-type" class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 font-bold outline-none focus:border-[#FFD700] text-slate-700 transition-colors">
+                <option value="B1|15">🚗 Carro B1 – 15 Días – ₡4,500</option>
+                <option value="A2|15">🏍️ Moto A1-A3 – 15 Días – ₡4,500</option>
+                <option value="PRO|20">⭐ Combo Pro (B1 + Moto) – 20 Días – ₡7,000</option>
+                <option value="DEMO|1">⏱️ Prueba Gratis – 1 Día</option>
+            </select>
+        </div>
+
+        <button onclick="generateSecurePIN()" id="btn-generate"
+            class="w-full bg-black text-white font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 uppercase italic">
+            Generar PIN <i data-lucide="zap" class="w-5 h-5 text-[#FFD700]"></i>
+        </button>
+
+        <div id="sheet-status" class="hidden rounded-2xl p-3 text-center text-xs font-bold uppercase tracking-widest"></div>
+    </div>
+
+    <!-- Resultado -->
+    <div id="result" class="hidden">
+        <div class="bg-slate-900 rounded-[2.5rem] p-8 border-2 border-[#FFD700] shadow-2xl space-y-6">
+            <div class="text-center">
+                <p class="text-[10px] text-[#FFD700] font-black uppercase tracking-[0.3em] mb-4">Código Único de Acceso</p>
+                <div class="flex items-center justify-between bg-black p-4 rounded-2xl border border-slate-800 gap-3">
+                    <span id="pin-display" class="text-lg md:text-xl font-black text-white tracking-[0.05em] uppercase italic break-all flex-1 text-center"></span>
+                    <button onclick="copyData('pin')" class="bg-[#FFD700] p-3 rounded-xl hover:scale-110 active:scale-95 transition-transform shrink-0">
+                        <i data-lucide="copy" class="w-5 h-5 text-black"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-3 text-center text-xs">
+                <div class="bg-black/40 rounded-2xl p-3 border border-slate-800">
+                    <p class="text-gray-500 uppercase tracking-widest mb-1">Plan</p>
+                    <p id="sum-plan" class="text-white font-black"></p>
+                </div>
+                <div class="bg-black/40 rounded-2xl p-3 border border-slate-800">
+                    <p class="text-gray-500 uppercase tracking-widest mb-1">Días</p>
+                    <p id="sum-dias" class="text-[#FFD700] font-black text-lg"></p>
+                </div>
+                <div class="bg-black/40 rounded-2xl p-3 border border-slate-800">
+                    <p class="text-gray-500 uppercase tracking-widest mb-1">Vence</p>
+                    <p id="sum-vence" class="text-white font-black"></p>
+                </div>
+            </div>
+            <div class="relative bg-black/40 p-6 rounded-2xl border border-slate-800">
+                <label class="block text-[9px] font-black text-slate-500 uppercase mb-3 tracking-widest italic">Mensaje WhatsApp listo</label>
+                <p id="wa-text" class="text-xs text-slate-300 italic whitespace-pre-line leading-relaxed pr-8"></p>
+                <button onclick="copyData('msg')" class="absolute top-4 right-4 text-[#FFD700] hover:text-white transition-colors">
+                    <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+        <p id="toast" class="text-center text-green-600 font-bold text-[10px] mt-4 uppercase tracking-widest opacity-0 transition-opacity duration-300">✓ Copiado</p>
+    </div>
+
+    <!-- Historial sesión -->
+    <div id="history-section" class="hidden">
+        <div class="bg-white rounded-[2.5rem] p-6 shadow-xl border border-slate-200">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Generados esta sesión</h2>
+                    <p class="text-[9px] text-slate-300 mt-0.5">✅ = en Sheet · ⚠️ = solo local</p>
+                </div>
+                <button onclick="clearHistory()" class="text-[10px] text-red-400 font-bold hover:text-red-600">Limpiar</button>
+            </div>
+            <div id="history-list" class="space-y-2"></div>
+        </div>
+    </div>
+
+    <!-- Cómo anular -->
+    <div class="bg-amber-50 border-2 border-amber-200 rounded-[2rem] p-6">
+        <div class="flex items-center gap-2 mb-3">
+            <i data-lucide="ban" class="w-4 h-4 text-amber-600"></i>
+            <p class="text-[10px] font-black text-amber-700 uppercase tracking-widest">Cómo anular un PIN</p>
+        </div>
+        <ol class="text-xs text-amber-800 space-y-1.5 pl-2">
+            <li>1. Abrí el Google Sheet "CONTROL DE TOKENS"</li>
+            <li>2. Buscá el PIN en la columna A</li>
+            <li>3. Cambiá la columna F (ESTADO) de <strong>ACTIVO</strong> a:</li>
+            <li class="pl-4">→ <strong>ANULADO</strong> para bloqueo permanente</li>
+            <li class="pl-4">→ <strong>SUSPENDIDO</strong> para bloqueo temporal (reactivable)</li>
+            <li>4. El bloqueo es <strong>instantáneo</strong>, sin redeploy</li>
+            <li>5. Para reactivar: volvé a escribir <strong>ACTIVO</strong></li>
+        </ol>
+    </div>
+
+    <!-- Instrucciones Apps Script -->
+    <details class="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden">
+        <summary class="p-6 cursor-pointer font-black text-sm uppercase tracking-widest text-slate-600 flex justify-between items-center">
+            ¿Cómo configurar Google Apps Script?
+            <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400"></i>
+        </summary>
+        <div class="px-6 pb-6 text-xs text-slate-600 space-y-3 border-t border-slate-100 pt-4">
+            <p class="font-bold">Hacé esto una sola vez:</p>
+            <ol class="space-y-2 pl-2">
+                <li>1. Abrí tu Google Sheet "CONTROL DE TOKENS"</li>
+                <li>2. Menú → <strong>Extensiones → Apps Script</strong></li>
+                <li>3. Borrá todo el código que aparece y pegá el código del archivo <strong>apps-script.gs</strong> que te entregamos</li>
+                <li>4. Guardá (Ctrl+S) y dale un nombre al proyecto</li>
+                <li>5. Clic en <strong>Implementar → Nueva implementación</strong></li>
+                <li>6. Tipo: <strong>Aplicación web</strong></li>
+                <li>7. Ejecutar como: <strong>Yo</strong></li>
+                <li>8. Quién tiene acceso: <strong>Cualquier usuario</strong></li>
+                <li>9. Clic en <strong>Implementar</strong> → autorizá los permisos</li>
+                <li>10. Copiá la <strong>URL de la aplicación web</strong> y pegala arriba en "Configuración"</li>
+            </ol>
+            <p class="bg-yellow-50 border border-yellow-200 rounded-xl p-3 text-yellow-800 font-semibold">⚠️ Si modificás el script después, debés hacer una <strong>nueva implementación</strong> (no editar la existente) para que los cambios tomen efecto.</p>
+        </div>
+    </details>
+
+</div>
+
+<script>
+lucide.createIcons();
+
+const SECRET_KEY = "PuraVida2026_Secure_Refuerzo";
+const sessionHistory = [];
+
+function saveConfig() {
+    const url = document.getElementById('script-url').value.trim();
+    if (!url) { showConfigStatus("Pegá la URL del Apps Script.", false); return; }
+    localStorage.setItem('gscript_url', url);
+    showConfigStatus("✓ URL guardada correctamente.", true);
+}
+
+function loadConfig() {
+    const url = localStorage.getItem('gscript_url') || '';
+    if (url) {
+        document.getElementById('script-url').value = url;
+        showConfigStatus("✓ Configuración cargada.", true);
+    }
+}
+
+function showConfigStatus(msg, ok) {
+    const el = document.getElementById('config-status');
+    el.innerText = msg;
+    el.className = `text-[10px] text-center font-bold ${ok ? 'text-green-600' : 'text-red-500'}`;
+    el.classList.remove('hidden');
+}
+
+function calcularFirma(datos) {
+    let hash = 0;
+    const str = datos + SECRET_KEY;
+    for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash |= 0;
+    }
+    return Math.abs(hash).toString(36).toUpperCase().substring(0, 4);
+}
+
+async function registrarEnSheet(pin, plan, dias, fechaVence, nombre) {
+    const scriptUrl = localStorage.getItem('gscript_url');
+    if (!scriptUrl) return { ok: false, msg: "URL no configurada" };
+    try {
+        const res = await fetch(scriptUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ pin, plan, dias, fechaVence, nombre, estado: "ACTIVO" })
+        });
+        const data = await res.json();
+        return { ok: data.result === "ok", msg: data.msg || "" };
+    } catch(e) {
+        return { ok: false, msg: e.message };
+    }
+}
+
+async function generateSecurePIN() {
+    const btn = document.getElementById('btn-generate');
+    btn.innerHTML = '<svg class="animate-spin w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg> Generando...';
+    btn.disabled = true;
+
+    let name = document.getElementById('name').value.trim().replace(/[^a-zA-Z]/g,'').toUpperCase();
+    if (!name) name = "USR";
+    else if (name.length < 3) name = name.padEnd(3,'X');
+    else name = name.substring(0,3);
+
+    const cedula      = (document.getElementById('cedula').value.trim() || "0000").padStart(4,'0').substring(0,4);
+    const clienteName = document.getElementById('client-name').value.trim() || "Sin nombre";
+    const planVal     = document.getElementById('plan-type').value;
+    const prefix      = planVal.split('|')[0];
+    const days        = parseInt(planVal.split('|')[1]);
+
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + days);
+    const dateStr = expiry.getFullYear()
+        + String(expiry.getMonth()+1).padStart(2,'0')
+        + String(expiry.getDate()).padStart(2,'0');
+    const fechaLabel = expiry.toLocaleDateString('es-CR');
+
+    const checksum = calcularFirma(dateStr + name + cedula);
+    const pin = `${prefix}-${dateStr}-${name}-${cedula}-${checksum}`;
+
+    const planLabels = { B1:"🚗 Carro B1 (15 días)", A2:"🏍️ Moto A1-A3 (15 días)", PRO:"⭐ Combo Pro (20 días)", DEMO:"⏱️ Prueba (1 día)" };
+    const planLabel = planLabels[prefix] || prefix;
+
+    // Registrar en Sheet
+    const ss = document.getElementById('sheet-status');
+    ss.className = 'rounded-2xl p-3 text-center text-xs font-bold uppercase tracking-widest bg-blue-50 text-blue-600';
+    ss.innerText = '⏳ Registrando en Google Sheets...';
+    ss.classList.remove('hidden');
+
+    const reg = await registrarEnSheet(pin, prefix, days, fechaLabel, clienteName);
+
+    if (reg.ok) {
+        ss.className = 'rounded-2xl p-3 text-center text-xs font-bold uppercase tracking-widest bg-green-50 text-green-700';
+        ss.innerText = '✅ Registrado en Google Sheets';
+    } else {
+        ss.className = 'rounded-2xl p-3 text-center text-xs font-bold uppercase tracking-widest bg-amber-50 text-amber-700';
+        ss.innerText = `⚠️ No se pudo registrar en Sheet — PIN igual funciona. (${reg.msg})`;
+    }
+
+    document.getElementById('pin-display').innerText = pin;
+    document.getElementById('sum-plan').innerText  = prefix;
+    document.getElementById('sum-dias').innerText  = days;
+    document.getElementById('sum-vence').innerText = fechaLabel;
+    document.getElementById('wa-text').innerText =
+`¡Hola! Aquí tenés tu acceso premium a Teórico Pro CR 🎉
+
+📚 Plan: *${planLabel}*
+🔑 PIN de acceso: *${pin}*
+📅 Válido hasta: *${fechaLabel}*
+
+🔗 Ingresá aquí:
+https://examenteoricocr.netlify.app/
+
+En el Portal Premium ingresá el PIN completo tal como está arriba.
+¡Mucho éxito en tu examen! 🚦`;
+
+    document.getElementById('result').classList.remove('hidden');
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+    sessionHistory.unshift({ pin, plan: planLabel, vence: fechaLabel, nombre: clienteName, enSheet: reg.ok });
+    renderHistory();
+
+    btn.innerHTML = 'Generar PIN <i data-lucide="zap" class="w-5 h-5 text-[#FFD700]"></i>';
+    btn.disabled = false;
+    lucide.createIcons();
+}
+
+function copyData(type) {
+    const text = type === 'pin'
+        ? document.getElementById('pin-display').innerText
+        : document.getElementById('wa-text').innerText;
+    navigator.clipboard.writeText(text).catch(() => {
+        const el = document.createElement('textarea');
+        el.value = text; document.body.appendChild(el);
+        el.select(); document.execCommand('copy');
+        document.body.removeChild(el);
+    });
+    const t = document.getElementById('toast');
+    t.style.opacity = '1';
+    setTimeout(() => t.style.opacity = '0', 2000);
+}
+
+function renderHistory() {
+    const section = document.getElementById('history-section');
+    const list    = document.getElementById('history-list');
+    if (!sessionHistory.length) { section.classList.add('hidden'); return; }
+    section.classList.remove('hidden');
+    list.innerHTML = sessionHistory.map(h =>
+        `<div class="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-3 text-xs border border-slate-100 gap-2">
+            <div class="min-w-0">
+                <p class="font-black text-slate-700 uppercase truncate">${h.pin}</p>
+                <p class="text-gray-400 text-[10px]">${h.nombre} · ${h.plan}</p>
+            </div>
+            <div class="text-right shrink-0">
+                <p class="text-gray-400 text-[10px]">vence ${h.vence}</p>
+                <p class="text-[10px] font-bold ${h.enSheet ? 'text-green-600' : 'text-amber-500'}">${h.enSheet ? '✅ Sheet' : '⚠️ Local'}</p>
+            </div>
+        </div>`
+    ).join('');
+}
+
+function clearHistory() { sessionHistory.length = 0; renderHistory(); }
+
+loadConfig();
+</script>
+</body>
+</html>
