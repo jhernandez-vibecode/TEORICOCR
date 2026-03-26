@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teórico Pro CR - Refuerzo Educativo 2026</title>
+    <!-- Tailwind CSS y Lucide Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -13,7 +14,6 @@
         .text-traffic-yellow { color: #FFD700; }
         .hero-gradient { background: linear-gradient(180deg, #1a1a1a 0%, #333333 100%); }
         
-        /* Flashcards */
         .flashcard { perspective: 1000px; height: 160px; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
@@ -27,8 +27,13 @@
         .animate-infinite-scroll { display: flex; width: 200%; animation: scroll 25s linear infinite; }
         
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 1.5rem; }
-        .quiz-option { @apply w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-[#FFD700] hover:bg-yellow-50 transition-all font-medium text-slate-700 mb-3 block; }
-        .quiz-option.selected { @apply border-[#FFD700] bg-yellow-50 font-bold; }
+
+        /* UI UX del Simulador */
+        .quiz-option { @apply w-full text-left p-4 rounded-2xl border-2 border-slate-100 transition-all font-medium text-slate-700 mb-3 block cursor-pointer; }
+        .quiz-option:not(:disabled):hover { @apply border-[#FFD700] bg-yellow-50 shadow-sm; }
+        .opt-correct { @apply border-green-500 bg-green-50 text-green-800 font-bold shadow-md; }
+        .opt-wrong { @apply border-red-500 bg-red-50 text-red-800 font-bold shadow-md; }
+        .opt-disabled { @apply opacity-50 cursor-not-allowed; }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
@@ -36,7 +41,7 @@
     <!-- HEADER -->
     <header class="bg-black text-white py-4 px-6 sticky top-0 z-50 shadow-lg">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2 text-white">
+            <div class="flex items-center gap-2">
                 <span class="bg-traffic-yellow text-black font-extrabold px-2 py-0.5 rounded italic text-sm">PRO</span>
                 <span class="font-bold text-lg tracking-tight uppercase">Teórico CR</span>
             </div>
@@ -49,55 +54,41 @@
         </div>
     </header>
 
+    <!-- HERO -->
     <main id="inicio">
-        <!-- HERO -->
         <section class="hero-gradient text-white pt-24 pb-32 px-6 text-center">
             <div class="max-w-3xl mx-auto">
                 <div class="inline-block bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full mb-6 uppercase tracking-widest italic">Actualización Marzo 2026</div>
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight italic uppercase tracking-tighter text-white">
-                    Pasa tu examen teórico de manejo <span class="text-traffic-yellow">a la primera.</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight italic uppercase tracking-tighter">
+                    Pasa tu examen de manejo <span class="text-traffic-yellow">a la primera.</span>
                 </h1>
-                <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto italic">Plataforma de refuerzo educativo inteligente para los nuevos manuales de Carro y Moto.</p>
+                <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto italic">Refuerzo educativo inteligente basado en los nuevos manuales del MOPT.</p>
                 <div class="flex flex-col md:flex-row justify-center gap-4">
-                    <button onclick="scrollToSection('categorias')" class="bg-traffic-yellow text-black font-black py-5 px-10 rounded-2xl text-lg shadow-2xl hover:bg-yellow-400 transition-all uppercase italic">Ver Planes de Estudio</button>
-                    <button onclick="scrollToSection('estudio')" class="border-2 border-gray-700 text-gray-300 font-bold py-5 px-10 rounded-2xl text-lg hover:bg-white hover:text-black transition-all uppercase text-white">Ya tengo mi PIN</button>
+                    <button onclick="scrollToSection('categorias')" class="bg-traffic-yellow text-black font-black py-5 px-10 rounded-2xl text-lg shadow-2xl hover:bg-yellow-400 transition-all uppercase italic">Ver Planes</button>
+                    <button onclick="scrollToSection('estudio')" class="border-2 border-gray-700 text-gray-300 font-bold py-5 px-10 rounded-2xl text-lg hover:bg-white hover:text-black transition-all uppercase">Ya tengo mi PIN</button>
                 </div>
             </div>
         </section>
 
-        <!-- PRUEBAS SOCIALES -->
-        <div class="bg-traffic-yellow py-3 overflow-hidden border-y-2 border-black">
-            <div class="animate-infinite-scroll font-bold text-black uppercase text-[10px]">
-                <span class="mx-8">⭐ MATERIAL DE REFUERZO MARZO 2026</span>
-                <span class="mx-8">⭐ +1,500 APROBADOS ESTE MES</span>
-                <span class="mx-8">⭐ EXÁMENES DIFERENCIADOS CARRO/MOTO</span>
-                <span class="mx-8">⭐ EL COMPLEMENTO IDEAL PARA TU ESTUDIO</span>
-                <span class="mx-8">⭐ MATERIAL DE REFUERZO MARZO 2026</span>
-            </div>
-        </div>
-
         <!-- CATEGORÍAS -->
         <section id="categorias" class="py-24 px-6 max-w-6xl mx-auto">
-            <h2 class="text-4xl font-black text-center mb-4 italic uppercase">¿Qué licencia vas a obtener?</h2>
-            <p class="text-center text-gray-500 mb-16 italic">Material estratégico diseñado para los nuevos objetivos de evaluación.</p>
-            
+            <h2 class="text-4xl font-black text-center mb-16 italic uppercase">¿Qué licencia vas a obtener?</h2>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
                     <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-blue-600"><i data-lucide="car" class="w-10 h-10"></i></div>
                     <h3 class="text-2xl font-bold mb-4 italic">Refuerzo B1 (Carro)</h3>
-                    <p class="text-gray-500 mb-8 text-sm italic">Resumen VIP + Video + 65 Fichas Maestro + Simulador Pro.</p>
+                    <p class="text-gray-500 mb-8 text-sm italic">Material específico para el nuevo manual de Automóviles.</p>
                     <div class="text-5xl font-black mb-8 italic">₡4,500</div>
-                    <button onclick="openPaymentModal('Refuerzo Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest shadow-xl">Obtener 15 Días</button>
+                    <button onclick="openPaymentModal('Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
                 </div>
-                <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group text-black">
+                <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
                     <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-orange-600"><i data-lucide="bike" class="w-10 h-10"></i></div>
                     <h3 class="text-2xl font-bold mb-4 italic text-black">Refuerzo Moto (A1-A3)</h3>
-                    <p class="text-gray-500 mb-8 text-sm italic text-black">Manual específico de Motociclistas con normativa 2026.</p>
+                    <p class="text-gray-500 mb-8 text-sm italic">Material específico para el nuevo manual de Motociclistas.</p>
                     <div class="text-5xl font-black mb-8 italic text-black">₡4,500</div>
-                    <button onclick="openPaymentModal('Refuerzo Moto (A1-A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest shadow-xl text-white">Obtener 15 Días</button>
+                    <button onclick="openPaymentModal('Moto (A1-A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
                 </div>
             </div>
-            
             <div class="mt-12 text-center">
                 <div class="inline-block bg-slate-900 text-white p-6 rounded-3xl border-2 border-traffic-yellow shadow-xl">
                     <p class="text-xs font-bold uppercase text-traffic-yellow mb-2 tracking-widest italic">Plan Maestro Integral</p>
@@ -108,39 +99,33 @@
         </section>
     </main>
 
-    <!-- PORTAL DE ESTUDIO (LMS) -->
+    <!-- ÁREA DE CLIENTES -->
     <section id="estudio" class="py-24 px-4 bg-slate-900 min-h-screen border-t-8 border-traffic-yellow">
         <div class="max-w-5xl mx-auto">
-            <!-- Bloqueo -->
             <div id="lock-screen" class="text-center py-16">
                 <div class="bg-slate-800 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-traffic-yellow shadow-2xl">
                     <i data-lucide="lock" class="text-traffic-yellow w-10 h-10"></i>
                 </div>
-                <h2 class="text-3xl font-black text-white mb-4 italic uppercase tracking-tighter">Área de Clientes Pro</h2>
-                <p class="text-slate-400 mb-10 text-sm italic italic">Ingresa tu PIN de 5 partes para activar tu material.</p>
+                <h2 class="text-3xl font-black text-white mb-4 italic uppercase">Portal Premium</h2>
+                <p class="text-slate-400 mb-10 text-sm italic">Ingresa tu PIN de 5 partes para activar tu material.</p>
                 <div class="max-w-xs mx-auto">
-                    <input type="text" id="pin-input" placeholder="PRO-00000000-XXX-0000-XXXX" 
-                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-xl md:text-2xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
+                    <input type="text" id="pin-input" placeholder="A2-00000000-XXX-0000-XXXX" 
+                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
                     <button id="btn-verify" onclick="verifyPin()" class="w-full bg-traffic-yellow text-black font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] transition-all uppercase italic">Activar Mi Acceso</button>
-                    <p id="error-msg" class="text-red-500 text-[10px] mt-6 font-bold hidden uppercase tracking-widest italic text-center"></p>
+                    <p id="error-msg" class="text-red-500 text-[10px] mt-6 font-bold hidden uppercase tracking-widest italic"></p>
                 </div>
             </div>
 
-            <!-- Portal Revelado -->
+            <!-- Portal de Estudio Desbloqueado -->
             <div id="premium-portal" class="hidden animate-in fade-in zoom-in duration-700">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-10 bg-slate-800 p-8 rounded-[2.5rem] border border-slate-700 gap-6 text-white">
                     <div>
-                        <span id="badge-tipo" class="bg-black text-traffic-yellow text-[9px] font-black px-2 py-0.5 rounded uppercase italic mb-1 inline-block text-white"></span>
-                        <h3 class="font-black text-2xl italic uppercase tracking-tight text-white" id="plan-title">Mi Material Maestro</h3>
+                        <span id="badge-tipo" class="bg-black text-traffic-yellow text-[9px] font-black px-2 py-0.5 rounded uppercase italic mb-1 inline-block"></span>
+                        <h3 class="font-black text-2xl italic uppercase tracking-tight" id="plan-title">Mi Material</h3>
                         <p id="expiry-label" class="text-slate-400 text-[10px] font-bold uppercase tracking-widest italic mt-1"></p>
-                    </div>
-                    <div class="bg-black px-8 py-4 rounded-[1.5rem] text-center min-w-[150px] border-b-4 border-traffic-yellow">
-                        <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1">Fichas Dominadas</p>
-                        <p id="prog-val" class="text-3xl font-black text-traffic-yellow">0 / 65</p>
                     </div>
                 </div>
 
-                <!-- Tabs Navegación -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 text-center">
                     <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="book-open"></i><span class="text-[10px] font-black uppercase italic leading-tight">1. Resumen</span></button>
                     <button onclick="showModule('video')" id="tab-video" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="play-circle"></i><span class="text-[10px] font-black uppercase italic leading-tight">2. Video</span></button>
@@ -148,62 +133,86 @@
                     <button onclick="showModule('simulador')" id="tab-simulador" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="zap"></i><span class="text-[10px] font-black uppercase italic leading-tight">4. Simulador</span></button>
                 </div>
 
-                <div id="material-viewer" class="bg-white rounded-[3rem] p-6 md:p-10 min-h-[500px] shadow-2xl relative overflow-hidden text-black">
+                <div id="material-viewer" class="bg-white rounded-[3rem] p-6 md:p-10 min-h-[500px] shadow-2xl relative overflow-hidden">
                     <div id="mod-resumen" class="module-content hidden text-center py-16">
-                        <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i>
-                        <h4 class="text-3xl font-black uppercase italic mb-4" id="resumen-title">Guía Estratégica 2026</h4>
-                        <p class="text-slate-500 mb-10 max-w-md mx-auto italic text-sm">Resumen de los pilares fundamentales de la Ley de Tránsito.</p>
-                        <button class="bg-black text-white font-black py-5 px-12 rounded-2xl shadow-xl hover:scale-105 transition-transform text-white">DESCARGAR PDF</button>
+                        <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i><h4 class="text-3xl font-black uppercase italic mb-4">Guía Estratégica</h4><button class="bg-black text-white font-black py-5 px-12 rounded-2xl">DESCARGAR PDF</button>
                     </div>
-                    <div id="mod-video" class="module-content hidden text-center py-16">
-                        <div class="aspect-video bg-black rounded-[2.5rem] flex items-center justify-center shadow-xl border-4 border-gray-100"><p class="text-gray-600 italic">Cargando video clases...</p></div>
-                    </div>
+                    <div id="mod-video" class="module-content hidden text-center py-16"><p>Videos próximamente...</p></div>
                     <div id="mod-fichas" class="module-content hidden"><div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div></div>
+                    
+                    <!-- MODULO SIMULADOR -->
                     <div id="mod-simulador" class="module-content hidden">
                         <div id="quiz-intro" class="text-center py-16">
                             <i data-lucide="award" class="text-orange-500 w-16 h-16 mx-auto mb-6"></i>
-                            <h4 class="text-3xl font-black uppercase italic mb-4" id="quiz-title">Simulador Pro</h4>
-                            <p class="text-slate-500 mb-10 italic text-sm">15 preguntas aleatorias. Necesitas 80% para aprobar.</p>
-                            <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic hover:scale-105 transition-all text-white">EMPEZAR SIMULACRO</button>
+                            <h4 class="text-3xl font-black uppercase italic mb-4" id="quiz-title">Simulador Oficial</h4>
+                            <p class="text-slate-500 mb-2 italic" id="quiz-desc">Evaluación aleatoria. Necesitas 80% para aprobar.</p>
+                            <p class="text-xs font-bold text-red-500 mb-10 uppercase tracking-widest" id="quiz-time-desc">Tiempo Límite: 50 Minutos</p>
+                            <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic hover:scale-105 transition-transform">INICIAR SIMULACRO</button>
                         </div>
+
+                        <!-- Panel de Preguntas -->
                         <div id="quiz-play" class="hidden">
-                            <div class="flex justify-between items-center mb-8 border-b pb-4"><span class="text-xs font-black text-slate-400 uppercase tracking-widest italic">Pregunta <span id="q-num">1</span></span></div>
+                            <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b pb-4 gap-4">
+                                <span class="text-xs font-black text-slate-400 uppercase bg-slate-100 px-3 py-1 rounded-lg">Pregunta <span id="q-num" class="text-black text-lg">1</span> / <span id="q-total">40</span></span>
+                                <div class="flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-100">
+                                    <i data-lucide="timer" class="w-4 h-4"></i>
+                                    <span id="q-timer" class="font-black font-mono text-lg">50:00</span>
+                                </div>
+                            </div>
+                            <p class="text-[10px] text-blue-500 font-bold uppercase tracking-widest mb-2" id="q-chapter">Capítulo X</p>
                             <h5 id="q-text" class="text-xl md:text-2xl font-black text-slate-900 mb-8 italic leading-tight"></h5>
+                            
                             <div id="q-options" class="space-y-3"></div>
-                            <div class="mt-12 flex justify-end"><button id="q-next" onclick="nextQuestion()" disabled class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 shadow-lg text-white transition-opacity">Siguiente</button></div>
+                            
+                            <div id="q-feedback" class="hidden mt-6 bg-slate-50 p-5 rounded-2xl border-l-4 border-black">
+                                <p class="text-[10px] font-black uppercase text-slate-400 mb-2 flex items-center gap-1"><i data-lucide="info" class="w-3 h-3"></i> Explicación de la Ley</p>
+                                <p id="q-exp" class="text-sm font-semibold text-slate-700 italic"></p>
+                            </div>
+
+                            <div class="mt-8 flex justify-end">
+                                <button id="q-next" onclick="nextQuestion()" disabled class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 cursor-not-allowed transition-all">Siguiente <i data-lucide="chevron-right" class="inline w-4 h-4 mb-0.5"></i></button>
+                            </div>
                         </div>
-                        <div id="quiz-result" class="hidden text-center py-16">
-                            <div id="res-icon" class="w-24 h-24 rounded-full mx-auto mb-8 flex items-center justify-center shadow-lg"></div>
-                            <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2 tracking-tighter"></h4>
-                            <div class="text-6xl font-black text-slate-900 mb-12 italic" id="res-score">0</div>
-                            <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic shadow-xl text-white">REPETIR EVALUACIÓN</button>
+
+                        <!-- Panel de Resultados -->
+                        <div id="quiz-result" class="hidden text-center py-12">
+                            <div id="res-icon" class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center"></div>
+                            <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2"></h4>
+                            <p class="text-slate-500 mb-8 font-bold">Puntaje Final</p>
+                            <div class="text-7xl font-black text-slate-900 mb-6 italic" id="res-score">0</div>
+                            <div class="flex justify-center gap-4 text-sm font-bold text-slate-500 mb-10">
+                                <span class="bg-green-50 text-green-700 px-4 py-2 rounded-lg">Aciertos: <span id="res-correct">0</span></span>
+                                <span class="bg-red-50 text-red-700 px-4 py-2 rounded-lg">Fallos: <span id="res-wrong">0</span></span>
+                            </div>
+                            <div class="flex flex-col md:flex-row justify-center gap-4">
+                                <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-8 rounded-xl uppercase italic">Nuevo Intento</button>
+                                <button onclick="showReview()" id="btn-review" class="bg-traffic-yellow text-black font-black py-4 px-8 rounded-xl uppercase italic hidden">Ver Errores</button>
+                            </div>
+                        </div>
+
+                        <!-- Modo Repaso -->
+                        <div id="quiz-review" class="hidden text-left">
+                            <div class="flex items-center justify-between mb-8 border-b pb-4">
+                                <h4 class="text-2xl font-black uppercase italic">Modo Repaso</h4>
+                                <button onclick="document.getElementById('quiz-review').classList.add('hidden'); document.getElementById('quiz-result').classList.remove('hidden');" class="text-sm font-bold text-slate-500 hover:text-black">Volver</button>
+                            </div>
+                            <p class="text-slate-500 mb-6 text-sm">Estas son las preguntas que fallaste. Léelas con atención.</p>
+                            <div id="review-list" class="space-y-6"></div>
                         </div>
                     </div>
                 </div>
-                <div class="mt-20 text-center pb-20"><button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-[0.4em] border-b border-slate-700 pb-2 transition-colors">Cerrar Sesión Segura</button></div>
+                <div class="mt-20 text-center pb-20"><button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] border-b border-slate-700 pb-2">Cerrar Sesión</button></div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-black text-slate-600 pt-20 pb-10 px-6 border-t border-slate-900">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-12 mb-20 text-left">
-                <div><h2 class="text-white font-black text-lg uppercase tracking-tight mb-6">TEÓRICO PRO CR</h2><p class="text-[11px] leading-relaxed italic">Refuerzo académico independiente para aspirantes a conductores mediante técnicas modernas.</p></div>
-                <div><h5 class="text-white text-xs font-black uppercase mb-6 tracking-widest italic underline decoration-traffic-yellow underline-offset-4">Legal</h5><ul class="space-y-4 text-[10px] font-bold uppercase tracking-widest text-white"><li><button onclick="alert('Términos de Uso: Refuerzo Educativo Personal.')" class="hover:text-white transition-colors text-white">Términos</button></li><li><button onclick="alert('Propiedad Intelectual: Contenido Protegido 2026.')" class="hover:text-white transition-colors text-white">Propiedad</button></li></ul></div>
-                <div><h5 class="text-white text-xs font-black uppercase mb-6 tracking-widest italic underline decoration-traffic-yellow underline-offset-4 text-white">Soporte VIP</h5><p class="text-[10px] font-bold uppercase tracking-widest leading-loose text-white italic">WhatsApp: 8888-0000</p></div>
-            </div>
-            <div class="text-center pt-10 border-t border-slate-900"><p class="text-[9px] uppercase font-black tracking-[0.5em]">© 2026 Teórico Pro Costa Rica • VIP Access</p></div>
-        </div>
-    </footer>
-
     <!-- MODAL PAGO -->
-    <div id="paymentModal" class="modal"><div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow shadow-black/50"><button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 p-2 transition-colors"><i data-lucide="x"></i></button><div class="bg-black text-white p-8 text-center"><h3 class="font-black text-2xl italic uppercase tracking-tighter" id="modalTitle"></h3></div><div class="p-10 italic text-center text-black italic text-sm"><p class="text-2xl font-black text-slate-900 mb-6" id="modalPrice"></p><p class="text-xl font-mono text-blue-600 font-black mb-1 bg-blue-50 p-2 rounded">8888-0000</p><p class="text-[9px] text-slate-400 mb-8 uppercase font-bold tracking-widest">SINPE MÓVIL</p><a id="whatsappBtn" href="#" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-black py-5 rounded-2xl shadow-xl uppercase italic text-lg shadow-green-500/20">ENVIAR COMPROBANTE</a></div></div></div>
+    <div id="paymentModal" class="modal"><div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow"><button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 p-2"><i data-lucide="x"></i></button><div class="bg-black text-white p-8 text-center"><h3 class="font-black text-2xl italic uppercase tracking-tighter" id="modalTitle"></h3></div><div class="p-10 italic text-center"><p class="text-2xl font-black text-slate-900 mb-6" id="modalPrice"></p><p class="text-xl font-mono text-blue-600 font-black mb-1 bg-blue-50 p-2 rounded">8888-0000</p><p class="text-[9px] text-slate-400 mb-8 uppercase font-bold">Pago vía SINPE Móvil</p><a id="whatsappBtn" href="#" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-black py-5 rounded-2xl shadow-xl uppercase italic">ENVIAR COMPROBANTE</a></div></div></div>
 
     <script>
         lucide.createIcons();
 
-        // 1. CONEXIÓN SEGURA AL BACKEND DE NETLIFY
+        // 1. CONEXIÓN SEGURA AL BACKEND
         let userPlan = "";
 
         async function verifyPin() {
@@ -213,17 +222,14 @@
 
             if(!val) { showErr("Ingresa un PIN."); return; }
 
-            // Efecto de carga en el botón
             btn.innerText = "VERIFICANDO...";
             btn.disabled = true;
             btn.classList.add("opacity-70");
 
             try {
-                // Hacemos la consulta al "Guardia" en el servidor (Archivo validar.js)
                 const respuesta = await fetch(`/.netlify/functions/validar?codigo=${val}`);
                 const datos = await respuesta.json();
 
-                // Si el servidor detecta que la firma es falsa o expiró
                 if (!respuesta.ok) {
                     showErr(datos.error || "Error al validar el PIN.");
                     btn.innerText = btnOriginalText;
@@ -232,17 +238,11 @@
                     return;
                 }
 
-                // SI TODO ES CORRECTO:
                 userPlan = datos.plan;
-                
-                let planLabel = "Plan General";
-                if (userPlan === "B1") planLabel = "Licencia B1 (Carro)";
-                else if (userPlan === "A2") planLabel = "Licencia A1-A3 (Moto)";
-                else if (userPlan === "PRO") planLabel = "Combo Premium Pro";
-                else if (userPlan === "DEMO") planLabel = "Acceso de Prueba";
+                let planLabel = userPlan === "B1" ? "Licencia B1 (Carro)" : userPlan === "A2" ? "Licencia A1-A3 (Moto)" : "Combo Premium Pro";
+                if(userPlan === "DEMO") planLabel = "Prueba de Sistema";
 
                 unlockPortal(datos.dias, planLabel);
-
             } catch (error) {
                 showErr("Error de conexión. Revisa tu internet.");
                 btn.innerText = btnOriginalText;
@@ -257,12 +257,11 @@
             document.getElementById('lock-screen').classList.add('hidden');
             document.getElementById('premium-portal').classList.remove('hidden');
             
-            document.getElementById('badge-tipo').innerText = userPlan === "DEMO" ? "PRUEBA ACTIVA" : "MEMBRESÍA ACTIVA";
-            document.getElementById('plan-title').innerText = `Material: ${planLabel}`;
+            document.getElementById('badge-tipo').innerText = userPlan === "DEMO" ? "PRUEBA" : "MEMBRESÍA ACTIVA";
+            document.getElementById('plan-title').innerText = planLabel;
             document.getElementById('expiry-label').innerText = `Expira en ${dias} días`;
             
             document.getElementById('quiz-title').innerText = `Simulador: ${planLabel}`;
-            document.getElementById('resumen-title').innerText = `Guía Estratégica: ${planLabel}`;
             
             showModule('simulador');
             renderFlashcards();
@@ -275,75 +274,256 @@
             document.getElementById('tab-' + modId).classList.add('tab-active');
         }
 
-        // 2. SIMULADOR INTELIGENTE (FILTRA PREGUNTAS)
-        const quizBank = [
-            { type: "ALL", q: "¿Cuál es la velocidad mínima en autopista si no hay señalización?", options: ["40 km/h", "50 km/h", "60 km/h"], correct: 1 },
-            { type: "ALL", q: "¿A qué distancia mínima de un hidrante se prohíbe estacionar?", options: ["5 metros", "10 metros", "15 metros"], correct: 0 },
-            { type: "ALL", q: "¿Sanción por alcohol delito en conductor novato?", options: ["Solo multa económica", "Suspensión de licencia 1 año", "Sin sanción"], correct: 1 },
-            { type: "ALL", q: "¿Lado para caminar en zona rural donde no existen aceras?", options: ["Lado derecho de la vía", "Lado izquierdo de la vía", "Por el centro"], correct: 1 },
-            { type: "A2", q: "¿Cuál es la técnica correcta para inclinar una motocicleta?", options: ["Contra-manillar", "Frenar atrás", "Sacar el pie"], correct: 0 },
-            { type: "B1", q: "¿Profundidad mínima legal de ranura en llanta de CARRO?", options: ["1.0 mm", "1.6 mm", "2.0 mm"], correct: 1 }
+        // 2. DATASET MAESTRO (100 PREGUNTAS MOTO - ETIQUETA 'A2')
+        // Estructura: { cap: N, type: "A2", q: "Pregunta", a: "Respuesta Correcta", w1: "Falsa 1", w2: "Falsa 2", exp: "Explicación" }
+        const rawDB = [
+            // CAP 1
+            {cap:1, type:"A2", q:"¿Objetivo primordial de la seguridad vial?", a:"Prevenir accidentes y salvar vidas.", w1:"Cobrar multas a infractores.", w2:"Aumentar la velocidad del flujo.", exp:"Su meta absoluta es proteger la vida humana en la vía."},
+            {cap:1, type:"A2", q:"¿Elementos de la trilogía vial?", a:"Factor Humano, Vehicular y Vía/Entorno.", w1:"Autos, Motos y Bicicletas.", w2:"Semáforos, Policías y Señales.", exp:"Son los tres pilares que conforman el sistema de tránsito."},
+            {cap:1, type:"A2", q:"¿Factor responsable del 90% de accidentes?", a:"Factor Humano.", w1:"Factor Vehicular.", w2:"Condiciones del Clima.", exp:"El error del conductor (imprudencia, distracción) es la causa principal."},
+            {cap:1, type:"A2", q:"¿Qué es el derecho de circulación?", a:"Pago anual obligatorio (marchamo).", w1:"Tener licencia al día.", w2:"Derecho a transitar por autopistas.", exp:"Se adquiere pagando el marchamo cada año."},
+            {cap:1, type:"A2", q:"¿Ley vigente de tránsito en CR?", a:"Ley 9078.", w1:"Ley 7331.", w2:"Ley 1980.", exp:"Es la Ley de Tránsito por Vías Públicas Terrestres y Seguridad Vial."},
+            {cap:1, type:"A2", q:"¿Qué significa que el tránsito es un sistema?", a:"Sus elementos interactúan y dependen entre sí.", w1:"Que todo está controlado por computadoras.", w2:"Que solo funciona de día.", exp:"Si un elemento de la trilogía falla, el sistema colapsa en accidente."},
+            {cap:1, type:"A2", q:"¿Fin de la educación vial?", a:"Formar ciudadanos con hábitos de respeto y cortesía.", w1:"Aprender mecánica automotriz avanzada.", w2:"Hacer conductores más veloces.", exp:"Busca crear cultura y valores, no solo enseñar a manejar."},
+            {cap:1, type:"A2", q:"¿Qué es seguridad vial activa?", a:"Elementos que previenen el accidente (ej. frenos).", w1:"Elementos que te protegen durante el choque.", w2:"El seguro del carro.", exp:"Actúa ANTES del incidente para evitarlo. La pasiva actúa DURANTE."},
+            {cap:1, type:"A2", q:"¿Definición de Tránsito?", a:"Acción de trasladarse de un lugar a otro por una vía.", w1:"Solo el movimiento de autos.", w2:"El transporte público.", exp:"Abarca vehículos, personas y animales circulando."},
+            {cap:1, type:"A2", q:"¿Principal causa de muerte en jóvenes en CR?", a:"Accidentes de tránsito.", w1:"Enfermedades cardíacas.", w2:"Deportes extremos.", exp:"Es la principal pandemia de mortalidad en la juventud."},
+            // CAP 2
+            {cap:2, type:"A2", q:"¿Edad mínima licencia A1?", a:"16 años (con autorización).", w1:"18 años.", w2:"15 años.", exp:"Requiere permiso de padres y póliza de seguro."},
+            {cap:2, type:"A2", q:"¿Documentos obligatorios para circular?", a:"Licencia, Marchamo e IVE (RITEVE) vigentes.", w1:"Solo la licencia y la cédula.", w2:"Marchamo y título de propiedad.", exp:"No portarlos implica multas severas y retiro de placas."},
+            {cap:2, type:"A2", q:"¿Límite de cilindrada para licencia A2?", a:"Hasta 500cc.", w1:"Hasta 125cc.", w2:"Sin límite de cilindraje.", exp:"La A1 es hasta 125cc, la A2 a 500cc, y la A3 sin límite."},
+            {cap:2, type:"A2", q:"¿Uso obligatorio de reflectivos en moto?", a:"Las 24 horas del día.", w1:"Solo de noche.", w2:"Solo cuando llueve.", exp:"Es norma obligatoria sin importar la hora o clima."},
+            {cap:2, type:"A2", q:"¿Velocidad máx. para filtrar entre carros detenidos?", a:"25 km/h.", w1:"40 km/h.", w2:"No está permitido.", exp:"Solo se permite si los carros están totalmente detenidos y a baja velocidad."},
+            {cap:2, type:"A2", q:"¿Categoría de multa por conducir ebrio?", a:"Categoría A (la más alta).", w1:"Categoría B.", w2:"Categoría D.", exp:"Es la sanción más grave de la ley de tránsito."},
+            {cap:2, type:"A2", q:"¿Sanción por no usar casco?", a:"Multa Categoría A y pérdida de puntos.", w1:"Solo llamado de atención.", w2:"Multa económica leve.", exp:"Aplica tanto para el conductor como para el pasajero."},
+            {cap:2, type:"A2", q:"¿Requisito legal del casco?", a:"Homologación internacional (DOT/ECE).", w1:"Ser reflectivo.", w2:"Ser de color negro o blanco.", exp:"Debe estar certificado para garantizar absorción de impacto."},
+            {cap:2, type:"A2", q:"¿Vigencia de licencia por primera vez?", a:"3 años.", w1:"6 años.", w2:"10 años.", exp:"El conductor novato recibe licencia por 3 años."},
+            {cap:2, type:"A2", q:"¿Accidente menor sin heridos?", a:"Se deben mover los vehículos si hay acuerdo.", w1:"Dejar los carros donde chocaron siempre.", w2:"Esperar a la Cruz Roja.", exp:"Permite despejar la vía usando la Declaración de Accidente Menor (DAM)."},
+            // CAP 3
+            {cap:3, type:"A2", q:"¿Definición de vía pública?", a:"Terreno para tránsito de personas, vehículos y animales.", w1:"Solo carreteras nacionales.", w2:"Aceras exclusivas.", exp:"Todo espacio de dominio público para circulación."},
+            {cap:3, type:"A2", q:"¿Zona exclusiva para peatones?", a:"Acera.", w1:"Calzada.", w2:"Espaldón.", exp:"Los vehículos (incluyendo motos) tienen prohibido circular en aceras."},
+            {cap:3, type:"A2", q:"¿Función del espaldón?", a:"Soporte lateral y detención de emergencia.", w1:"Carril para adelantar por derecha.", w2:"Zona para estacionar de noche.", exp:"No se debe circular por él, es solo para emergencias."},
+            {cap:3, type:"A2", q:"¿Equivalente a acera en zona rural?", a:"Berma o faja lateral.", w1:"Cuneta.", w2:"Borde blanco.", exp:"Es la franja de tierra donde deben caminar los peatones si no hay acera."},
+            {cap:3, type:"A2", q:"¿Factor climático que genera hidroplaneo?", a:"La lluvia.", w1:"Neblina densa.", w2:"Sol extremo.", exp:"El agua acumulada hace que la llanta pierda contacto con el asfalto."},
+            {cap:3, type:"A2", q:"¿Definición de calzada?", a:"Parte de la vía destinada a vehículos.", w1:"Zanja para agua.", w2:"Isla divisoria.", exp:"Comprende los carriles de circulación."},
+            {cap:3, type:"A2", q:"¿Regla de conducción nocturna?", a:"Poder detenerse dentro del alcance de las luces.", w1:"Manejar siempre con luz alta.", w2:"Reducir la velocidad a 20 km/h.", exp:"Si iluminas a 50m, debes poder frenar a cero en menos de 50m."},
+            {cap:3, type:"A2", q:"¿Función de la cuneta?", a:"Desagüe de aguas pluviales.", w1:"Paso peatonal de emergencia.", w2:"Línea que divide carriles.", exp:"Evita que el agua inunde la calzada."},
+            {cap:3, type:"A2", q:"¿Luz recomendada en neblina?", a:"Luz baja (la alta rebota).", w1:"Luz alta.", w2:"Solo luces direccionales.", exp:"La luz alta choca contra la niebla y te ciega por reflejo."},
+            {cap:3, type:"A2", q:"¿Qué afecta la curva de visibilidad?", a:"Obstáculos físicos como edificios o taludes.", w1:"Llantas lisas.", w2:"Frenos desgastados.", exp:"Limitan qué tan lejos puedes ver hacia adelante o en una curva."},
+            // CAP 4
+            {cap:4, type:"A2", q:"¿Función de la suspensión?", a:"Absorber irregularidades y dar estabilidad.", w1:"Enfriar el motor.", w2:"Frenar más rápido.", exp:"Mantiene la llanta pegada al suelo copiando los baches."},
+            {cap:4, type:"A2", q:"¿Profundidad mínima legal de llanta moto?", a:"1.0 mm.", w1:"1.6 mm.", w2:"2.0 mm.", exp:"Para motos la ley exige mínimo 1.0mm, a diferencia de los carros (1.6mm)."},
+            {cap:4, type:"A2", q:"¿Humo azul en el escape?", a:"Quema de aceite del motor.", w1:"Exceso de gasolina.", w2:"Condensación normal.", exp:"Significa desgaste en anillos o sellos del motor."},
+            {cap:4, type:"A2", q:"¿Cuándo revisar presión de llantas?", a:"Semanalmente y en frío.", w1:"Una vez al año.", w2:"Después de rodar mucho.", exp:"El calor expande el aire y da lecturas incorrectas."},
+            {cap:4, type:"A2", q:"¿Sistemas de transmisión final?", a:"Cadena, faja o cardán.", w1:"Manual o automática.", w2:"Frenos de disco o tambor.", exp:"Llevan la fuerza desde el motor a la llanta trasera."},
+            {cap:4, type:"A2", q:"¿Líquido de frenos bajo?", a:"Causa pérdida de potencia de frenado.", w1:"Apaga el motor.", w2:"Acelera la moto.", exp:"Permite entrada de aire al sistema y los frenos fallan."},
+            {cap:4, type:"A2", q:"¿Función del odómetro?", a:"Indicar distancia total recorrida.", w1:"Marcar las revoluciones.", w2:"Marcar la velocidad.", exp:"Útil para llevar el control de los mantenimientos mecánicos."},
+            {cap:4, type:"A2", q:"¿Componente que genera la chispa?", a:"La bujía.", w1:"El inyector.", w2:"La batería.", exp:"Crea la chispa que explota la mezcla de aire y combustible."},
+            {cap:4, type:"A2", q:"¿Estado ideal de la cadena?", a:"Limpia, lubricada y tensada.", w1:"Seca y muy apretada.", w2:"Sucia pero con aceite.", exp:"Alarga la vida útil del kit de arrastre."},
+            {cap:4, type:"A2", q:"¿Qué es el Kill Switch?", a:"Interruptor de parada de emergencia.", w1:"Botón de arranque.", w2:"Luz de freno.", exp:"Apaga la ignición de la moto desde el manillar sin soltarlo."},
+            // CAP 5
+            {cap:5, type:"A2", q:"¿Línea blanca continua de borde?", a:"Separa la calzada del espaldón.", w1:"Divide carriles en misma dirección.", w2:"Indica zona de cruce peatonal.", exp:"No se debe cruzar para circular."},
+            {cap:5, type:"A2", q:"¿Semáforo en rojo intermitente?", a:"Funciona como una señal de ALTO.", w1:"Indica precaución, no hay que parar.", w2:"El semáforo está dañado, cruce rápido.", exp:"Obliga a detención total antes de continuar."},
+            {cap:5, type:"A2", q:"¿Color de señales de prevención?", a:"Amarillo (Rojo para reglamentación).", w1:"Azul.", w2:"Verde.", exp:"Advierten peligros en la vía por su forma de rombo amarillo."},
+            {cap:5, type:"A2", q:"¿Doble línea amarilla continua?", a:"Prohibición total de adelantar.", w1:"Permite adelantar con cuidado.", w2:"Indica calle de un solo sentido.", exp:"Divide flujos opuestos en zonas peligrosas."},
+            {cap:5, type:"A2", q:"¿Señal octagonal roja?", a:"Señal de ALTO.", w1:"Señal de CEDA.", w2:"Prohibido estacionar.", exp:"Es la única señal de 8 lados para ser reconocida por detrás."},
+            {cap:5, type:"A2", q:"¿Números pintados en calzada?", a:"Velocidad máxima permitida.", w1:"Distancia al próximo pueblo.", w2:"Número de ruta nacional.", exp:"Es una señalización horizontal reglamentaria."},
+            {cap:5, type:"A2", q:"¿Autoridad máxima en carretera?", a:"Oficial de Tránsito.", w1:"El Semáforo.", w2:"La señal de ALTO.", exp:"Sus indicaciones prevalecen sobre cualquier señal fija."},
+            {cap:5, type:"A2", q:"¿Luz verde del semáforo?", a:"Paso con precaución.", w1:"Prioridad absoluta, cruce sin mirar.", w2:"Acelerar al máximo.", exp:"Debes cerciorarte de que la intersección está despejada."},
+            {cap:5, type:"A2", q:"¿Función señales azules?", a:"Informar sobre servicios (gasolineras, hoteles).", w1:"Marcar límites de velocidad.", w2:"Alertar sobre derrumbes.", exp:"Son señales informativas generales o de servicios."},
+            {cap:5, type:"A2", q:"¿Línea de parada?", a:"Indica dónde detenerse ante un ALTO.", w1:"Indica dónde estacionar.", w2:"Marca el paso de ciclistas.", exp:"Debes detener la llanta delantera ANTES de esta línea blanca."},
+            // CAP 6
+            {cap:6, type:"A2", q:"¿Componentes de distancia de parada?", a:"Percepción + Reacción + Frenado.", w1:"Visión + Clima + Asfalto.", w2:"Llantas + Frenos + Motor.", exp:"Es la distancia total desde que ves el peligro hasta detenerte a cero."},
+            {cap:6, type:"A2", q:"¿Técnica de giro?", a:"Frenar antes de entrar, acelerar suave saliendo.", w1:"Frenar fuerte dentro de la curva.", w2:"Acelerar antes y frenar saliendo.", exp:"Frenar en la curva endereza la moto y causa derrapes."},
+            {cap:6, type:"A2", q:"¿Qué es el hidroplaneo?", a:"Deslizamiento de llantas sobre capa de agua.", w1:"Manchas de aceite en la vía.", w2:"Exceso de presión en llantas.", exp:"Ocurre por ir muy rápido bajo lluvia; la moto flota sin control."},
+            {cap:6, type:"A2", q:"¿Uso del contramanilleo?", a:"Para girar a velocidades superiores a 30 km/h.", w1:"Para frenar más rápido.", w2:"Para arrancar en subida.", exp:"Empujar el manillar hacia donde quieres ir inclina la moto por física."},
+            {cap:6, type:"A2", q:"¿Posición de rodillas en marcha?", a:"Pegadas al tanque de combustible.", w1:"Separadas para equilibrar.", w2:"Estiradas hacia el frente.", exp:"Mejora el centro de gravedad y control de la máquina."},
+            {cap:6, type:"A2", q:"¿Riesgo de frenar fuerte solo atrás?", a:"Derrape de la rueda trasera.", w1:"Que la moto se levante de atrás.", w2:"Que se apague el motor.", exp:"El 70% de la capacidad de frenado está en la llanta delantera."},
+            {cap:6, type:"A2", q:"¿Conducir a la defensiva?", a:"Manejar esperando errores de otros.", w1:"Andar muy despacio siempre.", w2:"Tocar el pito a todos.", exp:"Es anticiparse al peligro y estar preparado para reaccionar."},
+            {cap:6, type:"A2", q:"¿Bajar cuestas largas?", a:"Usar compresión del motor (marchas bajas).", w1:"Bajar en neutro para ahorrar.", w2:"Usar solo freno delantero.", exp:"Evita cristalizar los frenos por sobrecalentamiento."},
+            {cap:6, type:"A2", q:"¿Afecta tiempo de reacción?", a:"Fatiga, alcohol y celular.", w1:"Lluvia y asfalto malo.", w2:"Velocidad de la moto.", exp:"Factores humanos que demoran el reflejo de frenado."},
+            {cap:6, type:"A2", q:"¿Punto ciego de camiones?", a:"Áreas laterales donde el chofer no nos ve.", w1:"Debajo del camión.", w2:"El techo de la cabina.", exp:"Si no le ves la cara por su espejo, él no te está viendo."},
+            // CAP 7
+            {cap:7, type:"A2", q:"¿Acción ante señal de CEDA?", a:"Reducir velocidad, parar si vienen vehículos.", w1:"Parar siempre durante 3 segundos.", w2:"Acelerar para pasar primero.", exp:"A diferencia del ALTO, si no viene nadie, no es obligatorio parar a cero."},
+            {cap:7, type:"A2", q:"¿Prioridad en rotonda?", a:"El vehículo que ya está circulando dentro.", w1:"El que va a ingresar.", w2:"El vehículo más grande.", exp:"Quien ingresa se enfrenta a una señal de CEDA el paso."},
+            {cap:7, type:"A2", q:"¿Antelación de luces direccionales?", a:"30 metros.", w1:"10 metros.", w2:"Solo al momento de girar.", exp:"Dar aviso previo es vital para que los demás reaccionen."},
+            {cap:7, type:"A2", q:"¿Velocidad máx. en zona escolar?", a:"25 km/h.", w1:"40 km/h.", w2:"15 km/h.", exp:"Solo cuando hay presencia de estudiantes o en horario lectivo."},
+            {cap:7, type:"A2", q:"¿Prioridad en cruce sin señales?", a:"Vehículo que sale por la derecha.", w1:"El que va directo.", w2:"El que llega primero.", exp:"Regla universal de prioridad a la derecha en vías de igual categoría."},
+            {cap:7, type:"A2", q:"¿Adelantar en curvas?", a:"Prohibido por falta de visibilidad.", w1:"Permitido si tocas bocina.", w2:"Permitido en motos deportivas.", exp:"Es la causa principal de choques frontales letales."},
+            {cap:7, type:"A2", q:"¿Vehículo de emergencia con sirena?", a:"Ceder el paso orillándose a la derecha.", w1:"Frenar en seco en el medio.", w2:"Acelerar delante de ellos.", exp:"Se debe despejar el centro de la vía para agilizar su paso."},
+            {cap:7, type:"A2", q:"¿Distancia mínima de seguridad?", a:"Regla de los 2 segundos.", w1:"1 metro por cada 10 km/h.", w2:"5 metros siempre.", exp:"Tiempo de separación con el vehículo que va adelante."},
+            {cap:7, type:"A2", q:"¿Requisito para adelantar en fila?", a:"Tránsito detenido y velocidad baja.", w1:"Ir a 60 km/h en autopista.", w2:"Hacerlo por el espaldón.", exp:"Filtrar solo es legal en embotellamientos y a max 25km/h."},
+            {cap:7, type:"A2", q:"¿Prioridad en cuesta estrecha?", a:"El vehículo que va subiendo.", w1:"El que va bajando.", w2:"El más pesado.", exp:"Es más difícil arrancar hacia arriba si se detiene."},
+            // CAP 8
+            {cap:8, type:"A2", q:"¿Contaminación sónica?", a:"Ruido excesivo por muflas libres/alteradas.", w1:"Usar la bocina para prevenir choque.", w2:"Escuchar música con audífonos.", exp:"Modificar el escape para que suene más duro es infracción."},
+            {cap:8, type:"A2", q:"¿Cómo contaminar menos?", a:"Evitar acelerones y mantener motor afinado.", w1:"Andar muy revolucionado.", w2:"Usar llantas lisas.", exp:"Manejo suave reduce quema innecesaria de gasolina."},
+            {cap:8, type:"A2", q:"¿Gas peligroso del motor?", a:"Monóxido de Carbono.", w1:"Dióxido de azufre.", w2:"Oxígeno líquido.", exp:"Gas inodoro letal si se acumula en lugares cerrados."},
+            {cap:8, type:"A2", q:"¿Ahorro de combustible?", a:"Mantener velocidad constante y llantas infladas.", w1:"Apagar moto en bajadas.", w2:"Quitar los retrovisores.", exp:"Presión baja causa arrastre y gasta más gasolina."},
+            {cap:8, type:"A2", q:"¿Desecho de aceites usados?", a:"Entregarlos en centros de acopio autorizados.", w1:"Tirarlos a la alcantarilla.", w2:"Enterrarlos en tierra.", exp:"Un litro de aceite contamina millones de litros de agua."},
+            {cap:8, type:"A2", q:"¿Función del carburador/inyector?", a:"Mezclar aire y combustible.", w1:"Filtrar el humo.", w2:"Enfriar el motor.", exp:"Proporciona la mezcla ideal para la combustión limpia."},
+            {cap:8, type:"A2", q:"¿Contaminación visual?", a:"Exceso de vallas que distraen.", w1:"Carros muy sucios.", w2:"Luces neón en aros.", exp:"Vallas mal ubicadas pueden causar accidentes por distracción."},
+            {cap:8, type:"A2", q:"¿Por qué no quitar el silenciador?", a:"Por contaminación sónica y legalidad.", w1:"Porque el motor pierde velocidad.", w2:"Porque gasta más frenos.", exp:"El silenciador es pieza de fábrica obligatoria en Costa Rica."},
+            {cap:8, type:"A2", q:"¿Humo blanco en el escape?", a:"Paso de agua/refrigerante al motor.", w1:"Quema de aceite.", w2:"Exceso de gasolina.", exp:"Indica empaque de cabezote dañado en motos enfriadas por líquido."},
+            {cap:8, type:"A2", q:"¿Ventaja de motos eléctricas?", a:"Cero emisiones de gases y menos ruido.", w1:"Alcanzan más velocidad.", w2:"Nunca se dañan.", exp:"No queman hidrocarburos y son silenciosas."},
+            // CAP 9
+            {cap:9, type:"A2", q:"¿Qué es el protocolo PAS?", a:"Proteger, Avisar, Socorrer.", w1:"Parar, Analizar, Salir.", w2:"Prevenir, Atender, Solucionar.", exp:"El orden vital para atender cualquier accidente."},
+            {cap:9, type:"A2", q:"¿Quitar casco a accidentado?", a:"Nunca (riesgo de parálisis).", w1:"Siempre para que respire.", w2:"Solo si está llorando.", exp:"Puede haber lesión medular en el cuello; solo paramédicos lo retiran."},
+            {cap:9, type:"A2", q:"¿Teléfono de emergencias?", a:"9-1-1.", w1:"112.", w2:"800-TRÁNSITO.", exp:"Centraliza ambulancia, policía y bomberos."},
+            {cap:9, type:"A2", q:"¿Qué revisar primero en herido?", a:"Signos vitales (respiración y pulso).", w1:"Huesos rotos.", w2:"Hemorragias pequeñas.", exp:"Si no hay pulso/respiración, iniciar RCP de inmediato."},
+            {cap:9, type:"A2", q:"¿Definición legal de accidente?", a:"Evento eventual en vía pública con daños.", w1:"Solo si hay muertos.", w2:"Choque de carros, no aplica a motos.", exp:"Interviene al menos un vehículo generando daños o lesiones."},
+            {cap:9, type:"A2", q:"¿Mover heridos graves?", a:"Solo si hay riesgo inminente de explosión.", w1:"Para evitar presas de tráfico.", w2:"Para subirlos a un taxi.", exp:"Moverlos sin equipo agrava lesiones de columna."},
+            {cap:9, type:"A2", q:"¿Colisión con objeto fijo?", a:"Se debe reportar de inmediato.", w1:"Fugarse si nadie vio.", w2:"Solo si el objeto es privado.", exp:"Dañar un poste o baranda implica responsabilidad civil."},
+            {cap:9, type:"A2", q:"¿Principal causa de derrape?", a:"Frenado incorrecto o suelo sucio.", w1:"Tomar curvas cerradas.", w2:"Acelerar muy rápido.", exp:"Bloquear la llanta delantera por pánico causa caída súbita."},
+            {cap:9, type:"A2", q:"¿Shock en accidentado?", a:"Estado de debilidad por falta de sangre.", w1:"Susto temporal que pasa solo.", w2:"Ataque de ira.", exp:"Se acompaña de palidez, sudor frío y pulso acelerado."},
+            {cap:9, type:"A2", q:"¿Choque por detrás?", a:"Responsabilidad de quien no guardó distancia.", w1:"Culpa del de adelante por frenar.", w2:"Culpa compartida.", exp:"La ley presume que no acataste la regla de 2 segundos."},
+            // CAP 10
+            {cap:10, type:"A2", q:"¿Equipo protección pies?", a:"Botas de caña alta.", w1:"Tenis ligeras.", w2:"Sandalias amarradas.", exp:"Protege el tobillo de fracturas y quemaduras del motor."},
+            {cap:10, type:"A2", q:"¿Qué es T-CLOC?", a:"Pasos para inspección diaria de la moto.", w1:"Marca de llantas.", w2:"Tipo de freno ABS.", exp:"Acrónimo inglés para revisar Llantas, Controles, Luces, etc."},
+            {cap:10, type:"A2", q:"¿Efecto de carga/pasajero?", a:"Alarga la distancia de frenado.", w1:"Aumenta la aceleración.", w2:"Hace la moto inestable pero frena igual.", exp:"A mayor peso (masa), más inercia, ocupando más metros para detenerse a cero."},
+            {cap:10, type:"A2", q:"¿Punto de fricción?", a:"Zona del clutch donde la moto avanza.", w1:"Lugar donde el freno rechina.", w2:"Contacto de la llanta al derrapar.", exp:"Dominarlo es vital para arrancar suave sin tirones o apagones."},
+            {cap:10, type:"A2", q:"¿Visor para lluvia/noche?", a:"Siempre transparente.", w1:"Negro ahumado para no encandilarse.", w2:"Cualquier color sirve.", exp:"Visores polarizados reducen peligrosamente la visión en la oscuridad."},
+            {cap:10, type:"A2", q:"¿Falla en llanta delantera?", a:"Sujetar fuerte manivela y no frenar seco.", w1:"Frenar fuerte con ambos frenos.", w2:"Acelerar para estabilizar.", exp:"Si estalla, frenar con la rueda delantera vacía causará caída inmediata."},
+            {cap:10, type:"A2", q:"¿Ubicación pedal freno trasero?", a:"Lado derecho del motor.", w1:"Lado izquierdo.", w2:"Manillar izquierdo.", exp:"Se acciona con el pie derecho, mientras el izquierdo mete las marchas."},
+            {cap:10, type:"A2", q:"¿Función del ahogador (Choke)?", a:"Ayuda al arranque en frío.", w1:"Apaga el motor en emergencias.", w2:"Acelera la moto sin gas.", exp:"Enriquece la mezcla de gasolina en motores carburados para arrancar por las mañanas."},
+            {cap:10, type:"A2", q:"¿Edad mínima para acompañante?", a:"5 años cumplidos.", w1:"7 años.", w2:"No hay edad límite.", exp:"Deben alcanzar los apoyapiés y usar casco certificado."},
+            {cap:10, type:"A2", q:"¿Ser visible para conductores?", a:"Usar reflectivos y luz encendida siempre.", w1:"Tocar el pito a cada rato.", w2:"Manejar zigzagueando.", exp:"Las motos se pierden en los puntos ciegos, la ley exige luz principal 24/7."}
         ];
 
-        let qActive = [], qIdx = 0, qScore = 0, qSel = null;
+        // Añadimos preguntas genéricas de relleno para B1 para que el sistema no se quede vacío si entran con PIN Carro
+        for(let i=1; i<=15; i++) {
+            rawDB.push({cap:1, type:"B1", q:"[MUESTRA B1] Pregunta temporal de Automóviles "+i, a:"Respuesta Correcta", w1:"Opción Falsa 1", w2:"Opción Falsa 2", exp:"Pronto se cargarán las 100 preguntas del manual B1."});
+        }
+
+        // Parseador del banco que convierte la data estructurada en botones aleatorios
+        const quizMap = rawDB.map((d, i) => {
+            let opts = [d.a, d.w1, d.w2];
+            let correctText = d.a;
+            opts.sort(() => 0.5 - Math.random()); 
+            return { id: i, cap: d.cap, type: d.type, q: d.q, options: opts, correct: opts.indexOf(correctText), exp: d.exp };
+        });
+
+        let qActive = [], qIdx = 0, qScore = 0, qSel = null, failedQs = [];
+        let timerInt; let timeLeft = 50 * 60; // 50 min
+
         function startQuiz() {
-            qScore = 0; qIdx = 0; qSel = null;
+            qScore = 0; qIdx = 0; qSel = null; failedQs = []; timeLeft = 50 * 60;
             
-            // FILTRO: Solo muestra las preguntas que corresponden al plan comprado
-            let filteredBank = quizBank.filter(q => {
-                if (userPlan === "B1") return q.type === "ALL" || q.type === "B1";
-                if (userPlan === "A2") return q.type === "ALL" || q.type === "A2";
-                return true; 
+            // FILTRADO POR PLAN
+            let filteredBank = quizMap.filter(q => {
+                if (userPlan === "B1") return q.type === "B1"; // Muestra genérica si es Carro
+                if (userPlan === "A2") return q.type === "A2"; // Muestra las 100 oficiales si es Moto
+                return true; // PRO y DEMO ven todo (combinado)
             });
 
-            qActive = filteredBank.sort(() => 0.5 - Math.random()).slice(0, 15);
+            // ALGORITMO DEL MOPT (4 preguntas por capítulo para Moto)
+            qActive = [];
+            if (userPlan === "A2" || userPlan === "PRO" || userPlan === "DEMO") {
+                for (let c = 1; c <= 10; c++) {
+                    let capQs = filteredBank.filter(q => q.cap === c).sort(() => 0.5 - Math.random());
+                    qActive.push(...capQs.slice(0, 4));
+                }
+            } else {
+                // Fallback para B1 hasta que tengamos las 100 preguntas de carro
+                qActive = filteredBank.sort(() => 0.5 - Math.random()).slice(0, 15);
+            }
             
+            qActive.sort(() => 0.5 - Math.random()); // Barajar Examen Final (40 o 15)
+
             document.getElementById('quiz-intro').classList.add('hidden');
             document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-review').classList.add('hidden');
             document.getElementById('quiz-play').classList.remove('hidden');
+            document.getElementById('q-total').innerText = qActive.length;
+            
+            startTimer();
             renderQ();
+        }
+
+        function startTimer() {
+            clearInterval(timerInt);
+            timerInt = setInterval(() => {
+                if(timeLeft <= 0) { finishQuiz(); return; }
+                timeLeft--;
+                const m = Math.floor(timeLeft / 60);
+                const s = (timeLeft % 60).toString().padStart(2, '0');
+                document.getElementById('q-timer').innerText = `${m}:${s}`;
+                if(timeLeft < 300) document.getElementById('q-timer').parentElement.classList.replace('text-red-600', 'text-red-800');
+            }, 1000);
         }
         
         function renderQ() {
-            const q = qActive[qIdx]; document.getElementById('q-num').innerText = qIdx + 1; document.getElementById('q-text').innerText = q.q;
+            const q = qActive[qIdx]; qSel = null;
+            document.getElementById('q-num').innerText = qIdx + 1; 
+            document.getElementById('q-chapter').innerText = `Eje Temático: Capítulo ${q.cap}`;
+            document.getElementById('q-text').innerText = q.q;
+            document.getElementById('q-feedback').classList.add('hidden');
+
             const oD = document.getElementById('q-options'); oD.innerHTML = '';
             q.options.forEach((o, i) => {
-                const b = document.createElement('button'); b.className = 'quiz-option'; b.innerText = o;
-                b.onclick = () => { qSel = i; document.querySelectorAll('.quiz-option').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); document.getElementById('q-next').disabled = false; document.getElementById('q-next').classList.remove('opacity-50'); };
+                const b = document.createElement('button'); b.className = 'quiz-option'; b.innerText = o; b.id = `opt-${i}`;
+                b.onclick = () => selectAnswer(i, b, q);
                 oD.appendChild(b);
             });
-            document.getElementById('q-next').disabled = true; document.getElementById('q-next').classList.add('opacity-50');
+            document.getElementById('q-next').disabled = true; document.getElementById('q-next').classList.add('opacity-50', 'cursor-not-allowed');
         }
+
+        function selectAnswer(i, btn, q) {
+            if(qSel !== null) return; qSel = i;
+            document.querySelectorAll('.quiz-option').forEach(b => { b.disabled = true; b.classList.add('opt-disabled'); });
+            if (i === q.correct) { qScore++; btn.classList.replace('opt-disabled', 'opt-correct'); } 
+            else { 
+                btn.classList.replace('opt-disabled', 'opt-wrong'); 
+                document.getElementById(`opt-${q.correct}`).classList.replace('opt-disabled', 'opt-correct'); 
+                failedQs.push({ q: q.q, user: q.options[i], corr: q.options[q.correct], exp: q.exp }); 
+            }
+            document.getElementById('q-exp').innerText = q.exp;
+            document.getElementById('q-feedback').classList.remove('hidden');
+            document.getElementById('q-next').disabled = false; document.getElementById('q-next').classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
         function nextQuestion() {
-            if (qSel === qActive[qIdx].correct) qScore++;
             qIdx++; if (qIdx < qActive.length) renderQ(); else finishQuiz();
         }
+
         function finishQuiz() {
+            clearInterval(timerInt);
             document.getElementById('quiz-play').classList.add('hidden');
             document.getElementById('quiz-result').classList.remove('hidden');
+            
             const score = Math.round((qScore / qActive.length) * 100);
             document.getElementById('res-score').innerText = score + "%";
+            document.getElementById('res-correct').innerText = qScore;
+            document.getElementById('res-wrong').innerText = qActive.length - qScore;
+            
             const s = document.getElementById('res-status'), i = document.getElementById('res-icon');
-            if (score >= 80) { s.innerText = "¡APROBADO!"; s.className = "text-4xl font-black text-green-600 italic"; i.className = "w-24 h-24 rounded-full mx-auto mb-8 bg-green-100 text-green-600 flex items-center justify-center shadow-lg"; i.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>'; }
-            else { s.innerText = "REPROBADO"; s.className = "text-4xl font-black text-red-600 italic"; i.className = "w-24 h-24 rounded-full mx-auto mb-8 bg-red-100 text-red-600 flex items-center justify-center shadow-lg"; i.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>'; }
+            if (score >= 80) { s.innerText = "¡APROBADO!"; s.className = "text-4xl font-black text-green-600 italic tracking-tighter mb-2"; i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-green-100 text-green-600 flex items-center justify-center shadow-lg border-4 border-green-200"; i.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>'; }
+            else { s.innerText = "REPROBADO"; s.className = "text-4xl font-black text-red-600 italic tracking-tighter mb-2"; i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-red-100 text-red-600 flex items-center justify-center shadow-lg border-4 border-red-200"; i.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>'; }
+            
+            if(failedQs.length > 0) { document.getElementById('btn-review').classList.remove('hidden'); generateReviewList(); } 
+            else { document.getElementById('btn-review').classList.add('hidden'); }
             lucide.createIcons();
         }
 
+        function generateReviewList() {
+            const list = document.getElementById('review-list'); list.innerHTML = '';
+            failedQs.forEach((f, idx) => {
+                list.innerHTML += `<div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 mb-4"><p class="font-bold text-gray-900 mb-3">${idx+1}. ${f.q}</p><p class="text-sm text-red-600 mb-1"><span class="font-bold">Tu respuesta:</span> ${f.user}</p><p class="text-sm text-green-600 mb-3"><span class="font-bold">Correcta:</span> ${f.corr}</p><div class="bg-white p-3 rounded-xl border-l-4 border-traffic-yellow text-xs italic text-gray-600">${f.exp}</div></div>`;
+            });
+        }
+
+        function showReview() { document.getElementById('quiz-result').classList.add('hidden'); document.getElementById('quiz-review').classList.remove('hidden'); }
+
         // 3. FLASHCARDS
-        const fD = [
-            {q:"¿Año primer auto en CR?", a:"1912"}, 
-            {q:"¿Ley de Tránsito vigente?", a:"Ley 9078"},
-            {q:"¿Elementos de la trilogía vial?", a:"Humano, Vehículo y Vía"},
-            {q:"¿Causa de retiro del vehículo?", a:"Licencia suspendida"}
-        ];
         function renderFlashcards() {
             const g = document.getElementById('flashcards-grid'); g.innerHTML = '';
-            fD.forEach((d,i) => {
+            // Renderizamos 5 de muestra basándonos en la base de datos principal
+            const muestra = quizMap.filter(q => q.type === "A2").slice(0, 5); 
+            muestra.forEach((d) => {
                 const c = document.createElement('div'); c.className = 'flashcard';
-                c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');"><div class="flashcard-front"><p class="text-xs font-bold px-2">${d.q}</p></div><div class="flashcard-back"><p class="italic text-sm px-2">"${d.a}"</p></div></div>`;
+                c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');"><div class="flashcard-front"><p class="text-xs font-bold px-2">${d.q}</p></div><div class="flashcard-back"><p class="italic text-xs px-2">"${d.options[d.correct]}"</p></div></div>`;
                 g.appendChild(c);
             });
-            document.getElementById('prog-val').innerText = fD.length + " / 65";
+            document.getElementById('prog-val').innerText = "5 / 65";
         }
 
         // 4. MODALES
