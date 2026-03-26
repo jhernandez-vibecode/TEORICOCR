@@ -353,8 +353,11 @@
                 <!-- FICHAS -->
                 <div id="mod-fichas" class="module-content hidden">
                     <div class="flex items-center justify-between mb-8 border-b pb-4 flex-wrap gap-4">
-                        <h4 class="text-2xl font-black uppercase italic">Fichas de Estudio</h4>
-                        <span class="text-xs text-gray-400 italic bg-gray-50 px-3 py-1 rounded-lg">Tocá la ficha para ver la respuesta</span>
+                        <div>
+                            <h4 class="text-2xl font-black uppercase italic">Fichas de Estudio</h4>
+                            <p class="text-xs text-gray-400 mt-1">100 fichas · Tocá para ver la respuesta</p>
+                        </div>
+                        <span class="text-xs text-gray-400 italic bg-yellow-50 border border-yellow-200 text-yellow-700 font-bold px-3 py-1 rounded-lg">💡 Tocá la ficha</span>
                     </div>
                     <div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
                 </div>
@@ -549,8 +552,8 @@ function unlockPortal(dias, planLabel) {
     document.getElementById('plan-title').innerText = planLabel;
     document.getElementById('expiry-label').innerText = `Expira en ${dias} día${dias !== 1 ? 's' : ''}`;
     document.getElementById('quiz-title').innerText = `Simulador – ${planLabel}`;
+    currentPage = 0;
     showModule('simulador');
-    renderFlashcards();
     lucide.createIcons();
 }
 
@@ -559,6 +562,7 @@ function showModule(modId) {
     document.querySelectorAll('.module-tab').forEach(t => t.classList.remove('tab-active'));
     document.getElementById('mod-' + modId).classList.remove('hidden');
     document.getElementById('tab-' + modId).classList.add('tab-active');
+    if (modId === 'fichas') renderFlashcards();
 }
 
 // ── BANCO DE PREGUNTAS B1 (100 preguntas) ──
@@ -778,19 +782,165 @@ function generateReviewList() {
 
 function showReview(){ document.getElementById('quiz-result').classList.add('hidden'); document.getElementById('quiz-review').classList.remove('hidden'); }
 
+// ── BANCO DE FICHAS B1 (100 fichas – NotebookLM) ──
+const flashcardBank = [
+    {f:"¿En qué año circuló el primer automóvil en Costa Rica?",b:"1912"},
+    {f:"¿Cuál es el nombre de la ley de tránsito vigente en Costa Rica?",b:"Ley de Tránsito por Vías Públicas Terrestres y Seguridad Vial número 9078"},
+    {f:"Los tres elementos que componen la trilogía vial son el factor humano, el factor vehículo y el factor _____.",b:"Vía y su entorno"},
+    {f:"¿Cuál es la función principal de la calzada?",b:"Es la superficie de la vía destinada a la circulación de vehículos."},
+    {f:"¿Cómo se llama la parte de la vía destinada exclusivamente al tránsito de peatones?",b:"Acera"},
+    {f:"El _____ es la faja lateral adyacente a la calzada que brinda soporte lateral al pavimento.",b:"Espaldón"},
+    {f:"¿Qué significan las señales de tránsito con fondo amarillo y forma de rombo?",b:"Prevención: advierten sobre un peligro real o potencial."},
+    {f:"¿De qué color son las señales de información en carretera?",b:"Azul o verde."},
+    {f:"¿Qué indica una luz roja intermitente en un semáforo vehicular?",b:"Equivale a una señal de alto."},
+    {f:"¿A qué distancia mínima se colocan los triángulos de seguridad en carretera?",b:"90 metros atrás y 15 metros adelante del vehículo."},
+    {f:"La regla de los _____ segundos se utiliza para mantener distancia segura entre vehículos livianos.",b:"Dos segundos"},
+    {f:"¿Cuál es el límite máximo de velocidad en zonas escolares con estudiantes presentes?",b:"25 km/h"},
+    {f:"¿Qué tipo de licencia se requiere para conducir un automóvil particular de hasta 4000 kg?",b:"B1"},
+    {f:"¿Cuántos puntos se acumulan por una infracción de categoría A?",b:"6 puntos"},
+    {f:"¿Cuál es la multa por irrespetar una señal de alto (categoría B)?",b:"Acumula 4 puntos en la licencia además de la sanción económica."},
+    {f:"¿Qué dispositivo del vehículo convierte los gases del motor en menos contaminantes?",b:"Catalizador"},
+    {f:"¿Cuál es el nivel de desgaste máximo permitido para las llantas de un vehículo liviano?",b:"2 mm"},
+    {f:"El sistema de _____ permite al conductor guiar el vehículo en la dirección deseada.",b:"Dirección"},
+    {f:"¿Qué componente del sistema eléctrico genera la corriente para el funcionamiento del vehículo?",b:"Alternador"},
+    {f:"La técnica de conducción para ahorrar combustible y reducir contaminación se llama _____.",b:"Conducción técnica eficiente (eco-conducción)"},
+    {f:"¿En qué rango de RPM se recomienda hacer los cambios en un motor de gasolina para conducción eficiente?",b:"Entre 2000 y 2800 RPM"},
+    {f:"¿Qué es el hidroplaneamiento (aquaplaning)?",b:"Pérdida de contacto de las llantas con el pavimento por una capa de agua."},
+    {f:"En una intersección sin señales, ¿quién tiene prioridad de paso?",b:"El vehículo que aparece por el lado derecho del conductor."},
+    {f:"¿Cuál es el horario obligatorio para encender las luces del vehículo?",b:"De 6:00 p.m. a 6:00 a.m."},
+    {f:"¿Qué significan las líneas amarillas continuas en el centro de la carretera?",b:"Prohíben adelantar."},
+    {f:"¿Cuál es la función del tacómetro en el panel de instrumentos?",b:"Medir las revoluciones por minuto (RPM) del motor."},
+    {f:"¿A qué edad se puede obtener la licencia A1 con autorización de los padres?",b:"16 años"},
+    {f:"¿Qué sanción recibe un conductor que se niega a realizar la prueba de alcoholemia?",b:"Infracción categoría A (6 puntos) y eventual proceso judicial."},
+    {f:"¿Cuál es el límite de alcohol en sangre para un conductor profesional?",b:"0,50 gramos por litro de sangre"},
+    {f:"¿Qué tipo de colisión es considerada la más grave y ocurre por invasión de carril?",b:"Choque frontal"},
+    {f:"¿Qué significa la luz amarilla en el semáforo vehicular?",b:"Prevención: indica que la luz cambiará a rojo pronto."},
+    {f:"¿Cuál es la función de la inspección técnica vehicular (IVE)?",b:"Garantizar que los vehículos cumplan estándares mínimos de seguridad y emisiones."},
+    {f:"¿Qué documento acredita el pago del seguro obligatorio y derechos de circulación anuales?",b:"Marchamo"},
+    {f:"Las señales _____ son láminas ubicadas en postes al borde de la vía.",b:"Verticales"},
+    {f:"¿Qué indica una línea blanca discontinua en la carretera?",b:"Permite el cambio de carril o la maniobra de adelantamiento."},
+    {f:"¿Cuál es la función del sistema de lubricación en el motor?",b:"Evitar el roce entre piezas móviles para disminuir el desgaste y el calor."},
+    {f:"El dispositivo que evita que los ocupantes sean expulsados en un choque es el _____.",b:"Cinturón de seguridad"},
+    {f:"¿Cuál es la distancia de visibilidad mínima para las luces altas?",b:"250 metros"},
+    {f:"¿Qué indica el símbolo 'Check Engine' en el tablero?",b:"Una posible falla en el sistema de control del motor."},
+    {f:"¿Qué debe hacer un conductor ante un vehículo de emergencia con sirena?",b:"Ceder el paso y orillarse si es necesario."},
+    {f:"¿Cuál es la función de la isla de canalización en una carretera?",b:"Ordenar el tránsito en zonas conflictivas y eliminar sobreanchos."},
+    {f:"Las señales de _____ indican obligaciones, prohibiciones o normativas de cumplimiento obligatorio.",b:"Reglamentación"},
+    {f:"¿Qué forma tienen generalmente las señales de información?",b:"Rectangular o cuadrada."},
+    {f:"¿Cuál es el objetivo primordial de la seguridad vial?",b:"Prevenir accidentes de tránsito."},
+    {f:"¿Cómo se define a un 'infractor' según la ley de tránsito?",b:"Persona que viola una o más disposiciones legales de tránsito."},
+    {f:"¿Qué es la conducción defensiva?",b:"Anticiparse a situaciones de riesgo y evitar maniobras imprudentes."},
+    {f:"¿Qué efecto tiene el consumo de alcohol en los reflejos del conductor?",b:"Los disminuye gravemente, afectando la coordinación y el juicio."},
+    {f:"¿Cuál es la profundidad de ranura aproximada de una llanta nueva?",b:"9 mm"},
+    {f:"¿Qué instrumento se utiliza para medir la presión de aire en las llantas?",b:"Manómetro"},
+    {f:"¿En qué parte del vehículo es más adecuado llevar el extintor?",b:"Debajo del asiento del pasajero o copiloto."},
+    {f:"¿Qué significa el término 'pie de pluma' en conducción económica?",b:"Regular la cantidad de combustible mediante el uso suave del acelerador."},
+    {f:"¿Qué tipo de contaminación producen las bocinas de los vehículos?",b:"Contaminación sónica."},
+    {f:"¿Cómo se llama la ciencia que estudia la causa y efecto de los accidentes de tránsito?",b:"Accidentología vial"},
+    {f:"¿Qué prioridad tiene un vehículo que circula sobre rieles (el tren)?",b:"Prioridad número uno sobre todos los demás usuarios de la vía."},
+    {f:"¿Cuál es el tiempo de reacción normal de un conductor promedio?",b:"1,5 segundos"},
+    {f:"¿Qué significan las líneas blancas perpendiculares a la acera en una intersección?",b:"Zonas de paso peatonal."},
+    {f:"¿Qué indica un bordillo o caño pintado de color amarillo?",b:"Prohibición de estacionamiento."},
+    {f:"¿Cuál es la función del sistema de suspensión?",b:"Brindar comodidad y seguridad absorbiendo las irregularidades del terreno."},
+    {f:"¿Qué es el par torsional?",b:"Fuerza de giro que el motor transmite a las ruedas a través de la transmisión."},
+    {f:"¿Cuál es la velocidad mínima permitida en autopistas sin congestión?",b:"50 km/h"},
+    {f:"¿Qué sanción conlleva conducir a más de 120 km/h?",b:"Infracción categoría A y acumulación de 6 puntos en la licencia."},
+    {f:"¿A partir de qué velocidad se considera delito la conducción por exceso?",b:"Más de 150 km/h"},
+    {f:"¿Qué tipo de señales utilizan los oficiales de tránsito para regular el flujo vehicular?",b:"Señalamiento manual."},
+    {f:"¿Cuál es el primer paso para cambiar una llanta de repuesto?",b:"Escoger un lugar seguro fuera de la carretera."},
+    {f:"¿Qué indica la zona verde en el tacómetro?",b:"El rango de RPM para un rendimiento óptimo y económico del motor."},
+    {f:"¿Cómo se llama la elevación mayor en uno de los lados de la calzada en una curva?",b:"Peralte"},
+    {f:"¿Qué fuerza tiende a sacar al vehículo de su trayectoria en una curva?",b:"Fuerza centrífuga"},
+    {f:"¿Cuál es la función del embrague (clutch)?",b:"Separar el sistema de transmisión del motor para realizar cambios de marcha."},
+    {f:"¿Qué significan las siglas ABS en el sistema de frenos?",b:"Sistema antibloqueo de ruedas (Anti-lock Braking System)."},
+    {f:"¿Cuál es la multa por hablar por celular sin dispositivo de manos libres?",b:"Infracción categoría C (multa económica sin acumulación de puntos)."},
+    {f:"¿Qué distancia lateral mínima debe mantener un conductor al adelantar a un ciclista?",b:"1,5 metros"},
+    {f:"¿En qué dirección circulan las avenidas en San José?",b:"De Este a Oeste y viceversa."},
+    {f:"¿En qué dirección circulan las calles en San José?",b:"De Norte a Sur y viceversa."},
+    {f:"¿Qué es la volición en los procesos de la conducción?",b:"La decisión o acción de realizar una maniobra tras interpretar un estímulo."},
+    {f:"¿Qué indica el color naranja en el señalamiento vial?",b:"Prevención en zonas de obras en la vía."},
+    {f:"¿Cuál es la función del sistema de escape?",b:"Evacuar los gases quemados del motor y reducir el ruido."},
+    {f:"¿Qué debe revisarse diariamente antes de salir en el vehículo?",b:"Niveles de líquidos, luces, llantas y posibles fugas."},
+    {f:"¿Qué es la conducción nocturna?",b:"Manejo durante la noche donde la visibilidad se reduce y aumenta el riesgo por fatiga."},
+    {f:"¿Qué sanción recibe un conductor novato que acumula 6 puntos?",b:"Suspensión de la licencia por un año."},
+    {f:"¿Qué autoridad puede cambiar una disposición de señalamiento en una emergencia?",b:"Un oficial de tránsito."},
+    {f:"¿Qué significan los captaluces (ojos de gato) de color rojo en la carretera?",b:"Indican la línea de borde de la calzada."},
+    {f:"¿Cuál es la función del radiador en el sistema de enfriamiento?",b:"Enfriar el líquido refrigerante mediante el paso de aire."},
+    {f:"¿Qué indica una señal vertical con un círculo rojo y una línea diagonal?",b:"Una prohibición específica."},
+    {f:"¿Qué es el ángulo muerto o punto ciego?",b:"Zona alrededor del vehículo que no puede verse a través de los espejos retrovisores."},
+    {f:"¿Cuál es la sanción por participar en competencias ilegales (piques)?",b:"Sanción penal (cárcel) y multas administrativas graves."},
+    {f:"¿Qué debe hacer un conductor si es encandilado por otro vehículo?",b:"Dirigir la vista hacia la línea de borde derecha de la calzada."},
+    {f:"¿Cuál es la función de las luces direccionales?",b:"Comunicar a otros usuarios las maniobras de giro o cambio de carril."},
+    {f:"¿A cuántos metros debe ser visible la luz alta de un vehículo?",b:"250 metros"},
+    {f:"¿Qué tipo de licencia requiere un conductor de taxi?",b:"C1"},
+    {f:"¿Qué es la distancia de seguimiento?",b:"Espacio que debe mantenerse respecto al vehículo que circula adelante."},
+    {f:"¿Cómo afecta el estrés a un conductor?",b:"Provoca conductas agresivas, pérdida de concentración e irritabilidad."},
+    {f:"¿Qué indica una luz verde en el semáforo peatonal?",b:"Derecho de paso para el peatón en la zona de seguridad."},
+    {f:"¿Cuál es la multa por transportar a un niño menor de 5 años en motocicleta?",b:"Infracción categoría B (acumula 4 puntos)."},
+    {f:"¿Qué es el sistema Lambda?",b:"Sistema que regula la mezcla exacta de aire y combustible en motores inyectados."},
+    {f:"¿Qué sanción recibe un extranjero por conducir con licencia extranjera tras 3 meses en el país?",b:"Multa categoría D (sin puntos)."},
+    {f:"¿Cuál es la función de los silenciadores en el sistema de escape?",b:"Reducir el nivel de ruido producido por la salida de gases del motor."},
+    {f:"¿Qué significa la señal horizontal CEDA pintada en el pavimento?",b:"Obligación de dar el paso a vehículos que circulan por la vía principal."},
+    {f:"¿Qué debe hacer un conductor antes de iniciar una maniobra de retroceso?",b:"Verificar que no haya personas u objetos detrás y usar los espejos retrovisores."},
+    {f:"¿Cuál es el beneficio de mantener las ventanas cerradas en carretera a alta velocidad?",b:"Mejora la aerodinámica y reduce el consumo de combustible."},
+    {f:"¿A qué autoridad se debe impugnar una boleta de citación considerada injusta?",b:"Al COSEVI, dentro de los 10 días hábiles posteriores."},
+];
+
 // ── FLASHCARDS ─────────────────────────────
+let currentPage = 0;
+const CARDS_PER_PAGE = 12;
+
 function renderFlashcards() {
-    const g=document.getElementById('flashcards-grid'); if(!g)return; g.innerHTML='';
-    const pool=quizBank.filter(q=>userPlan==="A2"?q.type==="A2":q.type==="B1");
-    const muestra=[...pool].sort(()=>Math.random()-0.5).slice(0,12);
-    muestra.forEach(d=>{
-        const c=document.createElement('div'); c.className='flashcard';
-        c.innerHTML=`<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');">
-            <div class="flashcard-front"><p class="text-xs font-bold px-2 text-center">${d.q}</p></div>
-            <div class="flashcard-back"><p class="italic text-xs px-2 text-center">${d.options[d.correct]}</p></div>
+    const g = document.getElementById('flashcards-grid');
+    if (!g) return;
+
+    // Barajar solo la primera vez
+    if (currentPage === 0) {
+        flashcardBank.sort(() => Math.random() - 0.5);
+    }
+
+    const start = currentPage * CARDS_PER_PAGE;
+    const slice = flashcardBank.slice(start, start + CARDS_PER_PAGE);
+
+    g.innerHTML = '';
+    slice.forEach(d => {
+        const c = document.createElement('div');
+        c.className = 'flashcard';
+        c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');">
+            <div class="flashcard-front"><p class="text-xs font-bold px-2 text-center leading-snug">${d.f}</p></div>
+            <div class="flashcard-back"><p class="text-xs px-2 text-center leading-snug font-bold">${d.b}</p></div>
         </div>`;
         g.appendChild(c);
     });
+
+    // Controles de paginación
+    const totalPages = Math.ceil(flashcardBank.length / CARDS_PER_PAGE);
+    let nav = document.getElementById('flashcard-nav');
+    if (!nav) {
+        nav = document.createElement('div');
+        nav.id = 'flashcard-nav';
+        nav.className = 'flex items-center justify-between mt-8 pt-6 border-t border-gray-100';
+        g.parentElement.appendChild(nav);
+    }
+    nav.innerHTML = `
+        <button onclick="changeFlashPage(-1)" ${currentPage === 0 ? 'disabled' : ''}
+            class="px-5 py-2 rounded-xl font-black text-sm uppercase border-2 ${currentPage === 0 ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-black text-black hover:bg-black hover:text-white transition-colors'}">
+            ← Anterior
+        </button>
+        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+            ${currentPage + 1} / ${totalPages} &nbsp;·&nbsp; ${flashcardBank.length} fichas
+        </span>
+        <button onclick="changeFlashPage(1)" ${currentPage >= totalPages - 1 ? 'disabled' : ''}
+            class="px-5 py-2 rounded-xl font-black text-sm uppercase border-2 ${currentPage >= totalPages - 1 ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-black text-black hover:bg-black hover:text-white transition-colors'}">
+            Siguiente →
+        </button>`;
+}
+
+function changeFlashPage(dir) {
+    const totalPages = Math.ceil(flashcardBank.length / CARDS_PER_PAGE);
+    currentPage = Math.max(0, Math.min(currentPage + dir, totalPages - 1));
+    renderFlashcards();
+    document.getElementById('material-viewer').scrollIntoView({ behavior: 'smooth' });
 }
 </script>
 </body>
