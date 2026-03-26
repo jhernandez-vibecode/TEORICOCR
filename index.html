@@ -3,8 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teórico Pro CR - Refuerzo Educativo 2026</title>
-    <!-- Tailwind CSS y Lucide Icons -->
+
+    <!-- SEO TÉCNICO -->
+    <title>Teórico Pro CR – Simulador Examen de Manejo Costa Rica 2026 | Licencia B1 y Moto</title>
+    <meta name="description" content="Prepárate y pasa tu examen teórico de manejo en Costa Rica a la primera. Simulador oficial con preguntas del MOPT 2026 para licencia B1 (carro) y A1-A3 (moto). Acceso por 15 días desde ₡4,500.">
+    <meta name="keywords" content="examen teorico manejo costa rica, prueba teorica licencia B1, simulador examen MOPT, preguntas examen licencia carro CR, como pasar examen de manejo costa rica, manual MOPT 2026, licencia de conducir costa rica, examen teorico moto costa rica">
+    <meta name="author" content="Teórico Pro CR">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://examenteoricocr.netlify.app/">
+
+    <!-- OPEN GRAPH (WhatsApp / redes) -->
+    <meta property="og:title" content="Teórico Pro CR – Pasa tu examen de manejo a la primera">
+    <meta property="og:description" content="Simulador oficial con preguntas del MOPT 2026. Licencia B1 y Moto. Desde ₡4,500 por 15 días.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://examenteoricocr.netlify.app/">
+    <meta property="og:locale" content="es_CR">
+
+    <!-- SCHEMA MARKUP -->
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Course","name":"Refuerzo Teórico Examen de Manejo Costa Rica 2026","description":"Material de estudio y simulador de preguntas basado en los manuales oficiales del MOPT para licencia B1 y A1-A3.","provider":{"@type":"Organization","name":"Teórico Pro CR","url":"https://examenteoricocr.netlify.app/"},"offers":{"@type":"Offer","price":"4500","priceCurrency":"CRC","availability":"https://schema.org/InStock"}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuántas preguntas tiene el examen teórico del MOPT?","acceptedAnswer":{"@type":"Answer","text":"El examen teórico del MOPT en Costa Rica consta de 40 preguntas y se necesita un 80% para aprobar."}},{"@type":"Question","name":"¿Cuánto cuesta el acceso al simulador?","acceptedAnswer":{"@type":"Answer","text":"El acceso por 15 días cuesta ₡4,500 para licencia B1 (carro) o Moto (A1-A3). El combo ambas categorías cuesta ₡7,000."}}]}
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -12,8 +34,8 @@
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .bg-traffic-yellow { background-color: #FFD700; }
         .text-traffic-yellow { color: #FFD700; }
-        .hero-gradient { background: linear-gradient(180deg, #1a1a1a 0%, #333333 100%); }
-        
+        .hero-gradient { background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%); }
+
         .flashcard { perspective: 1000px; height: 160px; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
         .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
@@ -21,514 +43,755 @@
         .flashcard-front { background-color: white; border: 2px solid #f1f5f9; color: #1e293b; font-weight: 600; }
         .flashcard-back { background-color: #FFD700; color: black; transform: rotateY(180deg); font-weight: 800; font-size: 0.85rem; }
 
-        .tab-active { @apply border-[#FFD700] text-white bg-slate-800 shadow-lg; }
-        
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .animate-infinite-scroll { display: flex; width: 200%; animation: scroll 25s linear infinite; }
-        
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 1.5rem; }
+        .tab-active { border-color: #FFD700 !important; color: white !important; background-color: #1e293b !important; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+
+        .modal-overlay { display: none; position: fixed; z-index: 200; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 1.5rem; }
+        .modal-overlay.open { display: flex; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadeup { animation: fadeInUp 0.5s ease forwards; }
+
+        details summary { list-style: none; }
+        details summary::-webkit-details-marker { display: none; }
+        details[open] summary .chevron { transform: rotate(180deg); }
+        .chevron { transition: transform 0.3s; }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
 
-    <!-- HEADER -->
-    <header class="bg-black text-white py-4 px-6 sticky top-0 z-50 shadow-lg">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <span class="bg-traffic-yellow text-black font-extrabold px-2 py-0.5 rounded italic text-sm">PRO</span>
-                <span class="font-bold text-lg tracking-tight uppercase">Teórico CR</span>
-            </div>
-            <nav class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-white">
-                <a href="#inicio" class="hover:text-traffic-yellow transition-colors">Inicio</a>
-                <a href="#categorias" class="hover:text-traffic-yellow transition-colors">Material</a>
-                <a href="#estudio" class="text-traffic-yellow">Acceso Clientes</a>
-            </nav>
-            <button onclick="scrollToSection('estudio')" class="bg-traffic-yellow text-black text-[10px] font-black px-4 py-2 rounded uppercase italic hover:scale-105 transition-transform">Entrar</button>
+<!-- ════════════════════════════════════════ -->
+<!-- HEADER                                  -->
+<!-- ════════════════════════════════════════ -->
+<header class="bg-black text-white py-4 px-6 sticky top-0 z-50 shadow-lg">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <span class="bg-traffic-yellow text-black font-extrabold px-2 py-0.5 rounded italic text-sm">PRO</span>
+            <span class="font-bold text-lg tracking-tight uppercase">Teórico CR</span>
         </div>
-    </header>
+        <nav class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest">
+            <a href="#inicio" class="hover:text-traffic-yellow transition-colors">Inicio</a>
+            <a href="#categorias" class="hover:text-traffic-yellow transition-colors">Planes</a>
+            <a href="#faq" class="hover:text-traffic-yellow transition-colors">FAQ</a>
+            <a href="#estudio" class="text-traffic-yellow">Acceso Clientes</a>
+        </nav>
+        <button onclick="scrollToSection('estudio')" class="bg-traffic-yellow text-black text-[10px] font-black px-4 py-2 rounded uppercase italic hover:scale-105 transition-transform">Entrar</button>
+    </div>
+</header>
 
-    <!-- HERO -->
-    <main id="inicio">
-        <section class="hero-gradient text-white pt-24 pb-32 px-6 text-center">
-            <div class="max-w-3xl mx-auto">
-                <div class="inline-block bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full mb-6 uppercase tracking-widest italic">Actualización Marzo 2026</div>
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight italic uppercase tracking-tighter">
-                    Pasa tu examen de manejo <span class="text-traffic-yellow">a la primera.</span>
-                </h1>
-                <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto italic">Refuerzo educativo inteligente basado en los nuevos manuales del MOPT.</p>
-                <div class="flex flex-col md:flex-row justify-center gap-4">
-                    <button onclick="scrollToSection('categorias')" class="bg-traffic-yellow text-black font-black py-5 px-10 rounded-2xl text-lg shadow-2xl hover:bg-yellow-400 transition-all uppercase italic">Ver Planes</button>
-                    <button onclick="scrollToSection('estudio')" class="border-2 border-gray-700 text-gray-300 font-bold py-5 px-10 rounded-2xl text-lg hover:bg-white hover:text-black transition-all uppercase">Ya tengo mi PIN</button>
-                </div>
+<!-- ════════════════════════════════════════ -->
+<!-- HERO                                    -->
+<!-- ════════════════════════════════════════ -->
+<main id="inicio">
+    <section class="hero-gradient text-white pt-24 pb-32 px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+            <div class="inline-block bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full mb-6 uppercase tracking-widest italic">✓ Actualización Marzo 2026 – Manuales MOPT</div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight italic uppercase tracking-tighter">
+                Pasa tu examen de manejo <span class="text-traffic-yellow">a la primera.</span>
+            </h1>
+            <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto">Simulador con las preguntas reales del MOPT. Material para licencia <strong class="text-white">B1 (Carro)</strong> y <strong class="text-white">A1-A3 (Moto)</strong>. Costa Rica 2026.</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button onclick="scrollToSection('categorias')" class="bg-traffic-yellow text-black font-black py-5 px-10 rounded-2xl text-lg shadow-2xl hover:bg-yellow-400 transition-all uppercase italic">Ver Planes</button>
+                <button onclick="scrollToSection('estudio')" class="border-2 border-gray-700 text-gray-300 font-bold py-5 px-10 rounded-2xl text-lg hover:bg-white hover:text-black transition-all uppercase">Ya tengo mi PIN</button>
             </div>
-        </section>
-
-        <!-- CATEGORÍAS -->
-        <section id="categorias" class="py-24 px-6 max-w-6xl mx-auto">
-            <h2 class="text-4xl font-black text-center mb-16 italic uppercase">¿Qué licencia vas a obtener?</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
-                    <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-blue-600"><i data-lucide="car" class="w-10 h-10"></i></div>
-                    <h3 class="text-2xl font-bold mb-4 italic">Refuerzo B1 (Carro)</h3>
-                    <p class="text-gray-500 mb-8 text-sm italic">Material específico para el nuevo manual de Automóviles.</p>
-                    <div class="text-5xl font-black mb-8 italic">₡4,500</div>
-                    <button onclick="openPaymentModal('Carro (B1)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
-                </div>
-                <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm group">
-                    <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-orange-600"><i data-lucide="bike" class="w-10 h-10"></i></div>
-                    <h3 class="text-2xl font-bold mb-4 italic text-black">Refuerzo Moto (A1-A3)</h3>
-                    <p class="text-gray-500 mb-8 text-sm italic">Material específico para el nuevo manual de Motociclistas.</p>
-                    <div class="text-5xl font-black mb-8 italic text-black">₡4,500</div>
-                    <button onclick="openPaymentModal('Moto (A1-A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- ÁREA DE CLIENTES -->
-    <section id="estudio" class="py-24 px-4 bg-slate-900 min-h-screen border-t-8 border-traffic-yellow">
-        <div class="max-w-5xl mx-auto">
-            <div id="lock-screen" class="text-center py-16">
-                <div class="bg-slate-800 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-traffic-yellow shadow-2xl">
-                    <i data-lucide="lock" class="text-traffic-yellow w-10 h-10"></i>
-                </div>
-                <h2 class="text-3xl font-black text-white mb-4 italic uppercase">Portal Premium</h2>
-                <p class="text-slate-400 mb-10 text-sm italic">Ingresa tu PIN de 5 partes para activar tu material.</p>
-                <div class="max-w-xs mx-auto">
-                    <input type="text" id="pin-input" placeholder="B1-00000000-XXX-0000-XXXX" 
-                           class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
-                    <button id="btn-verify" onclick="verifyPin()" class="w-full bg-traffic-yellow text-black font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] transition-all uppercase italic">Activar Mi Acceso</button>
-                    <div id="error-box" class="bg-red-500/10 border border-red-500 rounded-xl p-3 mt-6 hidden">
-                        <p id="error-msg" class="text-red-500 text-[10px] font-bold uppercase tracking-widest"></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Portal de Estudio Desbloqueado -->
-            <div id="premium-portal" class="hidden animate-in fade-in zoom-in duration-700">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-10 bg-slate-800 p-8 rounded-[2.5rem] border border-slate-700 gap-6 text-white">
-                    <div>
-                        <span id="badge-tipo" class="bg-black text-traffic-yellow text-[9px] font-black px-2 py-0.5 rounded uppercase italic mb-1 inline-block"></span>
-                        <h3 class="font-black text-2xl italic uppercase tracking-tight" id="plan-title">Mi Material</h3>
-                        <p id="expiry-label" class="text-slate-400 text-[10px] font-bold uppercase tracking-widest italic mt-1"></p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 text-center">
-                    <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="book-open"></i><span class="text-[10px] font-black uppercase italic leading-tight">1. Resumen</span></button>
-                    <button onclick="showModule('video')" id="tab-video" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="play-circle"></i><span class="text-[10px] font-black uppercase italic leading-tight">2. Video</span></button>
-                    <button onclick="showModule('fichas')" id="tab-fichas" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="layers"></i><span class="text-[10px] font-black uppercase italic leading-tight">3. Fichas</span></button>
-                    <button onclick="showModule('simulador')" id="tab-simulador" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all"><i data-lucide="zap"></i><span class="text-[10px] font-black uppercase italic leading-tight">4. Simulador</span></button>
-                </div>
-
-                <div id="material-viewer" class="bg-white rounded-[3rem] p-6 md:p-10 min-h-[500px] shadow-2xl relative overflow-hidden">
-                    <div id="mod-resumen" class="module-content hidden text-center py-16">
-                        <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i>
-                        <h4 class="text-3xl font-black uppercase italic mb-4" id="resumen-title">Guía Estratégica</h4>
-                        <button class="bg-black text-white font-black py-5 px-12 rounded-2xl">DESCARGAR PDF</button>
-                    </div>
-                    <div id="mod-video" class="module-content hidden text-center py-16"><p>Videos próximamente...</p></div>
-                    <div id="mod-fichas" class="module-content hidden"><div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div></div>
-                    
-                    <!-- MODULO SIMULADOR RESTAURADO -->
-                    <div id="mod-simulador" class="module-content hidden">
-                        <div id="quiz-intro" class="text-center py-16">
-                            <i data-lucide="award" class="text-orange-500 w-16 h-16 mx-auto mb-6"></i>
-                            <h4 class="text-3xl font-black uppercase italic mb-4" id="quiz-title">Simulador Oficial</h4>
-                            <p class="text-slate-500 mb-8 italic">Evaluación aleatoria de 40 preguntas. Necesitas 80% para aprobar.</p>
-                            <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic hover:scale-105 transition-transform">EMPEZAR SIMULACRO</button>
-                        </div>
-                        
-                        <div id="quiz-play" class="hidden">
-                            <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b pb-4 gap-4">
-                                <span class="text-xs font-black text-slate-400 uppercase bg-slate-100 px-3 py-1 rounded-lg">Pregunta <span id="q-num" class="text-black text-lg">1</span> / <span id="q-total" class="text-black text-lg">40</span></span>
-                                <div class="flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-100">
-                                    <i data-lucide="timer" class="w-4 h-4"></i>
-                                    <span id="q-timer" class="font-black font-mono text-lg">50:00</span>
-                                </div>
-                            </div>
-                            <p class="text-[10px] text-blue-500 font-bold uppercase tracking-widest mb-2" id="q-chapter"></p>
-                            <h5 id="q-text" class="text-xl md:text-2xl font-black text-slate-900 mb-8 italic leading-tight"></h5>
-                            
-                            <div id="q-options" class="space-y-3"></div>
-                            
-                            <div id="q-feedback" class="hidden mt-6 bg-slate-50 p-5 rounded-2xl border-l-4 border-black">
-                                <p class="text-[10px] font-black uppercase text-slate-400 mb-2 flex items-center gap-1"><i data-lucide="info" class="w-3 h-3"></i> Explicación</p>
-                                <p id="q-exp" class="text-sm font-semibold text-slate-700 italic"></p>
-                            </div>
-
-                            <div class="mt-8 flex justify-end">
-                                <button id="q-next" onclick="nextQuestion()" disabled class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 cursor-not-allowed transition-all">Siguiente <i data-lucide="chevron-right" class="inline w-4 h-4 mb-0.5"></i></button>
-                            </div>
-                        </div>
-
-                        <div id="quiz-result" class="hidden text-center py-12">
-                            <div id="res-icon" class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg"></div>
-                            <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2 tracking-tighter"></h4>
-                            <p class="text-slate-500 mb-8 font-bold">Puntaje Final</p>
-                            <div class="text-7xl font-black text-slate-900 mb-6 italic" id="res-score">0</div>
-                            <div class="flex justify-center gap-4 text-sm font-bold text-slate-500 mb-10">
-                                <span class="bg-green-50 text-green-700 px-4 py-2 rounded-lg">Aciertos: <span id="res-correct">0</span></span>
-                                <span class="bg-red-50 text-red-700 px-4 py-2 rounded-lg">Fallos: <span id="res-wrong">0</span></span>
-                            </div>
-                            <div class="flex flex-col md:flex-row justify-center gap-4">
-                                <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-8 rounded-xl uppercase italic shadow-xl">Nuevo Intento</button>
-                                <button onclick="showReview()" id="btn-review" class="bg-traffic-yellow text-black font-black py-4 px-8 rounded-xl uppercase italic hidden">Ver Errores</button>
-                            </div>
-                        </div>
-
-                        <div id="quiz-review" class="hidden text-left">
-                            <div class="flex items-center justify-between mb-8 border-b pb-4">
-                                <h4 class="text-2xl font-black uppercase italic">Modo Repaso</h4>
-                                <button onclick="document.getElementById('quiz-review').classList.add('hidden'); document.getElementById('quiz-result').classList.remove('hidden');" class="text-sm font-bold text-slate-500 hover:text-black">Volver</button>
-                            </div>
-                            <p class="text-slate-500 mb-6 text-sm">Estas son las preguntas que fallaste. Léelas con atención.</p>
-                            <div id="review-list" class="space-y-6"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-20 text-center pb-20"><button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-[0.3em] border-b border-slate-700 pb-2">Cerrar Sesión</button></div>
+            <div class="flex justify-center gap-10 mt-16 text-center">
+                <div><div class="text-3xl font-black text-traffic-yellow">100+</div><div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Preguntas</div></div>
+                <div><div class="text-3xl font-black text-traffic-yellow">40</div><div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Por simulacro</div></div>
+                <div><div class="text-3xl font-black text-traffic-yellow">80%</div><div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Para aprobar</div></div>
             </div>
         </div>
     </section>
 
-    <script>
-        lucide.createIcons();
+    <!-- ════════════════════════════════════ -->
+    <!-- PLANES                              -->
+    <!-- ════════════════════════════════════ -->
+    <section id="categorias" class="py-24 px-6 max-w-6xl mx-auto">
+        <h2 class="text-4xl font-black text-center mb-4 italic uppercase">¿Qué licencia vas a obtener?</h2>
+        <p class="text-center text-gray-500 mb-16 text-sm">Seleccioná tu plan y recibí tu PIN de acceso por SINPE Móvil.</p>
+        <div class="grid md:grid-cols-3 gap-8">
 
-        // 1. CONEXIÓN SEGURA AL BACKEND
-        let userPlan = "";
+            <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm">
+                <div class="bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-blue-600">
+                    <i data-lucide="car" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-2 italic">Refuerzo B1</h3>
+                <p class="text-gray-400 text-xs mb-1 uppercase font-bold tracking-widest">Licencia Carro</p>
+                <p class="text-gray-500 mb-8 text-sm">Material específico para el nuevo manual de Automóviles del MOPT.</p>
+                <div class="text-5xl font-black mb-2 italic">₡4,500</div>
+                <p class="text-gray-400 text-xs mb-8">15 días de acceso completo</p>
+                <button onclick="openPaymentModal('Refuerzo B1 – Carro', 4500)" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest hover:bg-gray-800 transition-colors">Obtener Acceso</button>
+            </div>
 
-        async function verifyPin() {
-            const val = document.getElementById('pin-input').value.trim().toUpperCase();
-            const btn = document.getElementById('btn-verify');
-            const btnOriginalText = btn.innerText;
+            <div class="bg-white p-10 rounded-[3rem] border-2 border-gray-100 hover:border-traffic-yellow transition-all shadow-sm">
+                <div class="bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-orange-500">
+                    <i data-lucide="bike" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-2 italic">Refuerzo Moto</h3>
+                <p class="text-gray-400 text-xs mb-1 uppercase font-bold tracking-widest">Licencia A1-A3</p>
+                <p class="text-gray-500 mb-8 text-sm">Material específico para el nuevo manual de Motociclistas del MOPT.</p>
+                <div class="text-5xl font-black mb-2 italic">₡4,500</div>
+                <p class="text-gray-400 text-xs mb-8">15 días de acceso completo</p>
+                <button onclick="openPaymentModal('Refuerzo Moto – A1-A3', 4500)" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest hover:bg-gray-800 transition-colors">Obtener Acceso</button>
+            </div>
 
-            if(!val) { showErr("Ingresa un PIN."); return; }
+            <div class="bg-black p-10 rounded-[3rem] border-2 border-traffic-yellow shadow-2xl relative overflow-hidden">
+                <div class="absolute top-4 right-4 bg-traffic-yellow text-black text-[9px] font-black px-2 py-1 rounded uppercase italic">Mejor Valor</div>
+                <div class="bg-yellow-400/20 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-traffic-yellow">
+                    <i data-lucide="star" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-2 italic text-white">Combo Pro</h3>
+                <p class="text-yellow-400 text-xs mb-1 uppercase font-bold tracking-widest">B1 + Moto A1-A3</p>
+                <p class="text-gray-400 mb-8 text-sm">Acceso completo a ambas categorías. Ideal si estudiás las dos.</p>
+                <div class="text-5xl font-black mb-2 italic text-traffic-yellow">₡7,000</div>
+                <p class="text-gray-500 text-xs mb-8">20 días de acceso completo</p>
+                <button onclick="openPaymentModal('Combo Pro – B1 + Moto', 7000)" class="w-full bg-traffic-yellow text-black font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest hover:bg-yellow-400 transition-colors">Obtener Combo</button>
+            </div>
 
-            // Bloqueo Inteligente Local: Advierte si están probando sin servidor
-            if (window.location.protocol === "file:") {
-                showErr("ATENCIÓN: Estás abriendo el archivo localmente. La seguridad backend requiere que subas la página a Netlify para poder entrar.");
-                return;
-            }
+        </div>
+    </section>
 
-            document.getElementById('error-box').classList.add('hidden');
-            btn.innerText = "VERIFICANDO...";
-            btn.disabled = true;
-            btn.classList.add("opacity-70");
+    <!-- ════════════════════════════════════ -->
+    <!-- CÓMO FUNCIONA                       -->
+    <!-- ════════════════════════════════════ -->
+    <section class="bg-slate-900 py-24 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-black text-white italic uppercase mb-16">¿Cómo funciona?</h2>
+            <div class="grid md:grid-cols-3 gap-10">
+                <div>
+                    <div class="bg-traffic-yellow text-black w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 font-black text-xl">1</div>
+                    <h3 class="text-white font-bold mb-2">Elegí tu plan</h3>
+                    <p class="text-gray-400 text-sm">Seleccioná B1, Moto o el Combo y realizá tu pago por SINPE Móvil.</p>
+                </div>
+                <div>
+                    <div class="bg-traffic-yellow text-black w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 font-black text-xl">2</div>
+                    <h3 class="text-white font-bold mb-2">Recibí tu PIN</h3>
+                    <p class="text-gray-400 text-sm">Te enviamos tu código de acceso único por WhatsApp en minutos.</p>
+                </div>
+                <div>
+                    <div class="bg-traffic-yellow text-black w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 font-black text-xl">3</div>
+                    <h3 class="text-white font-bold mb-2">Estudiá y aprobá</h3>
+                    <p class="text-gray-400 text-sm">Accedé al simulador, fichas de estudio y resúmenes cuantas veces quieras.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            try {
-                const respuesta = await fetch(`/.netlify/functions/validar?codigo=${val}`);
-                let datos;
-                
-                try {
-                    datos = await respuesta.json();
-                } catch(e) {
-                    throw new Error("El servidor de Netlify no respondió correctamente. ¿Subiste la carpeta 'netlify/functions'?");
-                }
+    <!-- ════════════════════════════════════ -->
+    <!-- FAQ – SEO                           -->
+    <!-- ════════════════════════════════════ -->
+    <section id="faq" class="py-24 px-6 max-w-3xl mx-auto">
+        <h2 class="text-3xl font-black text-center italic uppercase mb-12">Preguntas Frecuentes</h2>
+        <div class="space-y-4">
+            <details class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <summary class="font-bold cursor-pointer flex justify-between items-center">
+                    ¿Cuántas preguntas tiene el examen teórico del MOPT?
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 chevron shrink-0 ml-4"></i>
+                </summary>
+                <p class="text-gray-500 text-sm mt-4">El examen teórico oficial del MOPT en Costa Rica tiene <strong>40 preguntas</strong>. Necesitás responder correctamente al menos el <strong>80%</strong> (32 preguntas) para aprobar.</p>
+            </details>
+            <details class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <summary class="font-bold cursor-pointer flex justify-between items-center">
+                    ¿Es válido para licencia B1 y para moto?
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 chevron shrink-0 ml-4"></i>
+                </summary>
+                <p class="text-gray-500 text-sm mt-4">Sí. Contamos con material específico para <strong>licencia B1 (vehículo liviano)</strong> y para <strong>licencia A1, A2 y A3 (motocicleta)</strong>, basado en los manuales oficiales del MOPT 2026.</p>
+            </details>
+            <details class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <summary class="font-bold cursor-pointer flex justify-between items-center">
+                    ¿Cómo recibo mi PIN después de pagar?
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 chevron shrink-0 ml-4"></i>
+                </summary>
+                <p class="text-gray-500 text-sm mt-4">Realizá el pago por <strong>SINPE Móvil</strong> y envianos el comprobante por WhatsApp. En minutos recibís tu PIN de acceso único, válido por 15 días.</p>
+            </details>
+            <details class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <summary class="font-bold cursor-pointer flex justify-between items-center">
+                    ¿Cuántas veces puedo hacer el simulacro?
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 chevron shrink-0 ml-4"></i>
+                </summary>
+                <p class="text-gray-500 text-sm mt-4">Las veces que quieras durante tu período de acceso. Cada simulacro selecciona <strong>40 preguntas aleatorias</strong> del banco, por lo que siempre es diferente.</p>
+            </details>
+            <details class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <summary class="font-bold cursor-pointer flex justify-between items-center">
+                    ¿Las preguntas son iguales a las del MOPT?
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 chevron shrink-0 ml-4"></i>
+                </summary>
+                <p class="text-gray-500 text-sm mt-4">Nuestro banco de preguntas está basado en los <strong>manuales oficiales del MOPT 2026</strong>. El objetivo es que llegués al examen real habiendo practicado todos los temas que cubre.</p>
+            </details>
+        </div>
+    </section>
+</main>
 
-                if (!respuesta.ok) {
-                    showErr(datos.error || "Error al validar el PIN.");
-                    btn.innerText = btnOriginalText;
-                    btn.disabled = false;
-                    btn.classList.remove("opacity-70");
-                    return;
-                }
+<!-- ════════════════════════════════════════ -->
+<!-- ÁREA DE CLIENTES                        -->
+<!-- ════════════════════════════════════════ -->
+<section id="estudio" class="py-24 px-4 bg-slate-900 min-h-screen border-t-8 border-traffic-yellow">
+    <div class="max-w-5xl mx-auto">
 
-                userPlan = datos.plan;
-                let planLabel = userPlan === "B1" ? "Licencia B1 (Carro)" : userPlan === "A2" ? "Licencia A1-A3 (Moto)" : "Combo Premium Pro";
-                if(userPlan === "DEMO") planLabel = "Prueba de Sistema";
+        <!-- PANTALLA DE BLOQUEO -->
+        <div id="lock-screen" class="text-center py-16">
+            <div class="bg-slate-800 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 border-2 border-traffic-yellow shadow-2xl">
+                <i data-lucide="lock" class="text-traffic-yellow w-10 h-10"></i>
+            </div>
+            <h2 class="text-3xl font-black text-white mb-4 italic uppercase">Portal Premium</h2>
+            <p class="text-slate-400 mb-10 text-sm italic">Ingresá tu PIN de acceso para activar tu material de estudio.</p>
+            <div class="max-w-xs mx-auto">
+                <input type="text" id="pin-input"
+                       placeholder="B1-20260101-ABC-1234-XXXX"
+                       class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-base font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest"
+                       autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+                <button id="btn-verify" onclick="verifyPin()"
+                    class="w-full bg-traffic-yellow text-black font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] transition-all uppercase italic">
+                    Activar Mi Acceso
+                </button>
+                <div id="error-box" class="bg-red-500/10 border border-red-500 rounded-xl p-3 mt-6 hidden">
+                    <p id="error-msg" class="text-red-400 text-[10px] font-bold uppercase tracking-widest"></p>
+                </div>
+            </div>
+        </div>
 
-                unlockPortal(datos.dias, planLabel);
-            } catch (error) {
-                showErr("Error de conexión al servidor: " + error.message);
-                btn.innerText = btnOriginalText;
-                btn.disabled = false;
-                btn.classList.remove("opacity-70");
-            }
+        <!-- PORTAL DESBLOQUEADO -->
+        <div id="premium-portal" class="hidden animate-fadeup">
+
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10 bg-slate-800 p-8 rounded-[2.5rem] border border-slate-700 gap-6 text-white">
+                <div>
+                    <span id="badge-tipo" class="bg-black text-traffic-yellow text-[9px] font-black px-2 py-0.5 rounded uppercase italic mb-2 inline-block"></span>
+                    <h3 class="font-black text-2xl italic uppercase tracking-tight" id="plan-title">Mi Material</h3>
+                    <p id="expiry-label" class="text-slate-400 text-[10px] font-bold uppercase tracking-widest italic mt-1"></p>
+                </div>
+                <button onclick="location.reload()" class="text-slate-500 hover:text-white text-[10px] font-black uppercase tracking-widest border border-slate-700 rounded-xl px-4 py-2 transition-colors">
+                    Cerrar Sesión
+                </button>
+            </div>
+
+            <!-- TABS -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 text-center">
+                <button onclick="showModule('simulador')" id="tab-simulador" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all hover:text-white">
+                    <i data-lucide="zap" class="w-5 h-5"></i>
+                    <span class="text-[10px] font-black uppercase italic leading-tight">1. Simulador</span>
+                </button>
+                <button onclick="showModule('fichas')" id="tab-fichas" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all hover:text-white">
+                    <i data-lucide="layers" class="w-5 h-5"></i>
+                    <span class="text-[10px] font-black uppercase italic leading-tight">2. Fichas</span>
+                </button>
+                <button onclick="showModule('resumen')" id="tab-resumen" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all hover:text-white">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                    <span class="text-[10px] font-black uppercase italic leading-tight">3. Resumen</span>
+                </button>
+                <button onclick="showModule('video')" id="tab-video" class="module-tab p-5 rounded-3xl bg-slate-800 text-slate-400 border-b-4 border-transparent flex flex-col items-center gap-2 transition-all hover:text-white">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                    <span class="text-[10px] font-black uppercase italic leading-tight">4. Video</span>
+                </button>
+            </div>
+
+            <!-- VISOR -->
+            <div id="material-viewer" class="bg-white rounded-[3rem] p-6 md:p-10 min-h-[500px] shadow-2xl">
+
+                <!-- SIMULADOR -->
+                <div id="mod-simulador" class="module-content hidden">
+                    <div id="quiz-intro" class="text-center py-16">
+                        <i data-lucide="award" class="text-orange-500 w-16 h-16 mx-auto mb-6"></i>
+                        <h4 class="text-3xl font-black uppercase italic mb-4" id="quiz-title">Simulador Oficial</h4>
+                        <p class="text-slate-500 mb-2 italic">Evaluación aleatoria de 40 preguntas.</p>
+                        <p class="text-slate-500 mb-8 italic">Necesitás <span class="text-orange-600 font-black">80%</span> para aprobar.</p>
+                        <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic hover:scale-105 transition-transform">
+                            EMPEZAR SIMULACRO
+                        </button>
+                    </div>
+
+                    <div id="quiz-play" class="hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b pb-4 gap-4">
+                            <span class="text-xs font-black text-slate-400 uppercase bg-slate-100 px-3 py-1 rounded-lg">
+                                Pregunta <span id="q-num" class="text-black text-lg">1</span> / <span id="q-total" class="text-black text-lg">40</span>
+                            </span>
+                            <div class="flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-100">
+                                <i data-lucide="timer" class="w-4 h-4"></i>
+                                <span id="q-timer" class="font-black font-mono text-lg">50:00</span>
+                            </div>
+                        </div>
+                        <p class="text-[10px] text-blue-500 font-bold uppercase tracking-widest mb-2" id="q-chapter"></p>
+                        <h5 id="q-text" class="text-xl md:text-2xl font-black text-slate-900 mb-8 italic leading-tight"></h5>
+                        <div id="q-options" class="space-y-3"></div>
+                        <div id="q-feedback" class="hidden mt-6 bg-slate-50 p-5 rounded-2xl border-l-4 border-black">
+                            <p class="text-[10px] font-black uppercase text-slate-400 mb-2 flex items-center gap-1">
+                                <i data-lucide="info" class="w-3 h-3"></i> Explicación
+                            </p>
+                            <p id="q-exp" class="text-sm font-semibold text-slate-700 italic"></p>
+                        </div>
+                        <div class="mt-8 flex justify-end">
+                            <button id="q-next" onclick="nextQuestion()" disabled
+                                class="bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 cursor-not-allowed transition-all">
+                                Siguiente →
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="quiz-result" class="hidden text-center py-12">
+                        <div id="res-icon" class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg"></div>
+                        <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2 tracking-tighter"></h4>
+                        <p class="text-slate-500 mb-4 font-bold">Puntaje Final</p>
+                        <div class="text-7xl font-black text-slate-900 mb-6 italic" id="res-score">0%</div>
+                        <div class="flex justify-center gap-4 text-sm font-bold text-slate-500 mb-10">
+                            <span class="bg-green-50 text-green-700 px-4 py-2 rounded-lg">✓ Aciertos: <span id="res-correct">0</span></span>
+                            <span class="bg-red-50 text-red-700 px-4 py-2 rounded-lg">✗ Fallos: <span id="res-wrong">0</span></span>
+                        </div>
+                        <div class="flex flex-col md:flex-row justify-center gap-4">
+                            <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-8 rounded-xl uppercase italic shadow-xl hover:scale-105 transition-transform">Nuevo Intento</button>
+                            <button onclick="showReview()" id="btn-review" class="bg-traffic-yellow text-black font-black py-4 px-8 rounded-xl uppercase italic hidden hover:scale-105 transition-transform">Ver Errores</button>
+                        </div>
+                    </div>
+
+                    <div id="quiz-review" class="hidden text-left">
+                        <div class="flex items-center justify-between mb-8 border-b pb-4">
+                            <h4 class="text-2xl font-black uppercase italic">Modo Repaso</h4>
+                            <button onclick="document.getElementById('quiz-review').classList.add('hidden'); document.getElementById('quiz-result').classList.remove('hidden');"
+                                class="text-sm font-bold text-slate-500 hover:text-black border border-slate-200 rounded-xl px-4 py-2 transition-colors">← Volver</button>
+                        </div>
+                        <p class="text-slate-500 mb-6 text-sm">Estas son las preguntas que fallaste. Leelas con atención.</p>
+                        <div id="review-list" class="space-y-4"></div>
+                    </div>
+                </div>
+
+                <!-- FICHAS -->
+                <div id="mod-fichas" class="module-content hidden">
+                    <div class="flex items-center justify-between mb-8 border-b pb-4 flex-wrap gap-4">
+                        <h4 class="text-2xl font-black uppercase italic">Fichas de Estudio</h4>
+                        <span class="text-xs text-gray-400 italic bg-gray-50 px-3 py-1 rounded-lg">Tocá la ficha para ver la respuesta</span>
+                    </div>
+                    <div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+                </div>
+
+                <!-- RESUMEN -->
+                <div id="mod-resumen" class="module-content hidden text-center py-16">
+                    <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i>
+                    <h4 class="text-3xl font-black uppercase italic mb-4">Guía Estratégica</h4>
+                    <p class="text-gray-400 text-sm mb-8">El resumen en PDF estará disponible próximamente.<br>Se descargará directo a tu dispositivo.</p>
+                    <button class="bg-slate-100 text-slate-400 font-black py-5 px-12 rounded-2xl cursor-not-allowed" disabled>PRÓXIMAMENTE</button>
+                </div>
+
+                <!-- VIDEO -->
+                <div id="mod-video" class="module-content hidden text-center py-16">
+                    <i data-lucide="play-circle" class="text-orange-400 w-12 h-12 mx-auto mb-6"></i>
+                    <h4 class="text-3xl font-black uppercase italic mb-4">Videos Explicativos</h4>
+                    <p class="text-gray-400 text-sm mb-8">Los videos de repaso estarán disponibles próximamente.</p>
+                    <button class="bg-slate-100 text-slate-400 font-black py-5 px-12 rounded-2xl cursor-not-allowed" disabled>PRÓXIMAMENTE</button>
+                </div>
+
+            </div><!-- fin material-viewer -->
+        </div><!-- fin premium-portal -->
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════ -->
+<!-- FOOTER                                  -->
+<!-- ════════════════════════════════════════ -->
+<footer class="bg-black text-gray-500 py-10 px-6 text-center text-xs">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <span class="bg-traffic-yellow text-black font-extrabold px-2 py-0.5 rounded italic text-sm">PRO</span>
+            <span class="font-bold text-white text-sm uppercase tracking-tight">Teórico CR</span>
+        </div>
+        <p class="mb-2">Material de refuerzo educativo basado en los manuales oficiales del MOPT. Costa Rica 2026.</p>
+        <p>Este sitio no es propiedad del MOPT ni del COSEVI. Es un servicio independiente de preparación para el examen teórico.</p>
+    </div>
+</footer>
+
+<!-- ════════════════════════════════════════ -->
+<!-- MODAL SINPE MÓVIL                       -->
+<!-- ════════════════════════════════════════ -->
+<div id="payment-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-white rounded-[3rem] max-w-md w-full p-10 relative shadow-2xl animate-fadeup overflow-y-auto max-h-[90vh]">
+        <button onclick="closePaymentModal()" class="absolute top-6 right-6 text-gray-300 hover:text-black transition-colors" aria-label="Cerrar">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+
+        <div class="text-center mb-8">
+            <div class="bg-green-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="smartphone" class="w-8 h-8 text-green-600"></i>
+            </div>
+            <h2 id="modal-title" class="text-2xl font-black uppercase italic mb-1">Pagar con SINPE Móvil</h2>
+            <p id="modal-plan-label" class="text-gray-400 text-sm font-semibold"></p>
+        </div>
+
+        <!-- Tabla de planes -->
+        <div class="bg-slate-50 rounded-2xl p-5 mb-6 space-y-3 text-sm">
+            <div class="flex justify-between items-center">
+                <span class="text-slate-600">🚗 B1 Carro <span class="text-xs text-gray-400">(15 días)</span></span>
+                <span class="font-black text-slate-900">₡4,500</span>
+            </div>
+            <div class="border-t border-slate-200"></div>
+            <div class="flex justify-between items-center">
+                <span class="text-slate-600">🏍️ Moto A1-A3 <span class="text-xs text-gray-400">(15 días)</span></span>
+                <span class="font-black text-slate-900">₡4,500</span>
+            </div>
+            <div class="border-t border-slate-200"></div>
+            <div class="flex justify-between items-center">
+                <span class="text-slate-600">⭐ Combo Pro <span class="text-xs text-gray-400">(20 días)</span></span>
+                <span class="font-black text-slate-900">₡7,000</span>
+            </div>
+        </div>
+
+        <!-- Datos SINPE -->
+        <div class="bg-black text-white rounded-2xl p-6 mb-6 text-center">
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-3 font-bold">Datos para el pago</p>
+            <div class="text-2xl font-black text-traffic-yellow mb-1">[TU NÚMERO SINPE]</div>
+            <div class="text-sm font-bold text-gray-300 mb-4">[NOMBRE DESTINATARIO]</div>
+            <div class="border-t border-slate-700 pt-4">
+                <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">Monto a pagar</p>
+                <div class="text-3xl font-black text-white" id="modal-amount">₡4,500</div>
+            </div>
+        </div>
+
+        <!-- Instrucciones paso a paso -->
+        <div class="space-y-3 text-sm text-gray-600 mb-6">
+            <div class="flex items-start gap-3">
+                <span class="bg-traffic-yellow text-black font-black w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 mt-0.5">1</span>
+                <p>Abrí tu app bancaria y enviá el monto exacto por SINPE Móvil al número indicado.</p>
+            </div>
+            <div class="flex items-start gap-3">
+                <span class="bg-traffic-yellow text-black font-black w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 mt-0.5">2</span>
+                <p>Tomá captura del comprobante de pago y envialo por WhatsApp con tu nombre.</p>
+            </div>
+            <div class="flex items-start gap-3">
+                <span class="bg-traffic-yellow text-black font-black w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 mt-0.5">3</span>
+                <p>Recibís tu PIN de acceso único en minutos para ingresar al Portal Premium.</p>
+            </div>
+        </div>
+
+        <button onclick="closePaymentModal()" class="w-full bg-black text-white font-black py-4 rounded-2xl uppercase italic hover:bg-gray-800 transition-colors">
+            Entendido
+        </button>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- JAVASCRIPT                              -->
+<!-- ════════════════════════════════════════ -->
+<script>
+lucide.createIcons();
+
+// ── NAVEGACIÓN ─────────────────────────────
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── MODAL SINPE ────────────────────────────
+function openPaymentModal(planName, amount) {
+    document.getElementById('modal-plan-label').innerText = 'Plan: ' + planName;
+    document.getElementById('modal-amount').innerText = '₡' + amount.toLocaleString('es-CR');
+    document.getElementById('payment-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePaymentModal() {
+    document.getElementById('payment-modal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+document.getElementById('payment-modal').addEventListener('click', function(e) {
+    if (e.target === this) closePaymentModal();
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePaymentModal();
+});
+
+// ── PIN / BACKEND NETLIFY ──────────────────
+let userPlan = "";
+
+async function verifyPin() {
+    const val = document.getElementById('pin-input').value.trim().toUpperCase();
+    const btn = document.getElementById('btn-verify');
+    const originalText = btn.innerText;
+
+    if (!val) { showErr("Ingresá tu PIN de acceso."); return; }
+
+    if (window.location.protocol === "file:") {
+        showErr("Abrí la página desde Netlify para validar el PIN (no localmente).");
+        return;
+    }
+
+    document.getElementById('error-box').classList.add('hidden');
+    btn.innerText = "VERIFICANDO...";
+    btn.disabled = true;
+    btn.classList.add("opacity-70");
+
+    try {
+        const res = await fetch(`/.netlify/functions/validar?codigo=${encodeURIComponent(val)}`);
+        let datos;
+        try { datos = await res.json(); }
+        catch(e) { throw new Error("El servidor no respondió. Verificá que la carpeta netlify/functions esté subida."); }
+
+        if (!res.ok) {
+            showErr(datos.error || "PIN inválido o expirado.");
+            btn.innerText = originalText; btn.disabled = false; btn.classList.remove("opacity-70");
+            return;
         }
 
-        function showErr(m) { 
-            const box = document.getElementById('error-box');
-            const msg = document.getElementById('error-msg'); 
-            msg.innerText = m; 
-            box.classList.remove('hidden'); 
-        }
+        userPlan = datos.plan;
+        const labels = { B1:"Licencia B1 (Carro)", A2:"Licencia A1-A3 (Moto)", PRO:"Combo Premium Pro", DEMO:"Prueba de Sistema" };
+        unlockPortal(datos.dias, labels[userPlan] || "Acceso Premium");
 
-        function unlockPortal(dias, planLabel) {
-            document.getElementById('lock-screen').classList.add('hidden');
-            document.getElementById('premium-portal').classList.remove('hidden');
-            
-            document.getElementById('badge-tipo').innerText = userPlan === "DEMO" ? "PRUEBA" : "MEMBRESÍA ACTIVA";
-            document.getElementById('plan-title').innerText = planLabel;
-            document.getElementById('expiry-label').innerText = `Expira en ${dias} días`;
-            
-            document.getElementById('quiz-title').innerText = `Simulador: ${planLabel}`;
-            
-            showModule('simulador');
-            renderFlashcards();
-        }
+    } catch(error) {
+        showErr("Error de conexión: " + error.message);
+        btn.innerText = originalText; btn.disabled = false; btn.classList.remove("opacity-70");
+    }
+}
 
-        function showModule(modId) {
-            document.querySelectorAll('.module-content').forEach(m => m.classList.add('hidden'));
-            document.querySelectorAll('.module-tab').forEach(t => t.classList.remove('tab-active'));
-            document.getElementById('mod-' + modId).classList.remove('hidden');
-            document.getElementById('tab-' + modId).classList.add('tab-active');
-        }
+function showErr(m) {
+    document.getElementById('error-msg').innerText = m;
+    document.getElementById('error-box').classList.remove('hidden');
+}
 
-        // 2. BASE DE DATOS MAESTRA (100 PREGUNTAS CARRO + PREGUNTAS MOTO)
-        const quizBank = [
-            // PREGUNTAS B1 (CARROS)
-            { type: "B1", q: "¿Qué es conducir?", options: ["Transportar personas únicamente", "Operar un vehículo sin responsabilidad", "Operar un vehículo respetando normas de tránsito y seguridad vial", "Manejar solo en carreteras"], correct: 2 },
-            { type: "B1", q: "¿Cuál es el principal factor causante de accidentes de tránsito?", options: ["Factor climático", "Factor vial", "Factor mecánico", "Factor humano"], correct: 3 },
-            { type: "B1", q: "¿Cuál de los siguientes es un ejemplo de factor humano?", options: ["Lluvia intensa", "Mal estado de la carretera", "Distracción del conductor", "Falta de señalización"], correct: 2 },
-            { type: "B1", q: "¿Cuál es un ejemplo de factor vehicular?", options: ["Sueño del conductor", "Estrés", "Frenos defectuosos", "Curva peligrosa"], correct: 2 },
-            { type: "B1", q: "Un accidente de tránsito es:", options: ["Un evento planificado", "Un suceso inesperado que causa daños o lesiones en la vía pública", "Un daño solo al vehículo", "Un evento sin consecuencias"], correct: 1 },
-            { type: "B1", q: "¿Cuál de los siguientes es un usuario vulnerable de la vía?", options: ["Conductores de camiones", "Peatones", "Conductores profesionales", "Mecánicos"], correct: 1 },
-            { type: "B1", q: "El conductor debe ceder el paso principalmente a:", options: ["Vehículos grandes", "Autobuses", "Peatones en paso peatonal", "Motocicletas únicamente"], correct: 2 },
-            { type: "B1", q: "Cuando un vehículo de emergencia utiliza sirena, el conductor debe:", options: ["Acelerar", "Ignorarlo", "Ceder el paso y apartarse", "Detener el vehículo en medio de la vía"], correct: 2 },
-            { type: "B1", q: "La conducción responsable se basa en:", options: ["Competencia", "Velocidad", "Respeto y cortesía", "Prioridad personal"], correct: 2 },
-            { type: "B1", q: "Las señales reglamentarias indican:", options: ["Información turística", "Peligros en la vía", "Obligaciones o prohibiciones", "Servicios"], correct: 2 },
-            { type: "B1", q: "Un ejemplo de señal reglamentaria es:", options: ["Curva peligrosa", "Hospital", "Alto", "Gasolinera"], correct: 2 },
-            { type: "B1", q: "Las señales preventivas sirven para:", options: ["Indicar rutas", "Advertir sobre peligros o condiciones de la vía", "Regular estacionamiento", "Informar distancias"], correct: 1 },
-            { type: "B1", q: "Generalmente las señales preventivas son de color:", options: ["Azul", "Rojo", "Amarillo", "Verde"], correct: 2 },
-            { type: "B1", q: "Las señales informativas sirven para:", options: ["Prohibir acciones", "Orientar sobre servicios o destinos", "Advertir peligro", "Controlar tráfico"], correct: 1 },
-            { type: "B1", q: "Las marcas pintadas en la carretera se llaman:", options: ["Señales reglamentarias", "Señales informativas", "Señales horizontales", "Señales verticales"], correct: 2 },
-            { type: "B1", q: "Una línea continua en la carretera significa:", options: ["Adelantar libremente", "No se permite adelantar", "Cambio de carril obligatorio", "Zona escolar"], correct: 1 },
-            { type: "B1", q: "Una línea discontinua permite:", options: ["Estacionar", "Adelantar con precaución", "Girar siempre", "Circular en reversa"], correct: 1 },
-            { type: "B1", q: "La luz roja del semáforo significa:", options: ["Avanzar", "Precaución", "Detenerse completamente", "Girar"], correct: 2 },
-            { type: "B1", q: "La luz amarilla del semáforo indica:", options: ["Acelerar", "Precaución, cambio de señal", "Paso libre", "Detenerse siempre"], correct: 1 },
-            { type: "B1", q: "La luz verde del semáforo indica:", options: ["Detenerse", "Avanzar si es seguro", "Girar obligatoriamente", "Retroceder"], correct: 1 },
-            { type: "B1", q: "¿Cuál es un mando principal del vehículo?", options: ["Radio", "Volante", "Aire acondicionado", "Bocina"], correct: 1 },
-            { type: "B1", q: "El pedal que reduce la velocidad del vehículo es:", options: ["Acelerador", "Clutch", "Freno", "Embrague"], correct: 2 },
-            { type: "B1", q: "El pedal que permite cambiar de marcha en vehículos manuales es:", options: ["Acelerador", "Clutch o embrague", "Freno", "Estacionamiento"], correct: 1 },
-            { type: "B1", q: "El velocímetro indica:", options: ["Combustible", "Velocidad del vehículo", "Temperatura", "Distancia recorrida"], correct: 1 },
-            { type: "B1", q: "El indicador rojo en el tablero significa:", options: ["Funcionamiento normal", "Advertencia leve", "Peligro o falla grave", "Ahorro de energía"], correct: 2 },
-            { type: "B1", q: "El punto ciego es:", options: ["Zona iluminada", "Área visible en el espejo", "Área que el conductor no puede ver con los espejos", "Zona del parabrisas"], correct: 2 },
-            { type: "B1", q: "Para evitar accidentes al cambiar de carril se debe:", options: ["Acelerar", "Revisar espejos y punto ciego", "Frenar bruscamente", "Usar solo direccional"], correct: 1 },
-            { type: "B1", q: "La distancia de seguridad sirve para:", options: ["Conducir más rápido", "Tener espacio para reaccionar y frenar", "Evitar multas", "Estacionar"], correct: 1 },
-            { type: "B1", q: "La distancia de frenado aumenta cuando:", options: ["El vehículo es nuevo", "Se conduce a mayor velocidad", "Hay poco tráfico", "Se usa cinturón"], correct: 1 },
-            { type: "B1", q: "La adherencia es:", options: ["Velocidad del vehículo", "Capacidad de las llantas de agarrarse al pavimento", "Distancia entre carros", "Capacidad del motor"], correct: 1 },
-            { type: "B1", q: "La adherencia disminuye cuando:", options: ["Hay sol", "La carretera está mojada", "El vehículo es nuevo", "Se reduce la velocidad"], correct: 1 },
-            { type: "B1", q: "El tiempo de reacción es:", options: ["Tiempo de viaje", "Tiempo que tarda el conductor en reaccionar ante un peligro", "Tiempo del motor", "Tiempo del semáforo"], correct: 1 },
-            { type: "B1", q: "Una distracción al conducir es:", options: ["Observar la vía", "Usar el celular", "Mantener distancia", "Reducir velocidad"], correct: 1 },
-            { type: "B1", q: "El alcohol al conducir:", options: ["Mejora reflejos", "Reduce reflejos y aumenta accidentes", "No afecta conducción", "Mejora concentración"], correct: 1 },
-            { type: "B1", q: "Antes de iniciar un viaje se debe revisar:", options: ["Solo combustible", "Solo frenos", "Estado general del vehículo", "Solo llantas"], correct: 2 },
-            { type: "B1", q: "El conductor debe iniciar un viaje:", options: ["Con sueño", "Cansado", "Descansado y concentrado", "Después de beber"], correct: 2 },
-            { type: "B1", q: "Antes de viajar se debe verificar:", options: ["Color del vehículo", "Luces y frenos", "Radio", "Bocina"], correct: 1 },
-            { type: "B1", q: "El cinturón de seguridad sirve para:", options: ["Comodidad", "Decoración", "Proteger a los ocupantes en caso de accidente", "Evitar multas únicamente"], correct: 2 },
-            { type: "B1", q: "El equipaje en el vehículo debe:", options: ["Ir suelto", "Colocarse de forma segura", "Ir en el asiento delantero", "Ir en manos de pasajeros"], correct: 1 },
-            { type: "B1", q: "Los pasajeros deben:", options: ["Viajar de pie", "Usar cinturón de seguridad", "Ir sin restricciones", "Sentarse en cualquier parte"], correct: 1 },
-            { type: "B1", q: "El exceso de velocidad provoca:", options: ["Mayor seguridad", "Mayor gravedad en accidentes", "Menor riesgo", "Mejor control"], correct: 1 },
-            { type: "B1", q: "La conducción agresiva aumenta:", options: ["La economía del combustible", "El riesgo de accidentes", "La estabilidad", "La distancia de frenado"], correct: 1 },
-            { type: "B1", q: "Los espejos retrovisores sirven para:", options: ["Decoración", "Observar el tráfico detrás y a los lados", "Ver el tablero", "Iluminar"], correct: 1 },
-            { type: "B1", q: "Una conducción segura implica:", options: ["Competir con otros conductores", "Respetar normas y usuarios de la vía", "Acelerar siempre", "Ignorar señales"], correct: 1 },
-            { type: "B1", q: "El objetivo de la educación vial es:", options: ["Aumentar tráfico", "Reducir accidentes y proteger la vida", "Mejorar velocidad", "Reducir tiempo de viaje"], correct: 1 },
-            { type: "B1", q: "¿Cuál es el objetivo principal de la Ley de Tránsito en Costa Rica?", options: ["Facilitar únicamente la circulación vehicular", "Prevenir accidentes y proteger la vida humana", "Incrementar la recaudación por multas"], correct: 1 },
-            { type: "B1", q: "¿Qué regula principalmente la Ley de Tránsito?", options: ["El transporte público", "La circulación por vías públicas terrestres", "La fabricación de vehículos"], correct: 1 },
-            { type: "B1", q: "¿Cuál artículo constitucional reconoce la libre circulación?", options: ["Artículo 11", "Artículo 21", "Artículo 22"], correct: 2 },
-            { type: "B1", q: "¿Cuál de los siguientes espacios está regulado por la Ley de Tránsito?", options: ["Parqueos residenciales privados", "Estacionamientos privados de uso público", "Ferrocarriles"], correct: 1 },
-            { type: "B1", q: "La trilogía vial está compuesta por:", options: ["Conductor, peatón y vehículo", "Vehículo, vía y señalización", "Factor humano, vehículo y vía"], correct: 2 },
-            { type: "B1", q: "¿Cuál elemento causa más del 90% de los accidentes?", options: ["Fallas mecánicas", "Factor humano", "Deficiencia vial"], correct: 1 },
-            { type: "B1", q: "La seguridad activa del vehículo busca:", options: ["Reducir lesiones", "Prevenir accidentes", "Mejorar el confort"], correct: 1 },
-            { type: "B1", q: "¿Cuál es un ejemplo de seguridad pasiva?", options: ["Frenos", "Dirección", "Cinturón de seguridad"], correct: 2 },
-            { type: "B1", q: "¿Qué color separa carriles de sentido contrario?", options: ["Blanco", "Azul", "Amarillo"], correct: 2 },
-            { type: "B1", q: "Las señales de ALTO pertenecen a:", options: ["Información", "Prevención", "Reglamentación"], correct: 2 },
-            { type: "B1", q: "¿Cuál conducta refleja conducción defensiva?", options: ["Reaccionar rápido", "Anticiparse al riesgo", "Circular con prioridad"], correct: 1 },
-            { type: "B1", q: "El uso del cinturón es:", options: ["Opcional", "Recomendado", "Obligatorio"], correct: 2 },
-            { type: "B1", q: "¿Qué documento es obligatorio portar?", options: ["Seguro privado", "Licencia de conducir", "Factura del vehículo"], correct: 1 },
-            { type: "B1", q: "La inspección técnica vehicular busca:", options: ["Multar conductores", "Prevenir fallas mecánicas", "Aumentar impuestos"], correct: 1 },
-            { type: "B1", q: "Circular sin revisión técnica vigente es:", options: ["Falta leve", "Infracción grave", "Advertencia"], correct: 1 },
-            { type: "B1", q: "La licencia B1 autoriza:", options: ["Motocicletas", "Vehículos livianos particulares", "Transporte público"], correct: 1 },
-            { type: "B1", q: "La responsabilidad penal surge cuando:", options: ["Hay multa", "Hay daños materiales", "Se comete delito"], correct: 2 },
-            { type: "B1", q: "El exceso de velocidad:", options: ["Reduce riesgos", "Es infracción grave", "No afecta"], correct: 1 },
-            { type: "B1", q: "Las luces altas deben usarse:", options: ["Siempre", "En ciudad", "Sin encandilar"], correct: 2 },
-            { type: "B1", q: "En una intersección sin señal:", options: ["Avanza el más rápido", "Se cede a la derecha", "Avanza cualquiera"], correct: 1 },
-            { type: "B1", q: "Adelantar en curva es:", options: ["Permitido", "Recomendado", "Prohibido"], correct: 2 },
-            { type: "B1", q: "Está prohibido estacionar en:", options: ["Zonas autorizadas", "Pasos peatonales", "Parqueos públicos"], correct: 1 },
-            { type: "B1", q: "En pendientes se debe:", options: ["Apagar motor", "Girar llantas y freno de mano", "Dejar en neutro"], correct: 1 },
-        // 3. VARIABLES Y LÓGICA DEL SIMULADOR CORREGIDA
-        let qActive = [], qIdx = 0, qScore = 0, qSel = null, failedQs = [];
-        let timerInt; 
-        let timeLeft = 50 * 60; // 50 minutos
+function unlockPortal(dias, planLabel) {
+    document.getElementById('lock-screen').classList.add('hidden');
+    document.getElementById('premium-portal').classList.remove('hidden');
+    document.getElementById('badge-tipo').innerText = userPlan === "DEMO" ? "PRUEBA" : "MEMBRESÍA ACTIVA";
+    document.getElementById('plan-title').innerText = planLabel;
+    document.getElementById('expiry-label').innerText = `Expira en ${dias} día${dias !== 1 ? 's' : ''}`;
+    document.getElementById('quiz-title').innerText = `Simulador – ${planLabel}`;
+    showModule('simulador');
+    renderFlashcards();
+    lucide.createIcons();
+}
 
-        function startQuiz() {
-            qScore = 0; qIdx = 0; qSel = null; failedQs = []; timeLeft = 50 * 60;
-            
-            // Filtrar preguntas según plan
-            let filteredBank = quizBank.filter(q => {
-                if (userPlan === "B1") return q.type === "ALL" || q.type === "B1";
-                if (userPlan === "A2") return q.type === "ALL" || q.type === "A2";
-                return true; // PRO y DEMO ven ambas
-            });
+function showModule(modId) {
+    document.querySelectorAll('.module-content').forEach(m => m.classList.add('hidden'));
+    document.querySelectorAll('.module-tab').forEach(t => t.classList.remove('tab-active'));
+    document.getElementById('mod-' + modId).classList.remove('hidden');
+    document.getElementById('tab-' + modId).classList.add('tab-active');
+}
 
-            // Extraer hasta 40 preguntas aleatorias de forma segura
-            qActive = filteredBank.sort(() => 0.5 - Math.random()).slice(0, 40);
+// ── BANCO DE PREGUNTAS B1 (100 preguntas) ──
+const quizBank = [
+    {type:"B1",q:"¿Qué es conducir?",options:["Transportar personas únicamente","Operar un vehículo sin responsabilidad","Operar un vehículo respetando normas de tránsito y seguridad vial","Manejar solo en carreteras"],correct:2},
+    {type:"B1",q:"¿Cuál es el principal factor causante de accidentes de tránsito?",options:["Factor climático","Factor vial","Factor mecánico","Factor humano"],correct:3},
+    {type:"B1",q:"¿Cuál de los siguientes es un ejemplo de factor humano?",options:["Lluvia intensa","Mal estado de la carretera","Distracción del conductor","Falta de señalización"],correct:2},
+    {type:"B1",q:"¿Cuál es un ejemplo de factor vehicular?",options:["Sueño del conductor","Estrés","Frenos defectuosos","Curva peligrosa"],correct:2},
+    {type:"B1",q:"Un accidente de tránsito es:",options:["Un evento planificado","Un suceso inesperado que causa daños o lesiones en la vía pública","Un daño solo al vehículo","Un evento sin consecuencias"],correct:1},
+    {type:"B1",q:"¿Cuál de los siguientes es un usuario vulnerable de la vía?",options:["Conductores de camiones","Peatones","Conductores profesionales","Mecánicos"],correct:1},
+    {type:"B1",q:"El conductor debe ceder el paso principalmente a:",options:["Vehículos grandes","Autobuses","Peatones en paso peatonal","Motocicletas únicamente"],correct:2},
+    {type:"B1",q:"Cuando un vehículo de emergencia utiliza sirena, el conductor debe:",options:["Acelerar","Ignorarlo","Ceder el paso y apartarse","Detener el vehículo en medio de la vía"],correct:2},
+    {type:"B1",q:"La conducción responsable se basa en:",options:["Competencia","Velocidad","Respeto y cortesía","Prioridad personal"],correct:2},
+    {type:"B1",q:"Las señales reglamentarias indican:",options:["Información turística","Peligros en la vía","Obligaciones o prohibiciones","Servicios"],correct:2},
+    {type:"B1",q:"Un ejemplo de señal reglamentaria es:",options:["Curva peligrosa","Hospital","Alto","Gasolinera"],correct:2},
+    {type:"B1",q:"Las señales preventivas sirven para:",options:["Indicar rutas","Advertir sobre peligros o condiciones de la vía","Regular estacionamiento","Informar distancias"],correct:1},
+    {type:"B1",q:"Generalmente las señales preventivas son de color:",options:["Azul","Rojo","Amarillo","Verde"],correct:2},
+    {type:"B1",q:"Las señales informativas sirven para:",options:["Prohibir acciones","Orientar sobre servicios o destinos","Advertir peligro","Controlar tráfico"],correct:1},
+    {type:"B1",q:"Las marcas pintadas en la carretera se llaman:",options:["Señales reglamentarias","Señales informativas","Señales horizontales","Señales verticales"],correct:2},
+    {type:"B1",q:"Una línea continua en la carretera significa:",options:["Adelantar libremente","No se permite adelantar","Cambio de carril obligatorio","Zona escolar"],correct:1},
+    {type:"B1",q:"Una línea discontinua permite:",options:["Estacionar","Adelantar con precaución","Girar siempre","Circular en reversa"],correct:1},
+    {type:"B1",q:"La luz roja del semáforo significa:",options:["Avanzar","Precaución","Detenerse completamente","Girar"],correct:2},
+    {type:"B1",q:"La luz amarilla del semáforo indica:",options:["Acelerar","Precaución, cambio de señal","Paso libre","Detenerse siempre"],correct:1},
+    {type:"B1",q:"La luz verde del semáforo indica:",options:["Detenerse","Avanzar si es seguro","Girar obligatoriamente","Retroceder"],correct:1},
+    {type:"B1",q:"¿Cuál es un mando principal del vehículo?",options:["Radio","Volante","Aire acondicionado","Bocina"],correct:1},
+    {type:"B1",q:"El pedal que reduce la velocidad del vehículo es:",options:["Acelerador","Clutch","Freno","Embrague"],correct:2},
+    {type:"B1",q:"El pedal que permite cambiar de marcha en vehículos manuales es:",options:["Acelerador","Clutch o embrague","Freno","Estacionamiento"],correct:1},
+    {type:"B1",q:"El velocímetro indica:",options:["Combustible","Velocidad del vehículo","Temperatura","Distancia recorrida"],correct:1},
+    {type:"B1",q:"El indicador rojo en el tablero significa:",options:["Funcionamiento normal","Advertencia leve","Peligro o falla grave","Ahorro de energía"],correct:2},
+    {type:"B1",q:"El punto ciego es:",options:["Zona iluminada","Área visible en el espejo","Área que el conductor no puede ver con los espejos","Zona del parabrisas"],correct:2},
+    {type:"B1",q:"Para evitar accidentes al cambiar de carril se debe:",options:["Acelerar","Revisar espejos y punto ciego","Frenar bruscamente","Usar solo direccional"],correct:1},
+    {type:"B1",q:"La distancia de seguridad sirve para:",options:["Conducir más rápido","Tener espacio para reaccionar y frenar","Evitar multas","Estacionar"],correct:1},
+    {type:"B1",q:"La distancia de frenado aumenta cuando:",options:["El vehículo es nuevo","Se conduce a mayor velocidad","Hay poco tráfico","Se usa cinturón"],correct:1},
+    {type:"B1",q:"La adherencia es:",options:["Velocidad del vehículo","Capacidad de las llantas de agarrarse al pavimento","Distancia entre carros","Capacidad del motor"],correct:1},
+    {type:"B1",q:"La adherencia disminuye cuando:",options:["Hay sol","La carretera está mojada","El vehículo es nuevo","Se reduce la velocidad"],correct:1},
+    {type:"B1",q:"El tiempo de reacción es:",options:["Tiempo de viaje","Tiempo que tarda el conductor en reaccionar ante un peligro","Tiempo del motor","Tiempo del semáforo"],correct:1},
+    {type:"B1",q:"Una distracción al conducir es:",options:["Observar la vía","Usar el celular","Mantener distancia","Reducir velocidad"],correct:1},
+    {type:"B1",q:"El alcohol al conducir:",options:["Mejora reflejos","Reduce reflejos y aumenta accidentes","No afecta conducción","Mejora concentración"],correct:1},
+    {type:"B1",q:"Antes de iniciar un viaje se debe revisar:",options:["Solo combustible","Solo frenos","Estado general del vehículo","Solo llantas"],correct:2},
+    {type:"B1",q:"El conductor debe iniciar un viaje:",options:["Con sueño","Cansado","Descansado y concentrado","Después de beber"],correct:2},
+    {type:"B1",q:"Antes de viajar se debe verificar:",options:["Color del vehículo","Luces y frenos","Radio","Bocina"],correct:1},
+    {type:"B1",q:"El cinturón de seguridad sirve para:",options:["Comodidad","Decoración","Proteger a los ocupantes en caso de accidente","Evitar multas únicamente"],correct:2},
+    {type:"B1",q:"El equipaje en el vehículo debe:",options:["Ir suelto","Colocarse de forma segura","Ir en el asiento delantero","Ir en manos de pasajeros"],correct:1},
+    {type:"B1",q:"Los pasajeros deben:",options:["Viajar de pie","Usar cinturón de seguridad","Ir sin restricciones","Sentarse en cualquier parte"],correct:1},
+    {type:"B1",q:"El exceso de velocidad provoca:",options:["Mayor seguridad","Mayor gravedad en accidentes","Menor riesgo","Mejor control"],correct:1},
+    {type:"B1",q:"La conducción agresiva aumenta:",options:["La economía del combustible","El riesgo de accidentes","La estabilidad","La distancia de frenado"],correct:1},
+    {type:"B1",q:"Los espejos retrovisores sirven para:",options:["Decoración","Observar el tráfico detrás y a los lados","Ver el tablero","Iluminar"],correct:1},
+    {type:"B1",q:"Una conducción segura implica:",options:["Competir con otros conductores","Respetar normas y usuarios de la vía","Acelerar siempre","Ignorar señales"],correct:1},
+    {type:"B1",q:"El objetivo de la educación vial es:",options:["Aumentar tráfico","Reducir accidentes y proteger la vida","Mejorar velocidad","Reducir tiempo de viaje"],correct:1},
+    {type:"B1",q:"¿Cuál es el objetivo principal de la Ley de Tránsito en Costa Rica?",options:["Facilitar únicamente la circulación vehicular","Prevenir accidentes y proteger la vida humana","Incrementar la recaudación por multas"],correct:1},
+    {type:"B1",q:"¿Qué regula principalmente la Ley de Tránsito?",options:["El transporte público","La circulación por vías públicas terrestres","La fabricación de vehículos"],correct:1},
+    {type:"B1",q:"¿Cuál artículo constitucional reconoce la libre circulación?",options:["Artículo 11","Artículo 21","Artículo 22"],correct:2},
+    {type:"B1",q:"¿Cuál de los siguientes espacios está regulado por la Ley de Tránsito?",options:["Parqueos residenciales privados","Estacionamientos privados de uso público","Ferrocarriles"],correct:1},
+    {type:"B1",q:"La trilogía vial está compuesta por:",options:["Conductor, peatón y vehículo","Vehículo, vía y señalización","Factor humano, vehículo y vía"],correct:2},
+    {type:"B1",q:"¿Cuál elemento causa más del 90% de los accidentes?",options:["Fallas mecánicas","Factor humano","Deficiencia vial"],correct:1},
+    {type:"B1",q:"La seguridad activa del vehículo busca:",options:["Reducir lesiones","Prevenir accidentes","Mejorar el confort"],correct:1},
+    {type:"B1",q:"¿Cuál es un ejemplo de seguridad pasiva?",options:["Frenos","Dirección","Cinturón de seguridad"],correct:2},
+    {type:"B1",q:"¿Qué color separa carriles de sentido contrario?",options:["Blanco","Azul","Amarillo"],correct:2},
+    {type:"B1",q:"Las señales de ALTO pertenecen a:",options:["Información","Prevención","Reglamentación"],correct:2},
+    {type:"B1",q:"¿Cuál conducta refleja conducción defensiva?",options:["Reaccionar rápido","Anticiparse al riesgo","Circular con prioridad"],correct:1},
+    {type:"B1",q:"El uso del cinturón es:",options:["Opcional","Recomendado","Obligatorio"],correct:2},
+    {type:"B1",q:"¿Qué documento es obligatorio portar al conducir?",options:["Seguro privado","Licencia de conducir","Factura del vehículo"],correct:1},
+    {type:"B1",q:"La inspección técnica vehicular busca:",options:["Multar conductores","Prevenir fallas mecánicas","Aumentar impuestos"],correct:1},
+    {type:"B1",q:"Circular sin revisión técnica vigente es:",options:["Falta leve","Infracción grave","Advertencia"],correct:1},
+    {type:"B1",q:"La licencia B1 autoriza conducir:",options:["Motocicletas","Vehículos livianos particulares","Transporte público"],correct:1},
+    {type:"B1",q:"La responsabilidad penal surge cuando:",options:["Hay multa de tránsito","Hay daños materiales","Se comete delito"],correct:2},
+    {type:"B1",q:"El exceso de velocidad:",options:["Reduce riesgos","Es infracción grave","No afecta la seguridad"],correct:1},
+    {type:"B1",q:"Las luces altas deben usarse:",options:["Siempre que sea de noche","En ciudad con iluminación","Sin encandilar al conductor que viene de frente"],correct:2},
+    {type:"B1",q:"En una intersección sin señal:",options:["Avanza el más rápido","Se cede el paso a la derecha","Avanza cualquiera"],correct:1},
+    {type:"B1",q:"Adelantar en curva es:",options:["Permitido","Recomendado","Prohibido"],correct:2},
+    {type:"B1",q:"Está prohibido estacionar en:",options:["Zonas autorizadas","Pasos peatonales","Parqueos públicos habilitados"],correct:1},
+    {type:"B1",q:"En pendientes el vehículo estacionado debe:",options:["Apagar el motor y dejar en neutral","Girar las llantas hacia la acera y usar freno de mano","Dejar en neutro sin freno de mano"],correct:1},
+    {type:"B1",q:"En rotondas tiene prioridad:",options:["El que ingresa","El más rápido","El que ya circula dentro"],correct:2},
+    {type:"B1",q:"Principal causa de accidentes de tránsito:",options:["La lluvia","El error humano","La señalización deficiente"],correct:1},
+    {type:"B1",q:"La conducción defensiva busca:",options:["Mayor velocidad","Evitar accidentes anticipándose al riesgo","Competir con otros vehículos"],correct:1},
+    {type:"B1",q:"Conducir bajo efectos del alcohol:",options:["Reduce reflejos y aumenta el riesgo de accidentes","No afecta la conducción","Mejora la reacción del conductor"],correct:0},
+    {type:"B1",q:"El uso del celular al conducir está:",options:["Permitido solo con manos libres","Recomendado solo para mensajes cortos","Prohibido"],correct:2},
+    {type:"B1",q:"La fatiga al conducir:",options:["No influye en la seguridad","Reduce la atención y aumenta el riesgo","Aumenta los reflejos"],correct:1},
+    {type:"B1",q:"De noche se debe:",options:["Aumentar la velocidad","Reducir la atención","Aumentar la precaución y usar las luces correctamente"],correct:2},
+    {type:"B1",q:"Bajo lluvia se debe:",options:["Frenar bruscamente","Reducir velocidad y aumentar la distancia de seguridad","Acelerar para salir del área de lluvia"],correct:1},
+    {type:"B1",q:"La conducción eficiente busca principalmente:",options:["Ahorrar combustible y reducir emisiones","Mayor velocidad","Mayor desgaste del motor"],correct:0},
+    {type:"B1",q:"El impacto ambiental del tránsito se reduce con:",options:["Mantenimiento adecuado del vehículo","Uso excesivo del motor","Frenadas bruscas frecuentes"],correct:0},
+    {type:"B1",q:"La cultura vial implica:",options:["Imponer el criterio propio","Respeto mutuo entre todos los usuarios","Prioridad personal siempre"],correct:1},
+    {type:"B1",q:"La prevención vial se basa en:",options:["Multas y sanciones fuertes","Anticipación de riesgos","Castigos ejemplares"],correct:1},
+    {type:"B1",q:"Mantener el vehículo en buen estado es:",options:["Opcional","Responsabilidad del conductor","Responsabilidad exclusiva del Estado"],correct:1},
+    {type:"B1",q:"El desconocimiento de la ley de tránsito:",options:["Exime de sanción","Reduce la multa","No exime de responsabilidad"],correct:2},
+    {type:"B1",q:"La seguridad vial es responsabilidad:",options:["Solo individual","Colectiva de todos los usuarios","Opcional según criterio personal"],correct:1},
+    {type:"B1",q:"La conducción preventiva se basa principalmente en:",options:["Reaccionar ante el peligro","Anticiparse a situaciones de riesgo","Conducir a mayor velocidad"],correct:1},
+    {type:"B1",q:"El mantenimiento del vehículo contribuye a:",options:["Incrementar sanciones","Reducir fallas mecánicas y accidentes","Aumentar el consumo de combustible"],correct:1},
+    {type:"B1",q:"Al circular en una vía con lluvia intensa, el conductor debe:",options:["Mantener la misma velocidad","Reducir la velocidad y aumentar la distancia de seguridad","Acelerar para salir rápido de la lluvia"],correct:1},
+    {type:"B1",q:"El factor humano es clave en la seguridad vial porque:",options:["Es el único responsable de todo","Toma decisiones durante la conducción","No puede fallar si tiene licencia"],correct:1},
+    {type:"B1",q:"Área con líneas continuas blancas perpendiculares al borde de la acera:",options:["Zona de estacionamiento","Zona de paso peatonal","Zona de seguridad"],correct:0},
+    {type:"B1",q:"¿A qué distancia se debe bajar la luz frente a otro vehículo?",options:["50 metros","75 metros","150 metros"],correct:2},
+    {type:"B1",q:"En una intersección, tiene prioridad pero no sobre un semáforo:",options:["La señal de alto y ceda","El oficial de tránsito","Depende de la vía"],correct:0},
+    {type:"B1",q:"Un solo litro de aceite usado, ¿cuántas hectáreas de agua mancha?",options:["1½ hectárea","1 hectárea","2 hectáreas"],correct:1},
+    {type:"B1",q:"¿Qué nombre recibe el tratamiento para reducir la contaminación por basura?",options:["Biodegradable","Orgánico","Reciclaje"],correct:2},
+    {type:"B1",q:"Al llegar a una intersección, el peatón debe:",options:["Mirar fijamente el semáforo únicamente","Mirar a ambos lados antes de cruzar","Cruzar sin fijarse si hay semáforo"],correct:1},
+    {type:"B1",q:"Los motores en mal estado producen al no quemar bien el combustible:",options:["Derrame de aceite negro","Nube negra de hollín","Contaminación calórica solamente"],correct:1},
+    {type:"B1",q:"Las islas de canalización pueden ser de color:",options:["Blanco y amarillo","Blanco y rojo","Rojo y amarillo"],correct:0},
+    {type:"B1",q:"Zonas de gran tránsito peatonal demarcadas con franjas anchas discontinuas:",options:["Zona de paso","Zona de estacionamiento","Zona de seguridad"],correct:2},
+    {type:"B1",q:"¿Cuáles llevan la dirección de Norte a Sur y viceversa?",options:["Calles","Avenidas","Pasos peatonales"],correct:0},
+    {type:"B1",q:"Priorizar la vida en la conducción implica:",options:["Correr riesgos innecesarios","Conducir agresivamente","Conducir de forma responsable y preventiva"],correct:2},
+];
 
-            document.getElementById('quiz-intro').classList.add('hidden');
-            document.getElementById('quiz-result').classList.add('hidden');
-            
-            const reviewEl = document.getElementById('quiz-review');
-            if (reviewEl) reviewEl.classList.add('hidden');
-            
-            document.getElementById('quiz-play').classList.remove('hidden');
-            
-            const totalEl = document.getElementById('q-total');
-            if (totalEl) totalEl.innerText = qActive.length;
-            
-            startTimer();
-            renderQ();
-        }
+// ── SIMULADOR ──────────────────────────────
+let qActive=[], qIdx=0, qScore=0, qSel=null, failedQs=[];
+let timerInt, timeLeft=50*60;
 
-        function startTimer() {
-            clearInterval(timerInt);
-            timerInt = setInterval(() => {
-                if(timeLeft <= 0) { finishQuiz(); return; }
-                timeLeft--;
-                const m = Math.floor(timeLeft / 60);
-                const s = (timeLeft % 60).toString().padStart(2, '0');
-                const timerEl = document.getElementById('q-timer');
-                if(timerEl) {
-                    timerEl.innerText = `${m}:${s}`;
-                    if(timeLeft < 300) timerEl.parentElement.classList.replace('text-red-600', 'text-red-800');
-                }
-            }, 1000);
-        }
-        
-        function renderQ() {
-            const q = qActive[qIdx]; 
-            qSel = null;
-            document.getElementById('q-num').innerText = qIdx + 1; 
-            
-            const chapEl = document.getElementById('q-chapter');
-            if(chapEl) chapEl.innerText = q.cap ? `Eje Temático: Capítulo ${q.cap}` : "Evaluación General";
-            
-            document.getElementById('q-text').innerText = q.q;
-            
-            const feedEl = document.getElementById('q-feedback');
-            if(feedEl) feedEl.classList.add('hidden');
+function startQuiz() {
+    qScore=0; qIdx=0; qSel=null; failedQs=[]; timeLeft=50*60;
+    let pool = quizBank.filter(q => {
+        if(userPlan==="B1") return q.type==="B1"||q.type==="ALL";
+        if(userPlan==="A2") return q.type==="A2"||q.type==="ALL";
+        return true;
+    });
+    qActive = [...pool].sort(()=>Math.random()-0.5).slice(0,40);
+    document.getElementById('quiz-intro').classList.add('hidden');
+    document.getElementById('quiz-result').classList.add('hidden');
+    document.getElementById('quiz-review').classList.add('hidden');
+    document.getElementById('quiz-play').classList.remove('hidden');
+    document.getElementById('q-total').innerText = qActive.length;
+    startTimer(); renderQ();
+}
 
-            const oD = document.getElementById('q-options'); oD.innerHTML = '';
-            
-            // Barajar opciones antes de mostrar
-            let ops = [...q.options];
-            let corrText = ops[q.correct];
-            ops.sort(() => 0.5 - Math.random());
-            let newCorrectIndex = ops.indexOf(corrText);
+function startTimer() {
+    clearInterval(timerInt);
+    timerInt = setInterval(()=>{
+        if(timeLeft<=0){finishQuiz();return;}
+        timeLeft--;
+        const m=Math.floor(timeLeft/60), s=String(timeLeft%60).padStart(2,'0');
+        const el=document.getElementById('q-timer');
+        if(el){ el.innerText=`${m}:${s}`; if(timeLeft<300) el.style.color='#dc2626'; }
+    },1000);
+}
 
-            ops.forEach((o, i) => {
-                const b = document.createElement('button'); 
-                // Aplicamos clases de Tailwind directo para evitar el problema visual
-                b.className = 'w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-[#FFD700] hover:bg-yellow-50 transition-all font-medium text-slate-700 mb-3 block cursor-pointer'; 
-                b.innerText = o; 
-                b.id = `opt-${i}`;
-                b.onclick = () => selectAnswer(i, newCorrectIndex, b, q, ops);
-                oD.appendChild(b);
-            });
-            
-            const nextBtn = document.getElementById('q-next');
-            if(nextBtn) {
-                nextBtn.disabled = true; 
-                nextBtn.className = 'bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 cursor-not-allowed transition-all';
-            }
-        }
+function renderQ() {
+    const q=qActive[qIdx]; qSel=null;
+    document.getElementById('q-num').innerText=qIdx+1;
+    document.getElementById('q-chapter').innerText=q.cap?`Capítulo ${q.cap}`:"Evaluación General";
+    document.getElementById('q-text').innerText=q.q;
+    document.getElementById('q-feedback').classList.add('hidden');
+    const ops=[...q.options], corrText=ops[q.correct];
+    ops.sort(()=>Math.random()-0.5);
+    const ci=ops.indexOf(corrText);
+    const oD=document.getElementById('q-options'); oD.innerHTML='';
+    ops.forEach((o,i)=>{
+        const b=document.createElement('button');
+        b.className='w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-yellow-400 hover:bg-yellow-50 transition-all font-medium text-slate-700 cursor-pointer';
+        b.innerText=o; b.id=`opt-${i}`;
+        b.onclick=()=>selectAnswer(i,ci,b,q,ops);
+        oD.appendChild(b);
+    });
+    const nb=document.getElementById('q-next');
+    nb.disabled=true;
+    nb.className='bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 cursor-not-allowed transition-all';
+}
 
-        function selectAnswer(i, correctIndex, btn, q, currentOps) {
-            if(qSel !== null) return; 
-            qSel = i;
-            
-            document.querySelectorAll('#q-options button').forEach(b => { 
-                b.disabled = true; 
-                b.className = 'w-full text-left p-4 rounded-2xl border-2 border-slate-100 font-medium text-slate-400 mb-3 block opacity-50 cursor-not-allowed'; 
-            });
-            
-            if (i === correctIndex) { 
-                qScore++; 
-                btn.className = 'w-full text-left p-4 rounded-2xl border-2 border-green-500 bg-green-50 text-green-800 font-bold shadow-md mb-3 block'; 
-            } else { 
-                btn.className = 'w-full text-left p-4 rounded-2xl border-2 border-red-500 bg-red-50 text-red-800 font-bold shadow-md mb-3 block'; 
-                const correctBtn = document.getElementById(`opt-${correctIndex}`);
-                if(correctBtn) {
-                    correctBtn.className = 'w-full text-left p-4 rounded-2xl border-2 border-green-500 bg-green-50 text-green-800 font-bold shadow-md mb-3 block'; 
-                }
-                failedQs.push({ q: q.q, user: currentOps[i], corr: currentOps[correctIndex], exp: q.exp || "Regla general del manual de conducción." }); 
-            }
-            
-            const expEl = document.getElementById('q-exp');
-            if(expEl) expEl.innerText = q.exp || "De acuerdo al manual oficial de conducción.";
-            
-            const feedbackEl = document.getElementById('q-feedback');
-            if(feedbackEl) feedbackEl.classList.remove('hidden');
-            
-            const nextBtn = document.getElementById('q-next');
-            if(nextBtn) {
-                nextBtn.disabled = false; 
-                nextBtn.className = 'bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm hover:scale-105 transition-transform flex items-center gap-2';
-            }
-        }
+function selectAnswer(i,ci,btn,q,ops) {
+    if(qSel!==null)return; qSel=i;
+    document.querySelectorAll('#q-options button').forEach(b=>{
+        b.disabled=true;
+        b.className='w-full text-left p-4 rounded-2xl border-2 border-slate-100 font-medium text-slate-400 opacity-50 cursor-not-allowed';
+    });
+    if(i===ci){
+        qScore++;
+        btn.className='w-full text-left p-4 rounded-2xl border-2 border-green-500 bg-green-50 text-green-800 font-bold shadow-md';
+    } else {
+        btn.className='w-full text-left p-4 rounded-2xl border-2 border-red-500 bg-red-50 text-red-800 font-bold shadow-md';
+        const cb=document.getElementById(`opt-${ci}`);
+        if(cb) cb.className='w-full text-left p-4 rounded-2xl border-2 border-green-500 bg-green-50 text-green-800 font-bold shadow-md';
+        failedQs.push({q:q.q,user:ops[i],corr:ops[ci],exp:q.exp||"Revisá el manual oficial del MOPT."});
+    }
+    document.getElementById('q-exp').innerText=q.exp||"De acuerdo al manual oficial de conducción del MOPT.";
+    document.getElementById('q-feedback').classList.remove('hidden');
+    const nb=document.getElementById('q-next');
+    nb.disabled=false;
+    nb.className='bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm hover:scale-105 transition-transform';
+}
 
-        function nextQuestion() {
-            qIdx++; if (qIdx < qActive.length) renderQ(); else finishQuiz();
-        }
+function nextQuestion(){ qIdx++; if(qIdx<qActive.length) renderQ(); else finishQuiz(); }
 
-        function finishQuiz() {
-            clearInterval(timerInt);
-            document.getElementById('quiz-play').classList.add('hidden');
-            document.getElementById('quiz-result').classList.remove('hidden');
-            
-            const score = Math.round((qScore / qActive.length) * 100);
-            document.getElementById('res-score').innerText = score + "%";
-            
-            const resCorrect = document.getElementById('res-correct');
-            if(resCorrect) resCorrect.innerText = qScore;
-            
-            const resWrong = document.getElementById('res-wrong');
-            if(resWrong) resWrong.innerText = qActive.length - qScore;
-            
-            const s = document.getElementById('res-status'), i = document.getElementById('res-icon');
-            if (score >= 80) { 
-                s.innerText = "¡APROBADO!"; s.className = "text-4xl font-black text-green-600 italic tracking-tighter mb-2"; 
-                i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-green-100 text-green-600 flex items-center justify-center shadow-lg border-4 border-green-200"; 
-                i.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>'; 
-            } else { 
-                s.innerText = "REPROBADO"; s.className = "text-4xl font-black text-red-600 italic tracking-tighter mb-2"; 
-                i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-red-100 text-red-600 flex items-center justify-center shadow-lg border-4 border-red-200"; 
-                i.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>'; 
-            }
-            
-            const btnReview = document.getElementById('btn-review');
-            if(failedQs.length > 0) { 
-                if(btnReview) btnReview.classList.remove('hidden'); 
-                generateReviewList(); 
-            } else { 
-                if(btnReview) btnReview.classList.add('hidden'); 
-            }
-            lucide.createIcons();
-        }
+function finishQuiz() {
+    clearInterval(timerInt);
+    document.getElementById('quiz-play').classList.add('hidden');
+    document.getElementById('quiz-result').classList.remove('hidden');
+    const score=Math.round((qScore/qActive.length)*100);
+    document.getElementById('res-score').innerText=score+'%';
+    document.getElementById('res-correct').innerText=qScore;
+    document.getElementById('res-wrong').innerText=qActive.length-qScore;
+    const s=document.getElementById('res-status'), ic=document.getElementById('res-icon');
+    if(score>=80){
+        s.innerText="¡APROBADO!"; s.className="text-4xl font-black text-green-600 italic tracking-tighter mb-2";
+        ic.className="w-24 h-24 rounded-full mx-auto mb-6 bg-green-100 text-green-600 flex items-center justify-center shadow-lg border-4 border-green-200";
+        ic.innerHTML='<i data-lucide="check-circle" class="w-12 h-12"></i>';
+    } else {
+        s.innerText="REPROBADO"; s.className="text-4xl font-black text-red-600 italic tracking-tighter mb-2";
+        ic.className="w-24 h-24 rounded-full mx-auto mb-6 bg-red-100 text-red-600 flex items-center justify-center shadow-lg border-4 border-red-200";
+        ic.innerHTML='<i data-lucide="x-circle" class="w-12 h-12"></i>';
+    }
+    const br=document.getElementById('btn-review');
+    if(failedQs.length>0){ br.classList.remove('hidden'); generateReviewList(); }
+    else br.classList.add('hidden');
+    lucide.createIcons();
+}
 
-        function generateReviewList() {
-            const list = document.getElementById('review-list'); 
-            if(!list) return;
-            list.innerHTML = '';
-            failedQs.forEach((f, idx) => {
-                list.innerHTML += `<div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 mb-4"><p class="font-bold text-gray-900 mb-3">${idx+1}. ${f.q}</p><p class="text-sm text-red-600 mb-1"><span class="font-bold">Tu respuesta:</span> ${f.user}</p><p class="text-sm text-green-600 mb-3"><span class="font-bold">Correcta:</span> ${f.corr}</p><div class="bg-white p-3 rounded-xl border-l-4 border-traffic-yellow text-xs italic text-gray-600">${f.exp}</div></div>`;
-            });
-        }
+function generateReviewList() {
+    const list=document.getElementById('review-list'); if(!list)return; list.innerHTML='';
+    failedQs.forEach((f,idx)=>{
+        list.innerHTML+=`<div class="bg-gray-50 rounded-2xl p-5 border border-gray-200">
+            <p class="font-bold text-gray-900 mb-3">${idx+1}. ${f.q}</p>
+            <p class="text-sm text-red-600 mb-1"><span class="font-bold">Tu respuesta:</span> ${f.user}</p>
+            <p class="text-sm text-green-600 mb-3"><span class="font-bold">Correcta:</span> ${f.corr}</p>
+            <div class="bg-white p-3 rounded-xl border-l-4 border-yellow-400 text-xs italic text-gray-600">${f.exp}</div>
+        </div>`;
+    });
+}
 
-        function showReview() { 
-            document.getElementById('quiz-result').classList.add('hidden'); 
-            document.getElementById('quiz-review').classList.remove('hidden'); 
-        }
+function showReview(){ document.getElementById('quiz-result').classList.add('hidden'); document.getElementById('quiz-review').classList.remove('hidden'); }
 
-        // 4. FLASHCARDS
-        function renderFlashcards() {
-            const g = document.getElementById('flashcards-grid'); g.innerHTML = '';
-            const muestra = quizBank.slice(0, 6); 
-            muestra.forEach((d) => {
-                const c = document.createElement('div'); c.className = 'flashcard';
-                c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');"><div class="flashcard-front"><p class="text-xs font-bold px-2">${d.q}</p></div><div class="flashcard-back"><p class="italic text-xs px-2">"${d.options[d.correct]}"</p></div></div>`;
-                g.appendChild(c);
-            });
-        }
-    </script>
+// ── FLASHCARDS ─────────────────────────────
+function renderFlashcards() {
+    const g=document.getElementById('flashcards-grid'); if(!g)return; g.innerHTML='';
+    const pool=quizBank.filter(q=>userPlan==="A2"?q.type==="A2":q.type==="B1");
+    const muestra=[...pool].sort(()=>Math.random()-0.5).slice(0,12);
+    muestra.forEach(d=>{
+        const c=document.createElement('div'); c.className='flashcard';
+        c.innerHTML=`<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');">
+            <div class="flashcard-front"><p class="text-xs font-bold px-2 text-center">${d.q}</p></div>
+            <div class="flashcard-back"><p class="italic text-xs px-2 text-center">${d.options[d.correct]}</p></div>
+        </div>`;
+        g.appendChild(c);
+    });
+}
+</script>
 </body>
 </html>
