@@ -27,13 +27,6 @@
         .animate-infinite-scroll { display: flex; width: 200%; animation: scroll 25s linear infinite; }
         
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 1.5rem; }
-
-        /* UI UX del Simulador */
-        .quiz-option { @apply w-full text-left p-4 rounded-2xl border-2 border-slate-100 transition-all font-medium text-slate-700 mb-3 block cursor-pointer; }
-        .quiz-option:not(:disabled):hover { @apply border-[#FFD700] bg-yellow-50 shadow-sm; }
-        .opt-correct { @apply border-green-500 bg-green-50 text-green-800 font-bold shadow-md; }
-        .opt-wrong { @apply border-red-500 bg-red-50 text-red-800 font-bold shadow-md; }
-        .opt-disabled { @apply opacity-50 cursor-not-allowed; }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
@@ -137,25 +130,24 @@
                     <div id="mod-video" class="module-content hidden text-center py-16"><p>Videos próximamente...</p></div>
                     <div id="mod-fichas" class="module-content hidden"><div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div></div>
                     
-                    <!-- MODULO SIMULADOR -->
+                    <!-- MODULO SIMULADOR RESTAURADO -->
                     <div id="mod-simulador" class="module-content hidden">
                         <div id="quiz-intro" class="text-center py-16">
                             <i data-lucide="award" class="text-orange-500 w-16 h-16 mx-auto mb-6"></i>
                             <h4 class="text-3xl font-black uppercase italic mb-4" id="quiz-title">Simulador Oficial</h4>
-                            <p class="text-slate-500 mb-2 italic" id="quiz-desc">Evaluación aleatoria. Necesitas 80% para aprobar.</p>
-                            <p class="text-xs font-bold text-red-500 mb-10 uppercase tracking-widest" id="quiz-time-desc">Tiempo Límite: 50 Minutos</p>
-                            <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic hover:scale-105 transition-transform">INICIAR SIMULACRO</button>
+                            <p class="text-slate-500 mb-8 italic">Evaluación aleatoria de 40 preguntas. Necesitas 80% para aprobar.</p>
+                            <button onclick="startQuiz()" class="bg-orange-600 text-white font-black py-5 px-12 rounded-2xl shadow-xl uppercase italic hover:scale-105 transition-transform">EMPEZAR SIMULACRO</button>
                         </div>
-
-                        <!-- Panel de Preguntas -->
+                        
                         <div id="quiz-play" class="hidden">
                             <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b pb-4 gap-4">
-                                <span class="text-xs font-black text-slate-400 uppercase bg-slate-100 px-3 py-1 rounded-lg">Pregunta <span id="q-num" class="text-black text-lg">1</span> / <span id="q-total">40</span></span>
+                                <span class="text-xs font-black text-slate-400 uppercase bg-slate-100 px-3 py-1 rounded-lg">Pregunta <span id="q-num" class="text-black text-lg">1</span> / <span id="q-total" class="text-black text-lg">40</span></span>
                                 <div class="flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-100">
                                     <i data-lucide="timer" class="w-4 h-4"></i>
                                     <span id="q-timer" class="font-black font-mono text-lg">50:00</span>
                                 </div>
                             </div>
+                            <p class="text-[10px] text-blue-500 font-bold uppercase tracking-widest mb-2" id="q-chapter"></p>
                             <h5 id="q-text" class="text-xl md:text-2xl font-black text-slate-900 mb-8 italic leading-tight"></h5>
                             
                             <div id="q-options" class="space-y-3"></div>
@@ -170,10 +162,9 @@
                             </div>
                         </div>
 
-                        <!-- Panel de Resultados -->
                         <div id="quiz-result" class="hidden text-center py-12">
-                            <div id="res-icon" class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center"></div>
-                            <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2"></h4>
+                            <div id="res-icon" class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg"></div>
+                            <h4 id="res-status" class="text-4xl font-black uppercase italic mb-2 tracking-tighter"></h4>
                             <p class="text-slate-500 mb-8 font-bold">Puntaje Final</p>
                             <div class="text-7xl font-black text-slate-900 mb-6 italic" id="res-score">0</div>
                             <div class="flex justify-center gap-4 text-sm font-bold text-slate-500 mb-10">
@@ -181,17 +172,17 @@
                                 <span class="bg-red-50 text-red-700 px-4 py-2 rounded-lg">Fallos: <span id="res-wrong">0</span></span>
                             </div>
                             <div class="flex flex-col md:flex-row justify-center gap-4">
-                                <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-8 rounded-xl uppercase italic">Nuevo Intento</button>
+                                <button onclick="startQuiz()" class="bg-black text-white font-black py-4 px-8 rounded-xl uppercase italic shadow-xl">Nuevo Intento</button>
                                 <button onclick="showReview()" id="btn-review" class="bg-traffic-yellow text-black font-black py-4 px-8 rounded-xl uppercase italic hidden">Ver Errores</button>
                             </div>
                         </div>
 
-                        <!-- Modo Repaso -->
                         <div id="quiz-review" class="hidden text-left">
                             <div class="flex items-center justify-between mb-8 border-b pb-4">
                                 <h4 class="text-2xl font-black uppercase italic">Modo Repaso</h4>
                                 <button onclick="document.getElementById('quiz-review').classList.add('hidden'); document.getElementById('quiz-result').classList.remove('hidden');" class="text-sm font-bold text-slate-500 hover:text-black">Volver</button>
                             </div>
+                            <p class="text-slate-500 mb-6 text-sm">Estas son las preguntas que fallaste. Léelas con atención.</p>
                             <div id="review-list" class="space-y-6"></div>
                         </div>
                     </div>
@@ -355,51 +346,7 @@
             { type: "B1", q: "Adelantar en curva es:", options: ["Permitido", "Recomendado", "Prohibido"], correct: 2 },
             { type: "B1", q: "Está prohibido estacionar en:", options: ["Zonas autorizadas", "Pasos peatonales", "Parqueos públicos"], correct: 1 },
             { type: "B1", q: "En pendientes se debe:", options: ["Apagar motor", "Girar llantas y freno de mano", "Dejar en neutro"], correct: 1 },
-            { type: "B1", q: "En rotondas tiene prioridad:", options: ["El que ingresa", "El más rápido", "El que ya circula"], correct: 2 },
-            { type: "B1", q: "Un accidente de tránsito es:", options: ["Evento planificado", "Hecho inesperado", "Daño mecánico"], correct: 1 },
-            { type: "B1", q: "Principal causa de accidentes:", options: ["Lluvia", "Error humano", "Señalización"], correct: 1 },
-            { type: "B1", q: "La conducción defensiva busca:", options: ["Velocidad", "Evitar accidentes", "Competir"], correct: 1 },
-            { type: "B1", q: "Conducir con alcohol:", options: ["Reduce reflejos", "No afecta", "Mejora reacción"], correct: 0 },
-            { type: "B1", q: "El uso del celular al conducir:", options: ["Permitido", "Recomendado", "Prohibido"], correct: 2 },
-            { type: "B1", q: "La fatiga:", options: ["No influye", "Reduce atención", "Aumenta reflejos"], correct: 1 },
-            { type: "B1", q: "De noche se debe:", options: ["Aumentar velocidad", "Reducir atención", "Aumentar precaución"], correct: 2 },
-            { type: "B1", q: "Bajo lluvia se debe:", options: ["Frenar brusco", "Reducir velocidad", "Acelerar"], correct: 1 },
-            { type: "B1", q: "La conducción eficiente busca:", options: ["Ahorrar combustible", "Mayor velocidad", "Mayor desgaste"], correct: 0 },
-            { type: "B1", q: "El impacto ambiental del tránsito se reduce con:", options: ["Mantenimiento adecuado", "Uso excesivo", "Frenadas bruscas"], correct: 0 },
-            { type: "B1", q: "La cultura vial implica:", options: ["Imposición", "Respeto mutuo", "Prioridad personal"], correct: 1 },
-            { type: "B1", q: "La prevención vial se basa en:", options: ["Multas", "Anticipación", "Castigos"], correct: 1 },
-            { type: "B1", q: "Mantener el vehículo en buen estado es:", options: ["Opcional", "Responsabilidad del conductor", "Responsabilidad del Estado"], correct: 1 },
-            { type: "B1", q: "Priorizar la vida implica:", options: ["Correr riesgos", "Conducir agresivo", "Conducir responsable"], correct: 2 },
-            { type: "B1", q: "El desconocimiento de la ley:", options: ["Exime sanción", "Reduce multa", "No exime responsabilidad"], correct: 2 },
-            { type: "B1", q: "La seguridad vial es:", options: ["Individual", "Colectiva", "Opcional"], correct: 1 },
-            { type: "B1", q: "La conducción preventiva se basa principalmente en:", options: ["Reaccionar ante el peligro", "Anticiparse a situaciones de riesgo", "Conducir a mayor velocidad"], correct: 1 },
-            { type: "B1", q: "El mantenimiento del vehículo contribuye a:", options: ["Incrementar sanciones", "Reducir fallas mecánicas", "Aumentar consumo"], correct: 1 },
-            { type: "B1", q: "Al circular en una vía con lluvia intensa, el conductor debe:", options: ["Mantener la misma velocidad", "Reducir la velocidad y aumentar la distancia", "Acelerar para salir rápido"], correct: 1 },
-            { type: "B1", q: "El respeto a la señalización vial tiene como finalidad:", options: ["Limitar la conducción", "Ordenar y proteger la circulación", "Aumentar el tránsito"], correct: 1 },
-            { type: "B1", q: "El factor humano es considerado clave en la seguridad vial porque:", options: ["Es el único responsable", "Toma decisiones durante la conducción", "No puede fallar"], correct: 1 },
-            { type: "B1", q: "Área específica con líneas continuas blancas perpendiculares al borde de la acera:", options: ["Zona de estacionamiento", "Zonas de paso", "Zonas de seguridad"], correct: 0 },
-            { type: "B1", q: "¿A qué distancia se debe bajar la luz frente a otro vehículo?", options: ["50 mts", "75 mts", "150 mts"], correct: 2 },
-            { type: "B1", q: "En una intersección tiene prioridad, pero no sobre un semáforo:", options: ["Alto y ceda", "Oficial de tránsito", "Depende de la vía"], correct: 0 },
-            { type: "B1", q: "Un solo litro de aceite usado, ¿cuántas hectáreas mancha?", options: ["1½ hectárea", "1 hectárea", "2 hectáreas"], correct: 1 },
-            { type: "B1", q: "¿Qué nombre recibe el tratamiento para enfrentar el problema de la contaminación y el manejo de la basura?", options: ["Biodegradable", "Orgánico", "Reciclaje"], correct: 2 },
-            { type: "B1", q: "Al llegar un peatón a una intersección debe:", options: ["Mirar fijamente el semáforo", "Mirar a ambos lados antes de cruzar", "Cruzar sin fijarse"], correct: 1 },
-            { type: "B1", q: "Los motores en mal estado no queman bien la gasolina ni el diésel produciendo:", options: ["Derrame de aceite negro", "Nube negra de hollín", "Contaminación calórica"], correct: 1 },
-            { type: "B1", q: "Las islas de canalización pueden ser:", options: ["Blancas y amarillas", "Blancas y rojas", "Rojas y amarillas"], correct: 0 },
-            { type: "B1", q: "Zonas de gran tránsito peatonal en puntos específicos, demarcados con franjas anchas discontinuas:", options: ["Zona de paso", "Zona de estacionamiento", "Zona de seguridad"], correct: 2 },
-            { type: "B1", q: "¿Cuáles llevan la dirección de Norte a Sur y viceversa?", options: ["Calles", "Avenidas", "Paso peatonal"], correct: 0 },
-
-            // PREGUNTAS MOTO (A2)
-            { type: "A2", q: "¿Objetivo primordial de la seguridad vial?", options: ["Prevenir accidentes y salvar vidas.", "Aumentar la fluidez vehicular.", "Recaudar dinero por multas."], correct: 0 },
-            { type: "A2", q: "¿Límite de cilindrada para licencia A2?", options: ["Hasta 500cc.", "Hasta 125cc.", "Sin límite."], correct: 0 },
-            { type: "A2", q: "¿Sistemas de transmisión final?", options: ["Cadena, faja o cardán.", "Transmisión automática o manual.", "Embrague seco o húmedo."], correct: 0 },
-            { type: "A2", q: "¿Qué es el Kill Switch?", options: ["Interruptor de parada de emergencia.", "Botón de encendido eléctrico.", "Gatillo de luces de parqueo."], correct: 0 },
-            { type: "A2", q: "¿Uso del contramanilleo?", options: ["Para girar a velocidades superiores a 30 km/h.", "Para frenar de emergencia.", "Para esquivar a baja velocidad."], correct: 0 },
-            { type: "A2", q: "¿Posición de rodillas en marcha?", options: ["Pegadas al tanque de combustible.", "Abiertas para mantener equilibrio.", "Apoyadas en las defensas del motor."], correct: 0 },
-            { type: "A2", q: "¿Qué es T-CLOC?", options: ["Pasos para inspección diaria de la moto.", "Técnicas de Conducción.", "Frenos, Clutch, Luces y Claxon."], correct: 0 },
-            { type: "A2", q: "¿Punto de fricción?", options: ["Zona del clutch donde la moto avanza.", "Momento en que los frenos chillan.", "Momento antes de apagarse el motor."], correct: 0 }
-        ];
-
-        // 3. VARIABLES Y LÓGICA DEL SIMULADOR
+        // 3. VARIABLES Y LÓGICA DEL SIMULADOR CORREGIDA
         let qActive = [], qIdx = 0, qScore = 0, qSel = null, failedQs = [];
         let timerInt; 
         let timeLeft = 50 * 60; // 50 minutos
@@ -419,9 +366,14 @@
 
             document.getElementById('quiz-intro').classList.add('hidden');
             document.getElementById('quiz-result').classList.add('hidden');
-            document.getElementById('quiz-review').classList.add('hidden');
+            
+            const reviewEl = document.getElementById('quiz-review');
+            if (reviewEl) reviewEl.classList.add('hidden');
+            
             document.getElementById('quiz-play').classList.remove('hidden');
-            document.getElementById('q-total').innerText = qActive.length;
+            
+            const totalEl = document.getElementById('q-total');
+            if (totalEl) totalEl.innerText = qActive.length;
             
             startTimer();
             renderQ();
@@ -434,8 +386,11 @@
                 timeLeft--;
                 const m = Math.floor(timeLeft / 60);
                 const s = (timeLeft % 60).toString().padStart(2, '0');
-                document.getElementById('q-timer').innerText = `${m}:${s}`;
-                if(timeLeft < 300) document.getElementById('q-timer').parentElement.classList.replace('text-red-600', 'text-red-800');
+                const timerEl = document.getElementById('q-timer');
+                if(timerEl) {
+                    timerEl.innerText = `${m}:${s}`;
+                    if(timeLeft < 300) timerEl.parentElement.classList.replace('text-red-600', 'text-red-800');
+                }
             }, 1000);
         }
         
@@ -443,46 +398,72 @@
             const q = qActive[qIdx]; 
             qSel = null;
             document.getElementById('q-num').innerText = qIdx + 1; 
+            
+            const chapEl = document.getElementById('q-chapter');
+            if(chapEl) chapEl.innerText = q.cap ? `Eje Temático: Capítulo ${q.cap}` : "Evaluación General";
+            
             document.getElementById('q-text').innerText = q.q;
-            document.getElementById('q-feedback').classList.add('hidden');
+            
+            const feedEl = document.getElementById('q-feedback');
+            if(feedEl) feedEl.classList.add('hidden');
 
             const oD = document.getElementById('q-options'); oD.innerHTML = '';
             
-            // Barajar opciones antes de mostrar (para que la correcta no esté siempre en el mismo lugar)
+            // Barajar opciones antes de mostrar
             let ops = [...q.options];
             let corrText = ops[q.correct];
             ops.sort(() => 0.5 - Math.random());
             let newCorrectIndex = ops.indexOf(corrText);
 
             ops.forEach((o, i) => {
-                const b = document.createElement('button'); b.className = 'quiz-option'; b.innerText = o; b.id = `opt-${i}`;
+                const b = document.createElement('button'); 
+                // Aplicamos clases de Tailwind directo para evitar el problema visual
+                b.className = 'w-full text-left p-4 rounded-2xl border-2 border-slate-100 hover:border-[#FFD700] hover:bg-yellow-50 transition-all font-medium text-slate-700 mb-3 block cursor-pointer'; 
+                b.innerText = o; 
+                b.id = `opt-${i}`;
                 b.onclick = () => selectAnswer(i, newCorrectIndex, b, q, ops);
                 oD.appendChild(b);
             });
             
-            document.getElementById('q-next').disabled = true; 
-            document.getElementById('q-next').classList.add('opacity-50', 'cursor-not-allowed');
+            const nextBtn = document.getElementById('q-next');
+            if(nextBtn) {
+                nextBtn.disabled = true; 
+                nextBtn.className = 'bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm opacity-50 cursor-not-allowed transition-all';
+            }
         }
 
         function selectAnswer(i, correctIndex, btn, q, currentOps) {
             if(qSel !== null) return; 
             qSel = i;
             
-            document.querySelectorAll('.quiz-option').forEach(b => { b.disabled = true; b.classList.add('opt-disabled'); });
+            document.querySelectorAll('#q-options button').forEach(b => { 
+                b.disabled = true; 
+                b.className = 'w-full text-left p-4 rounded-2xl border-2 border-slate-100 font-medium text-slate-400 mb-3 block opacity-50 cursor-not-allowed'; 
+            });
             
             if (i === correctIndex) { 
                 qScore++; 
-                btn.classList.replace('opt-disabled', 'opt-correct'); 
+                btn.className = 'w-full text-left p-4 rounded-2xl border-2 border-green-500 bg-green-50 text-green-800 font-bold shadow-md mb-3 block'; 
             } else { 
-                btn.classList.replace('opt-disabled', 'opt-wrong'); 
-                document.getElementById(`opt-${correctIndex}`).classList.replace('opt-disabled', 'opt-correct'); 
-                failedQs.push({ q: q.q, user: currentOps[i], corr: currentOps[correctIndex], exp: "Regla del Manual Oficial" }); 
+                btn.className = 'w-full text-left p-4 rounded-2xl border-2 border-red-500 bg-red-50 text-red-800 font-bold shadow-md mb-3 block'; 
+                const correctBtn = document.getElementById(`opt-${correctIndex}`);
+                if(correctBtn) {
+                    correctBtn.className = 'w-full text-left p-4 rounded-2xl border-2 border-green-500 bg-green-50 text-green-800 font-bold shadow-md mb-3 block'; 
+                }
+                failedQs.push({ q: q.q, user: currentOps[i], corr: currentOps[correctIndex], exp: q.exp || "Regla general del manual de conducción." }); 
             }
             
-            document.getElementById('q-exp').innerText = q.exp || "De acuerdo al manual de conducción.";
-            document.getElementById('q-feedback').classList.remove('hidden');
-            document.getElementById('q-next').disabled = false; 
-            document.getElementById('q-next').classList.remove('opacity-50', 'cursor-not-allowed');
+            const expEl = document.getElementById('q-exp');
+            if(expEl) expEl.innerText = q.exp || "De acuerdo al manual oficial de conducción.";
+            
+            const feedbackEl = document.getElementById('q-feedback');
+            if(feedbackEl) feedbackEl.classList.remove('hidden');
+            
+            const nextBtn = document.getElementById('q-next');
+            if(nextBtn) {
+                nextBtn.disabled = false; 
+                nextBtn.className = 'bg-black text-white font-black py-4 px-10 rounded-xl uppercase italic text-sm hover:scale-105 transition-transform flex items-center gap-2';
+            }
         }
 
         function nextQuestion() {
@@ -496,8 +477,12 @@
             
             const score = Math.round((qScore / qActive.length) * 100);
             document.getElementById('res-score').innerText = score + "%";
-            document.getElementById('res-correct').innerText = qScore;
-            document.getElementById('res-wrong').innerText = qActive.length - qScore;
+            
+            const resCorrect = document.getElementById('res-correct');
+            if(resCorrect) resCorrect.innerText = qScore;
+            
+            const resWrong = document.getElementById('res-wrong');
+            if(resWrong) resWrong.innerText = qActive.length - qScore;
             
             const s = document.getElementById('res-status'), i = document.getElementById('res-icon');
             if (score >= 80) { 
@@ -510,23 +495,29 @@
                 i.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>'; 
             }
             
+            const btnReview = document.getElementById('btn-review');
             if(failedQs.length > 0) { 
-                document.getElementById('btn-review').classList.remove('hidden'); 
+                if(btnReview) btnReview.classList.remove('hidden'); 
                 generateReviewList(); 
             } else { 
-                document.getElementById('btn-review').classList.add('hidden'); 
+                if(btnReview) btnReview.classList.add('hidden'); 
             }
             lucide.createIcons();
         }
 
         function generateReviewList() {
-            const list = document.getElementById('review-list'); list.innerHTML = '';
+            const list = document.getElementById('review-list'); 
+            if(!list) return;
+            list.innerHTML = '';
             failedQs.forEach((f, idx) => {
                 list.innerHTML += `<div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 mb-4"><p class="font-bold text-gray-900 mb-3">${idx+1}. ${f.q}</p><p class="text-sm text-red-600 mb-1"><span class="font-bold">Tu respuesta:</span> ${f.user}</p><p class="text-sm text-green-600 mb-3"><span class="font-bold">Correcta:</span> ${f.corr}</p><div class="bg-white p-3 rounded-xl border-l-4 border-traffic-yellow text-xs italic text-gray-600">${f.exp}</div></div>`;
             });
         }
 
-        function showReview() { document.getElementById('quiz-result').classList.add('hidden'); document.getElementById('quiz-review').classList.remove('hidden'); }
+        function showReview() { 
+            document.getElementById('quiz-result').classList.add('hidden'); 
+            document.getElementById('quiz-review').classList.remove('hidden'); 
+        }
 
         // 4. FLASHCARDS
         function renderFlashcards() {
