@@ -89,13 +89,6 @@
                     <button onclick="openPaymentModal('Moto (A1-A3)')" class="w-full bg-black text-white font-bold py-4 rounded-xl uppercase text-xs italic tracking-widest">Obtener 15 Días</button>
                 </div>
             </div>
-            <div class="mt-12 text-center">
-                <div class="inline-block bg-slate-900 text-white p-6 rounded-3xl border-2 border-traffic-yellow shadow-xl">
-                    <p class="text-xs font-bold uppercase text-traffic-yellow mb-2 tracking-widest italic">Plan Maestro Integral</p>
-                    <p class="text-lg font-black italic leading-tight">Adquiere ambos refuerzos (COMBO) por solo <span class="text-2xl text-traffic-yellow">₡6,000</span></p>
-                    <button onclick="openPaymentModal('Combo Refuerzo Carro + Moto')" class="mt-4 bg-traffic-yellow text-black font-black px-8 py-3 rounded-xl uppercase text-[10px] hover:scale-105 transition-transform italic">Activar Combo (20 Días)</button>
-                </div>
-            </div>
         </section>
     </main>
 
@@ -109,10 +102,12 @@
                 <h2 class="text-3xl font-black text-white mb-4 italic uppercase">Portal Premium</h2>
                 <p class="text-slate-400 mb-10 text-sm italic">Ingresa tu PIN de 5 partes para activar tu material.</p>
                 <div class="max-w-xs mx-auto">
-                    <input type="text" id="pin-input" placeholder="A2-00000000-XXX-0000-XXXX" 
+                    <input type="text" id="pin-input" placeholder="B1-00000000-XXX-0000-XXXX" 
                            class="w-full bg-slate-800 border-2 border-slate-700 rounded-2xl px-6 py-5 text-center text-xl font-black text-traffic-yellow outline-none focus:border-traffic-yellow transition-all mb-6 uppercase tracking-widest">
                     <button id="btn-verify" onclick="verifyPin()" class="w-full bg-traffic-yellow text-black font-black py-5 rounded-2xl shadow-xl hover:scale-[1.02] transition-all uppercase italic">Activar Mi Acceso</button>
-                    <p id="error-msg" class="text-red-500 text-[10px] mt-6 font-bold hidden uppercase tracking-widest italic"></p>
+                    <div id="error-box" class="bg-red-500/10 border border-red-500 rounded-xl p-3 mt-6 hidden">
+                        <p id="error-msg" class="text-red-500 text-[10px] font-bold uppercase tracking-widest"></p>
+                    </div>
                 </div>
             </div>
 
@@ -135,7 +130,9 @@
 
                 <div id="material-viewer" class="bg-white rounded-[3rem] p-6 md:p-10 min-h-[500px] shadow-2xl relative overflow-hidden">
                     <div id="mod-resumen" class="module-content hidden text-center py-16">
-                        <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i><h4 class="text-3xl font-black uppercase italic mb-4">Guía Estratégica</h4><button class="bg-black text-white font-black py-5 px-12 rounded-2xl">DESCARGAR PDF</button>
+                        <i data-lucide="file-text" class="text-blue-600 w-12 h-12 mx-auto mb-6"></i>
+                        <h4 class="text-3xl font-black uppercase italic mb-4" id="resumen-title">Guía Estratégica</h4>
+                        <button class="bg-black text-white font-black py-5 px-12 rounded-2xl">DESCARGAR PDF</button>
                     </div>
                     <div id="mod-video" class="module-content hidden text-center py-16"><p>Videos próximamente...</p></div>
                     <div id="mod-fichas" class="module-content hidden"><div id="flashcards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div></div>
@@ -159,13 +156,12 @@
                                     <span id="q-timer" class="font-black font-mono text-lg">50:00</span>
                                 </div>
                             </div>
-                            <p class="text-[10px] text-blue-500 font-bold uppercase tracking-widest mb-2" id="q-chapter">Capítulo X</p>
                             <h5 id="q-text" class="text-xl md:text-2xl font-black text-slate-900 mb-8 italic leading-tight"></h5>
                             
                             <div id="q-options" class="space-y-3"></div>
                             
                             <div id="q-feedback" class="hidden mt-6 bg-slate-50 p-5 rounded-2xl border-l-4 border-black">
-                                <p class="text-[10px] font-black uppercase text-slate-400 mb-2 flex items-center gap-1"><i data-lucide="info" class="w-3 h-3"></i> Explicación de la Ley</p>
+                                <p class="text-[10px] font-black uppercase text-slate-400 mb-2 flex items-center gap-1"><i data-lucide="info" class="w-3 h-3"></i> Explicación</p>
                                 <p id="q-exp" class="text-sm font-semibold text-slate-700 italic"></p>
                             </div>
 
@@ -196,7 +192,6 @@
                                 <h4 class="text-2xl font-black uppercase italic">Modo Repaso</h4>
                                 <button onclick="document.getElementById('quiz-review').classList.add('hidden'); document.getElementById('quiz-result').classList.remove('hidden');" class="text-sm font-bold text-slate-500 hover:text-black">Volver</button>
                             </div>
-                            <p class="text-slate-500 mb-6 text-sm">Estas son las preguntas que fallaste. Léelas con atención.</p>
                             <div id="review-list" class="space-y-6"></div>
                         </div>
                     </div>
@@ -205,9 +200,6 @@
             </div>
         </div>
     </section>
-
-    <!-- MODAL PAGO -->
-    <div id="paymentModal" class="modal"><div class="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl relative border-t-8 border-traffic-yellow"><button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 p-2"><i data-lucide="x"></i></button><div class="bg-black text-white p-8 text-center"><h3 class="font-black text-2xl italic uppercase tracking-tighter" id="modalTitle"></h3></div><div class="p-10 italic text-center"><p class="text-2xl font-black text-slate-900 mb-6" id="modalPrice"></p><p class="text-xl font-mono text-blue-600 font-black mb-1 bg-blue-50 p-2 rounded">8888-0000</p><p class="text-[9px] text-slate-400 mb-8 uppercase font-bold">Pago vía SINPE Móvil</p><a id="whatsappBtn" href="#" class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-black py-5 rounded-2xl shadow-xl uppercase italic">ENVIAR COMPROBANTE</a></div></div></div>
 
     <script>
         lucide.createIcons();
@@ -222,13 +214,26 @@
 
             if(!val) { showErr("Ingresa un PIN."); return; }
 
+            // Bloqueo Inteligente Local: Advierte si están probando sin servidor
+            if (window.location.protocol === "file:") {
+                showErr("ATENCIÓN: Estás abriendo el archivo localmente. La seguridad backend requiere que subas la página a Netlify para poder entrar.");
+                return;
+            }
+
+            document.getElementById('error-box').classList.add('hidden');
             btn.innerText = "VERIFICANDO...";
             btn.disabled = true;
             btn.classList.add("opacity-70");
 
             try {
                 const respuesta = await fetch(`/.netlify/functions/validar?codigo=${val}`);
-                const datos = await respuesta.json();
+                let datos;
+                
+                try {
+                    datos = await respuesta.json();
+                } catch(e) {
+                    throw new Error("El servidor de Netlify no respondió correctamente. ¿Subiste la carpeta 'netlify/functions'?");
+                }
 
                 if (!respuesta.ok) {
                     showErr(datos.error || "Error al validar el PIN.");
@@ -244,14 +249,19 @@
 
                 unlockPortal(datos.dias, planLabel);
             } catch (error) {
-                showErr("Error de conexión. Revisa tu internet.");
+                showErr("Error de conexión al servidor: " + error.message);
                 btn.innerText = btnOriginalText;
                 btn.disabled = false;
                 btn.classList.remove("opacity-70");
             }
         }
 
-        function showErr(m) { const e = document.getElementById('error-msg'); e.innerText = m; e.classList.remove('hidden'); }
+        function showErr(m) { 
+            const box = document.getElementById('error-box');
+            const msg = document.getElementById('error-msg'); 
+            msg.innerText = m; 
+            box.classList.remove('hidden'); 
+        }
 
         function unlockPortal(dias, planLabel) {
             document.getElementById('lock-screen').classList.add('hidden');
@@ -274,34 +284,9 @@
             document.getElementById('tab-' + modId).classList.add('tab-active');
         }
 
-        // 2. DATASET MAESTRO (100 PREGUNTAS MOTO - ETIQUETA 'A2')
-        // Estructura: { cap: N, type: "A2", q: "Pregunta", a: "Respuesta Correcta", w1: "Falsa 1", w2: "Falsa 2", exp: "Explicación" }
-        const rawDB = [
-            // CAP 1
-            {cap:1, type:"A2", q:"¿Objetivo primordial de la seguridad vial?", a:"Prevenir accidentes y salvar vidas.", w1:"Cobrar multas a infractores.", w2:"Aumentar la velocidad del flujo.", exp:"Su meta absoluta es proteger la vida humana en la vía."},
-            {cap:1, type:"A2", q:"¿Elementos de la trilogía vial?", a:"Factor Humano, Vehicular y Vía/Entorno.", w1:"Autos, Motos y Bicicletas.", w2:"Semáforos, Policías y Señales.", exp:"Son los tres pilares que conforman el sistema de tránsito."},
-            {cap:1, type:"A2", q:"¿Factor responsable del 90% de accidentes?", a:"Factor Humano.", w1:"Factor Vehicular.", w2:"Condiciones del Clima.", exp:"El error del conductor (imprudencia, distracción) es la causa principal."},
-            {cap:1, type:"A2", q:"¿Qué es el derecho de circulación?", a:"Pago anual obligatorio (marchamo).", w1:"Tener licencia al día.", w2:"Derecho a transitar por autopistas.", exp:"Se adquiere pagando el marchamo cada año."},
-            {cap:1, type:"A2", q:"¿Ley vigente de tránsito en CR?", a:"Ley 9078.", w1:"Ley 7331.", w2:"Ley 1980.", exp:"Es la Ley de Tránsito por Vías Públicas Terrestres y Seguridad Vial."},
-            {cap:1, type:"A2", q:"¿Qué significa que el tránsito es un sistema?", a:"Sus elementos interactúan y dependen entre sí.", w1:"Que todo está controlado por computadoras.", w2:"Que solo funciona de día.", exp:"Si un elemento de la trilogía falla, el sistema colapsa en accidente."},
-            {cap:1, type:"A2", q:"¿Fin de la educación vial?", a:"Formar ciudadanos con hábitos de respeto y cortesía.", w1:"Aprender mecánica automotriz avanzada.", w2:"Hacer conductores más veloces.", exp:"Busca crear cultura y valores, no solo enseñar a manejar."},
-            {cap:1, type:"A2", q:"¿Qué es seguridad vial activa?", a:"Elementos que previenen el accidente (ej. frenos).", w1:"Elementos que te protegen durante el choque.", w2:"El seguro del carro.", exp:"Actúa ANTES del incidente para evitarlo. La pasiva actúa DURANTE."},
-            {cap:1, type:"A2", q:"¿Definición de Tránsito?", a:"Acción de trasladarse de un lugar a otro por una vía.", w1:"Solo el movimiento de autos.", w2:"El transporte público.", exp:"Abarca vehículos, personas y animales circulando."},
-            {cap:1, type:"A2", q:"¿Principal causa de muerte en jóvenes en CR?", a:"Accidentes de tránsito.", w1:"Enfermedades cardíacas.", w2:"Deportes extremos.", exp:"Es la principal pandemia de mortalidad en la juventud."},
-            // CAP 2
-            {cap:2, type:"A2", q:"¿Edad mínima licencia A1?", a:"16 años (con autorización).", w1:"18 años.", w2:"15 años.", exp:"Requiere permiso de padres y póliza de seguro."},
-            {cap:2, type:"A2", q:"¿Documentos obligatorios para circular?", a:"Licencia, Marchamo e IVE (RITEVE) vigentes.", w1:"Solo la licencia y la cédula.", w2:"Marchamo y título de propiedad.", exp:"No portarlos implica multas severas y retiro de placas."},
-            {cap:2, type:"A2", q:"¿Límite de cilindrada para licencia A2?", a:"Hasta 500cc.", w1:"Hasta 125cc.", w2:"Sin límite de cilindraje.", exp:"La A1 es hasta 125cc, la A2 a 500cc, y la A3 sin límite."},
-        // 2. SIMULADOR INTELIGENTE (FILTRA PREGUNTAS)
+        // 2. BASE DE DATOS MAESTRA (100 PREGUNTAS CARRO + PREGUNTAS MOTO)
         const quizBank = [
-            // Preguntas generales y de Moto (A2) previas
-            { type: "ALL", q: "¿Cuál es la velocidad mínima en autopista si no hay señalización?", options: ["40 km/h", "50 km/h", "60 km/h"], correct: 1 },
-            { type: "ALL", q: "¿A qué distancia mínima de un hidrante se prohíbe estacionar?", options: ["5 metros", "10 metros", "15 metros"], correct: 0 },
-            { type: "ALL", q: "¿Sanción por alcohol delito en conductor novato?", options: ["Solo multa económica", "Suspensión de licencia 1 año", "Sin sanción"], correct: 1 },
-            { type: "ALL", q: "¿Lado para caminar en zona rural donde no existen aceras?", options: ["Lado derecho de la vía", "Lado izquierdo de la vía", "Por el centro"], correct: 1 },
-            { type: "A2", q: "¿Cuál es la técnica correcta para inclinar una motocicleta?", options: ["Contra-manillar", "Frenar atrás", "Sacar el pie"], correct: 0 },
-            
-            // === INICIO DE LAS 100 PREGUNTAS OFICIALES PARA CARRO (B1) ===
+            // PREGUNTAS B1 (CARROS)
             { type: "B1", q: "¿Qué es conducir?", options: ["Transportar personas únicamente", "Operar un vehículo sin responsabilidad", "Operar un vehículo respetando normas de tránsito y seguridad vial", "Manejar solo en carreteras"], correct: 2 },
             { type: "B1", q: "¿Cuál es el principal factor causante de accidentes de tránsito?", options: ["Factor climático", "Factor vial", "Factor mecánico", "Factor humano"], correct: 3 },
             { type: "B1", q: "¿Cuál de los siguientes es un ejemplo de factor humano?", options: ["Lluvia intensa", "Mal estado de la carretera", "Distracción del conductor", "Falta de señalización"], correct: 2 },
@@ -401,33 +386,36 @@
             { type: "B1", q: "Los motores en mal estado no queman bien la gasolina ni el diésel produciendo:", options: ["Derrame de aceite negro", "Nube negra de hollín", "Contaminación calórica"], correct: 1 },
             { type: "B1", q: "Las islas de canalización pueden ser:", options: ["Blancas y amarillas", "Blancas y rojas", "Rojas y amarillas"], correct: 0 },
             { type: "B1", q: "Zonas de gran tránsito peatonal en puntos específicos, demarcados con franjas anchas discontinuas:", options: ["Zona de paso", "Zona de estacionamiento", "Zona de seguridad"], correct: 2 },
-            { type: "B1", q: "¿Cuáles llevan la dirección de Norte a Sur y viceversa?", options: ["Calles", "Avenidas", "Paso peatonal"], correct: 0 }
+            { type: "B1", q: "¿Cuáles llevan la dirección de Norte a Sur y viceversa?", options: ["Calles", "Avenidas", "Paso peatonal"], correct: 0 },
+
+            // PREGUNTAS MOTO (A2)
+            { type: "A2", q: "¿Objetivo primordial de la seguridad vial?", options: ["Prevenir accidentes y salvar vidas.", "Aumentar la fluidez vehicular.", "Recaudar dinero por multas."], correct: 0 },
+            { type: "A2", q: "¿Límite de cilindrada para licencia A2?", options: ["Hasta 500cc.", "Hasta 125cc.", "Sin límite."], correct: 0 },
+            { type: "A2", q: "¿Sistemas de transmisión final?", options: ["Cadena, faja o cardán.", "Transmisión automática o manual.", "Embrague seco o húmedo."], correct: 0 },
+            { type: "A2", q: "¿Qué es el Kill Switch?", options: ["Interruptor de parada de emergencia.", "Botón de encendido eléctrico.", "Gatillo de luces de parqueo."], correct: 0 },
+            { type: "A2", q: "¿Uso del contramanilleo?", options: ["Para girar a velocidades superiores a 30 km/h.", "Para frenar de emergencia.", "Para esquivar a baja velocidad."], correct: 0 },
+            { type: "A2", q: "¿Posición de rodillas en marcha?", options: ["Pegadas al tanque de combustible.", "Abiertas para mantener equilibrio.", "Apoyadas en las defensas del motor."], correct: 0 },
+            { type: "A2", q: "¿Qué es T-CLOC?", options: ["Pasos para inspección diaria de la moto.", "Técnicas de Conducción.", "Frenos, Clutch, Luces y Claxon."], correct: 0 },
+            { type: "A2", q: "¿Punto de fricción?", options: ["Zona del clutch donde la moto avanza.", "Momento en que los frenos chillan.", "Momento antes de apagarse el motor."], correct: 0 }
         ];
 
-        let qActive = [], qIdx = 0, qScore = 0, qSel = null;
+        // 3. VARIABLES Y LÓGICA DEL SIMULADOR
+        let qActive = [], qIdx = 0, qScore = 0, qSel = null, failedQs = [];
+        let timerInt; 
+        let timeLeft = 50 * 60; // 50 minutos
+
         function startQuiz() {
             qScore = 0; qIdx = 0; qSel = null; failedQs = []; timeLeft = 50 * 60;
             
-            // FILTRADO POR PLAN
-            let filteredBank = quizMap.filter(q => {
-                if (userPlan === "B1") return q.type === "B1"; // Muestra genérica si es Carro
-                if (userPlan === "A2") return q.type === "A2"; // Muestra las 100 oficiales si es Moto
-                return true; // PRO y DEMO ven todo (combinado)
+            // Filtrar preguntas según plan
+            let filteredBank = quizBank.filter(q => {
+                if (userPlan === "B1") return q.type === "ALL" || q.type === "B1";
+                if (userPlan === "A2") return q.type === "ALL" || q.type === "A2";
+                return true; // PRO y DEMO ven ambas
             });
 
-            // ALGORITMO DEL MOPT (4 preguntas por capítulo para Moto)
-            qActive = [];
-            if (userPlan === "A2" || userPlan === "PRO" || userPlan === "DEMO") {
-                for (let c = 1; c <= 10; c++) {
-                    let capQs = filteredBank.filter(q => q.cap === c).sort(() => 0.5 - Math.random());
-                    qActive.push(...capQs.slice(0, 4));
-                }
-            } else {
-                // Fallback para B1 hasta que tengamos las 100 preguntas de carro
-                qActive = filteredBank.sort(() => 0.5 - Math.random()).slice(0, 15);
-            }
-            
-            qActive.sort(() => 0.5 - Math.random()); // Barajar Examen Final (40 o 15)
+            // Extraer hasta 40 preguntas aleatorias de forma segura
+            qActive = filteredBank.sort(() => 0.5 - Math.random()).slice(0, 40);
 
             document.getElementById('quiz-intro').classList.add('hidden');
             document.getElementById('quiz-result').classList.add('hidden');
@@ -452,33 +440,49 @@
         }
         
         function renderQ() {
-            const q = qActive[qIdx]; qSel = null;
+            const q = qActive[qIdx]; 
+            qSel = null;
             document.getElementById('q-num').innerText = qIdx + 1; 
-            document.getElementById('q-chapter').innerText = `Eje Temático: Capítulo ${q.cap}`;
             document.getElementById('q-text').innerText = q.q;
             document.getElementById('q-feedback').classList.add('hidden');
 
             const oD = document.getElementById('q-options'); oD.innerHTML = '';
-            q.options.forEach((o, i) => {
+            
+            // Barajar opciones antes de mostrar (para que la correcta no esté siempre en el mismo lugar)
+            let ops = [...q.options];
+            let corrText = ops[q.correct];
+            ops.sort(() => 0.5 - Math.random());
+            let newCorrectIndex = ops.indexOf(corrText);
+
+            ops.forEach((o, i) => {
                 const b = document.createElement('button'); b.className = 'quiz-option'; b.innerText = o; b.id = `opt-${i}`;
-                b.onclick = () => selectAnswer(i, b, q);
+                b.onclick = () => selectAnswer(i, newCorrectIndex, b, q, ops);
                 oD.appendChild(b);
             });
-            document.getElementById('q-next').disabled = true; document.getElementById('q-next').classList.add('opacity-50', 'cursor-not-allowed');
+            
+            document.getElementById('q-next').disabled = true; 
+            document.getElementById('q-next').classList.add('opacity-50', 'cursor-not-allowed');
         }
 
-        function selectAnswer(i, btn, q) {
-            if(qSel !== null) return; qSel = i;
+        function selectAnswer(i, correctIndex, btn, q, currentOps) {
+            if(qSel !== null) return; 
+            qSel = i;
+            
             document.querySelectorAll('.quiz-option').forEach(b => { b.disabled = true; b.classList.add('opt-disabled'); });
-            if (i === q.correct) { qScore++; btn.classList.replace('opt-disabled', 'opt-correct'); } 
-            else { 
+            
+            if (i === correctIndex) { 
+                qScore++; 
+                btn.classList.replace('opt-disabled', 'opt-correct'); 
+            } else { 
                 btn.classList.replace('opt-disabled', 'opt-wrong'); 
-                document.getElementById(`opt-${q.correct}`).classList.replace('opt-disabled', 'opt-correct'); 
-                failedQs.push({ q: q.q, user: q.options[i], corr: q.options[q.correct], exp: q.exp }); 
+                document.getElementById(`opt-${correctIndex}`).classList.replace('opt-disabled', 'opt-correct'); 
+                failedQs.push({ q: q.q, user: currentOps[i], corr: currentOps[correctIndex], exp: "Regla del Manual Oficial" }); 
             }
-            document.getElementById('q-exp').innerText = q.exp;
+            
+            document.getElementById('q-exp').innerText = q.exp || "De acuerdo al manual de conducción.";
             document.getElementById('q-feedback').classList.remove('hidden');
-            document.getElementById('q-next').disabled = false; document.getElementById('q-next').classList.remove('opacity-50', 'cursor-not-allowed');
+            document.getElementById('q-next').disabled = false; 
+            document.getElementById('q-next').classList.remove('opacity-50', 'cursor-not-allowed');
         }
 
         function nextQuestion() {
@@ -496,11 +500,22 @@
             document.getElementById('res-wrong').innerText = qActive.length - qScore;
             
             const s = document.getElementById('res-status'), i = document.getElementById('res-icon');
-            if (score >= 80) { s.innerText = "¡APROBADO!"; s.className = "text-4xl font-black text-green-600 italic tracking-tighter mb-2"; i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-green-100 text-green-600 flex items-center justify-center shadow-lg border-4 border-green-200"; i.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>'; }
-            else { s.innerText = "REPROBADO"; s.className = "text-4xl font-black text-red-600 italic tracking-tighter mb-2"; i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-red-100 text-red-600 flex items-center justify-center shadow-lg border-4 border-red-200"; i.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>'; }
+            if (score >= 80) { 
+                s.innerText = "¡APROBADO!"; s.className = "text-4xl font-black text-green-600 italic tracking-tighter mb-2"; 
+                i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-green-100 text-green-600 flex items-center justify-center shadow-lg border-4 border-green-200"; 
+                i.innerHTML = '<i data-lucide="check-circle" class="w-12 h-12"></i>'; 
+            } else { 
+                s.innerText = "REPROBADO"; s.className = "text-4xl font-black text-red-600 italic tracking-tighter mb-2"; 
+                i.className = "w-24 h-24 rounded-full mx-auto mb-6 bg-red-100 text-red-600 flex items-center justify-center shadow-lg border-4 border-red-200"; 
+                i.innerHTML = '<i data-lucide="x-circle" class="w-12 h-12"></i>'; 
+            }
             
-            if(failedQs.length > 0) { document.getElementById('btn-review').classList.remove('hidden'); generateReviewList(); } 
-            else { document.getElementById('btn-review').classList.add('hidden'); }
+            if(failedQs.length > 0) { 
+                document.getElementById('btn-review').classList.remove('hidden'); 
+                generateReviewList(); 
+            } else { 
+                document.getElementById('btn-review').classList.add('hidden'); 
+            }
             lucide.createIcons();
         }
 
@@ -513,24 +528,16 @@
 
         function showReview() { document.getElementById('quiz-result').classList.add('hidden'); document.getElementById('quiz-review').classList.remove('hidden'); }
 
-        // 3. FLASHCARDS
+        // 4. FLASHCARDS
         function renderFlashcards() {
             const g = document.getElementById('flashcards-grid'); g.innerHTML = '';
-            // Renderizamos 5 de muestra basándonos en la base de datos principal
-            const muestra = quizMap.filter(q => q.type === "A2").slice(0, 5); 
+            const muestra = quizBank.slice(0, 6); 
             muestra.forEach((d) => {
                 const c = document.createElement('div'); c.className = 'flashcard';
                 c.innerHTML = `<div class="flashcard-inner" onclick="this.parentElement.classList.toggle('flipped');"><div class="flashcard-front"><p class="text-xs font-bold px-2">${d.q}</p></div><div class="flashcard-back"><p class="italic text-xs px-2">"${d.options[d.correct]}"</p></div></div>`;
                 g.appendChild(c);
             });
-            document.getElementById('prog-val').innerText = "5 / 65";
         }
-
-        // 4. MODALES
-        function openPaymentModal(p) { document.getElementById('modalTitle').innerText = p; document.getElementById('modalPrice').innerText = p.includes('Combo') ? '₡6,000' : '₡4,500'; document.getElementById('paymentModal').style.display = 'flex'; }
-        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
-        window.onclick = function(e) { if(e.target.className.includes('modal')) closeModal(); }
     </script>
 </body>
 </html>
